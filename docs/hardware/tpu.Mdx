@@ -12,9 +12,11 @@ For TPU-specific issues or feature requests, please visit the [sglang-jax GitHub
 
 ---
 
-## System Requirements
+# System Requirements
 
-### Supported TPU Hardware
+---
+
+## Supported TPU Hardware
 
 <CardGroup cols={2}>
   <Card title="TPU v6e" icon="server">
@@ -25,7 +27,9 @@ For TPU-specific issues or feature requests, please visit the [sglang-jax GitHub
   </Card>
 </CardGroup>
 
-### Software Requirements
+---
+
+## Software Requirements
 
 <CardGroup cols={3}>
   <Card title="Python" icon="python">
@@ -41,11 +45,13 @@ For TPU-specific issues or feature requests, please visit the [sglang-jax GitHub
 
 ---
 
-## Feature Support Matrix
+# Feature Support Matrix
 
 SGLang-JAX provides comprehensive TPU-optimized features for production LLM serving:
 
-| Feature | Support Status | Description |
+### Supported Features
+
+| **Feature** | **Support Status** | **Description** |
 |---|---|---|
 | High-Throughput Continuous Batching | ✅ | Dynamic request batching for maximum TPU utilization |
 | Radix Tree KV Cache | ✅ | Memory-efficient prefix sharing between requests |
@@ -55,13 +61,15 @@ SGLang-JAX provides comprehensive TPU-optimized features for production LLM serv
 | Speculative Decoding (EAGLE/EAGLE3) | ✅ | 20-40% throughput improvement for compatible models |
 | Chunked Prefill | ✅ | Mixed prefill-decode batching |
 | OpenAI-Compatible API | ✅ | Drop-in replacement for OpenAI API |
-| Data Parallel Attention | 🚧 | In development - Attention computation with data parallelism |
-| Quantization | 🚧 | In development - Model quantization for reduced memory usage |
-| Multi-LoRA | 🚧 | In development - Serve multiple LoRA adapters simultaneously |
+| Data Parallel Attention | 🚧 | In development — Attention computation with data parallelism |
+| Quantization | 🚧 | In development — Model quantization for reduced memory usage |
+| Multi-LoRA | 🚧 | In development — Serve multiple LoRA adapters simultaneously |
+
+---
 
 ### Attention Backend Comparison
 
-| Backend | Paged Attention | Spec Decoding | MLA | Sliding Window |
+| **Backend** | **Paged Attention** | **Spec Decoding** | **MLA** | **Sliding Window** |
 |---|---|---|---|---|
 | FlashAttention (fa) | ✅ | ✅ | ❌ | ✅ |
 | Native | ❌ | ❌ | ❌ | ❌ |
@@ -72,11 +80,11 @@ SGLang-JAX provides comprehensive TPU-optimized features for production LLM serv
 
 ---
 
-## Optimized Model List
+# Optimized Model List
 
 The following models have been tested and optimized for TPU deployment:
 
-| Model Family | Performance Status |
+| **Model Family** | **Performance Status** |
 |---|---|
 | Qwen 3 | ⭐ Recommended for production |
 | Qwen 3 MoE | ⭐ Best performance |
@@ -90,7 +98,7 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Installation
+# Installation
 
 <Tabs>
   <Tab title="PyPI (Recommended)">
@@ -116,7 +124,7 @@ The following models have been tested and optimized for TPU deployment:
 
     <Steps>
       <Step title="Install SkyPilot and configure GCP access">
-        See the [SkyPilot documentation](https://docs.skypilot.co) for setup instructions.
+        See the [SkyPilot documentation](https://docs.skypilot.co/en/latest/) for setup instructions.
       </Step>
       <Step title="Create a SkyPilot configuration file">
         Create a SkyPilot YAML file: `sglang-jax.sky.yaml`
@@ -136,7 +144,7 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Launch the Serving Engine
+# Launch the Serving Engine
 
 <Tabs>
   <Tab title="Basic: Qwen-7B">
@@ -224,7 +232,7 @@ The following models have been tested and optimized for TPU deployment:
     ```
 
     <Note>
-      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](#) for detailed configuration guidance.
+      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration guidance.
     </Note>
   </Tab>
   <Tab title="Multi-Node Distributed">
@@ -254,7 +262,7 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Benchmarking with Requests
+# Benchmarking with Requests
 
 <Tabs>
   <Tab title="Throughput Testing">
@@ -325,13 +333,13 @@ The following models have been tested and optimized for TPU deployment:
     python3 -m sgl_jax.bench_serving --help
     ```
 
-    See the [Benchmark and Profiling Guide](#) for advanced benchmarking techniques and profiling with JAX Profiler.
+    See the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for advanced benchmarking techniques and profiling with JAX Profiler.
   </Tab>
 </Tabs>
 
 ---
 
-## Performance Optimization
+# Performance Optimization
 
 <AccordionGroup>
   <Accordion title="Memory Optimization" icon="memory">
@@ -380,7 +388,7 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Troubleshooting
+# Troubleshooting
 
 <AccordionGroup>
   <Accordion title="OOM (Out of Memory) Errors" icon="triangle-exclamation">
@@ -429,13 +437,13 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Advanced Features
+# Advanced Features
 
 <AccordionGroup>
   <Accordion title="Speculative Decoding" icon="bolt">
     SGLang-JAX supports EAGLE and EAGLE3 speculative decoding algorithms for Qwen3 and LLaMA model families. Speculative decoding can improve throughput by 20-40% without affecting output quality.
 
-    See the [Speculative Decoding documentation](#) for detailed configuration and supported model combinations.
+    See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration and supported model combinations.
   </Accordion>
   <Accordion title="Chunked Prefill" icon="layer-group">
     Enable mixed prefill-decode batching for better TPU utilization:
@@ -449,7 +457,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Custom Attention Backends" icon="puzzle-piece">
     SGLang-JAX supports a plugin-based attention backend system. You can implement custom attention kernels optimized for specific use cases.
 
-    See the [Attention Backend documentation](#) for implementation details.
+    See the [Attention Backend documentation](https://github.com/sgl-project/sglang-jax/tree/main/docs) for implementation details.
   </Accordion>
   <Accordion title="Environment Verification" icon="circle-check">
     Verify your TPU setup before deploying:
@@ -468,12 +476,12 @@ The following models have been tested and optimized for TPU deployment:
 
 ---
 
-## Contributing
+# Contributing
 
 We welcome contributions to improve TPU support in SGLang-JAX!
 
 <Note>
-  Check the [Development Roadmap](#) to see planned features and find opportunities to contribute new functionality.
+  Check the [Development Roadmap](https://github.com/sgl-project/sglang-jax) to see planned features and find opportunities to contribute new functionality.
 </Note>
 
 Current contribution areas include:
@@ -488,38 +496,43 @@ Current contribution areas include:
   <Card title="Repository" icon="github" href="https://github.com/sgl-project/sglang-jax">
     Visit the sglang-jax repository
   </Card>
-  <Card title="Contribution Guide" icon="book" href="#">
+  <Card title="Contribution Guide" icon="book" href="https://github.com/sgl-project/sglang-jax/blob/main/CONTRIBUTING.md">
     Read the Contribution Guide
   </Card>
-  <Card title="Slack Community" icon="slack" href="#">
+  <Card title="Slack Community" icon="slack" href="https://slack.sglang.io/">
     Join the SGL-JAX Slack community for discussions
   </Card>
 </CardGroup>
 
-### Testing on TPU
+---
+
+## Testing on TPU
 
 For contributors who need TPU access for testing:
 
-- Refer to the [TPU Resources Guide](#) for information on accessing TPU hardware
+- Refer to the [TPU Resources Guide](https://cloud.google.com/tpu/docs/managing-tpus-tpu-vm) for information on accessing TPU hardware
 - Use SkyPilot with spot instances for cost-effective testing
-- Follow the [Benchmark and Profiling Guide](#) for performance validation
+- Follow the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for performance validation
 
 ---
 
-## References
+# References
 
 <CardGroup cols={2}>
   <Card title="SGLang-JAX Repository" icon="github" href="https://github.com/sgl-project/sglang-jax">
     Source code and issue tracker for the JAX TPU backend.
   </Card>
-  <Card title="SGLang-JAX Installation Guide" icon="book-open" href="#">
+  <Card title="SGLang-JAX Installation Guide" icon="book-open" href="https://github.com/sgl-project/sglang-jax?tab=readme-ov-file#installation">
     Step-by-step installation instructions.
   </Card>
-  <Card title="Qwen Models Quick Start" icon="rocket" href="#">
+  <Card title="Qwen Models Quick Start" icon="rocket" href="https://github.com/sgl-project/sglang-jax/tree/main/docs">
     Get up and running quickly with the Qwen model family.
   </Card>
-  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="#">
+  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html">
     Advanced benchmarking techniques and JAX Profiler usage.
+  </Card>
+  <Card title="Speculative Decoding" icon="forward" href="https://docs.sglang.ai/backend/speculative_decoding.html">
+    EAGLE and EAGLE3 speculative decoding configuration.
   </Card>
   <Card title="JAX Documentation" icon="code" href="https://jax.readthedocs.io">
     Official JAX documentation and API reference.
@@ -527,10 +540,7 @@ For contributors who need TPU access for testing:
   <Card title="Google Cloud TPU Docs" icon="cloud" href="https://cloud.google.com/tpu/docs">
     Google Cloud TPU product documentation.
   </Card>
-  <Card title="SkyPilot Documentation" icon="paper-plane" href="https://docs.skypilot.co">
+  <Card title="SkyPilot Documentation" icon="paper-plane" href="https://docs.skypilot.co/en/latest/">
     Simplified cloud deployment with SkyPilot.
-  </Card>
-  <Card title="Speculative Decoding" icon="forward" href="#">
-    EAGLE and EAGLE3 speculative decoding configuration.
   </Card>
 </CardGroup>

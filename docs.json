@@ -34,7 +34,21 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "docs/get-started/install"
+              "docs/get-started/quickstart",
+              "docs/get-started/installation"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Supported Models",
+        "groups": [
+          {
+            "group": "Models",
+            "pages": [
+              "index",
+              "docs/get-started/quickstart",
+              "docs/get-started/installation"
             ]
           }
         ]
@@ -78,21 +92,21 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
       "github": "https://github.com/sgl-project/sglang",
       "x": "https://x.com/lmsysorg",
-      "linkedin": "https://www.linkedin.com/company/sgl-project/posts/?feedView=all",
+      "linkedin": "https://www.linkedin.com/company/sgl-project/posts?feedView=all",
       "slack": "https://slack.sglang.io/",
       "discord": "https://discord.gg/4ugb2t6YY2"
     }

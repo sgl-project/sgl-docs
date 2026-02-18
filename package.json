@@ -1,0 +1,26 @@
+{
+  "name": "sgl-docs",
+  "version": "1.0.0",
+  "description": "The official documentation and cookbook for [SGLang](https://github.com/sgl-project/sglang) — a high-performance serving framework for large language models and vision-language models.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "mintlify dev",
+    "build": "mintlify build",
+    "preview": "mintlify preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ishitajoshii/sgl-docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ishitajoshii/sgl-docs/issues"
+  },
+  "homepage": "https://github.com/Ishitajoshii/sgl-docs#readme"
+}

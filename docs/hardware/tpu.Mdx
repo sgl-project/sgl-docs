@@ -1,0 +1,196 @@
+---
+title: "TPU"
+description: "High-performance TPU inference through the SGLang-JAX backend optimized for Google Cloud TPUs."
+---
+
+SGLang supports high-performance TPU inference through the **SGLang-JAX** backend. This JAX-based implementation is specifically optimized for Google Cloud TPUs, delivering exceptional throughput and low latency for Large Language Model (LLM) serving workloads.
+
+<Info>
+  **Note:** SGLang TPU support is implemented via the SGLang-JAX backend, a dedicated engine maintained at [sgl-project/sglang-jax](https://github.com/sgl-project/sglang-jax).
+</Info>
+
+## System Requirements
+
+### Supported Hardware
+| TPU Type | HBM Memory | Availability |
+| :--- | :--- | :--- |
+| **TPU v6e** | 32 GB | Google Cloud |
+| **TPU v7** | 96 GB per core | Google Cloud |
+
+### Software Requirements
+- **Python:** 3.12 or higher
+- **JAX:** Latest version with TPU support
+- **Environment:** Google Cloud TPU VM or compatible runtime
+- **Optional:** [SkyPilot](https://github.com/skypilot-org/skypilot) for simplified cloud deployment
+
+## Feature Support Matrix
+
+| Feature | Status | Description |
+| :--- | :--- | :--- |
+| Continuous Batching | ✅ | Dynamic request batching for maximum TPU utilization |
+| Radix Tree KV Cache | ✅ | Memory-efficient prefix sharing between requests |
+| FlashAttention | ✅ | TPU-optimized attention kernel for long sequences |
+| Tensor Parallelism | ✅ | Distribute models across multiple TPU cores |
+| Speculative Decoding | ✅ | 20-40% throughput improvement (EAGLE/EAGLE3) |
+| Chunked Prefill | ✅ | Mixed prefill-decode batching |
+| OpenAI-Compatible API | ✅ | Drop-in replacement for OpenAI API |
+| Data Parallel Attention| 🚧 | In development |
+| Quantization | 🚧 | In development |
+
+---
+
+## Installation
+
+<Tabs>
+  <Tab title="PyPI (Recommended)">
+    ```bash
+    pip install sglang-jax
+    ```
+  </Tab>
+  <Tab title="From Source">
+    <Steps>
+      <Step title="Clone the repository">
+        ```bash
+        git clone https://github.com/sgl-project/sglang-jax
+        cd sglang-jax
+        ```
+      </Step>
+      <Step title="Set up environment">
+        ```bash
+        uv venv --python 3.12 && source .venv/bin/activate
+        ```
+      </Step>
+      <Step title="Install dependencies">
+        ```bash
+        uv pip install -e "python[all]"
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Cloud TPU (SkyPilot)">
+    1. Create a configuration file `sglang-jax.sky.yaml`:
+    ```yaml
+    resources:
+      accelerators: tpu-v6e-4
+      accelerator_args:
+        tpu_vm: True
+        runtime_version: v2-alpha-tpuv6e
+
+    run: |
+      git clone https://github.com/sgl-project/sglang-jax.git
+      cd sglang-jax
+      uv venv --python 3.12
+      source .venv/bin/activate
+      uv pip install -e "python[all]"
+    ```
+    2. Launch the cluster:
+    ```bash
+    # Standard deployment
+    sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp
+    ```
+  </Tab>
+</Tabs>
+
+<Warning>
+  Docker support for TPU is currently under development. Please use the PyPI or Source methods for now.
+</Warning>
+
+---
+
+## Launch the Serving Engine
+
+<Tabs>
+  <Tab title="Basic: Qwen-7B">
+    ```bash
+    JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache python3 -u -m sgl_jax.launch_server \
+      --model-path Qwen/Qwen-7B-Chat \
+      --tp-size=4 \
+      --device=tpu \
+      --dtype=bfloat16 \
+      --mem-fraction-static=0.8 \
+      --port 30000
+    ```
+  </Tab>
+  <Tab title="High-Performance">
+    Optimized for production throughput using FlashAttention and chunked prefill:
+    ```bash
+    python3 -u -m sgl_jax.launch_server \
+      --model-path Qwen/Qwen3-8B \
+      --tp-size=4 \
+      --device=tpu \
+      --chunked-prefill-size=2048 \
+      --max-running-requests=256 \
+      --attention-backend=fa
+    ```
+  </Tab>
+  <Tab title="Speculative Decoding">
+    Improve throughput by 20-40% using EAGLE3:
+    ```bash
+    python3 -u -m sgl_jax.launch_server \
+      --model-path Qwen/Qwen3-32B \
+      --speculative-algorithm=EAGLE3 \
+      --speculative-draft-model-path=AngelSlim/Qwen3-32B_eagle3 \
+      --tp-size=4 \
+      --attention-backend=fa
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Performance Optimization
+
+<AccordionGroup>
+  <Accordion title="Memory Optimization" icon="memory">
+    - **Reduce HBM usage:** Lower `--mem-fraction-static` (e.g., from 0.8 to 0.5).
+    - **Limit Context:** Decrease `--max-prefill-tokens` if you encounter OOM.
+    - **Paging:** Increase `--page-size` (e.g., 64 or 128) for better memory layout efficiency.
+  </Accordion>
+  <Accordion title="Throughput Optimization" icon="bolt">
+    - **Backend:** Always use `--attention-backend=fa` (FlashAttention).
+    - **Batching:** Increase `--max-running-requests` to 256+.
+    - **Parallelism:** Match `--tp-size` exactly to your TPU core count (1, 4, or 8).
+    - **Mixed Batching:** Enable `--enable-mixed-chunk` for better utilization.
+  </Accordion>
+  <Accordion title="Latency Optimization" icon="timer">
+    - **Batch Size:** Reduce `--max-running-requests` (16-32) for smaller batches.
+    - **Prefill:** Reduce `--chunked-prefill-size`.
+    - **TPU Native:** Always use `--dtype=bfloat16` as TPUs are optimized for this format.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="OOM (Out of Memory) Errors">
+    1. Reduce `--mem-fraction-static` to 0.5.
+    2. Lower `--max-prefill-tokens` to 4096.
+    3. Check if your `--tp-size` matches the hardware.
+  </Accordion>
+  <Accordion title="Long Compilation Times">
+    JAX uses JIT compilation. The first run will always be slow.
+    - **Solution:** Ensure `export JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache` is set to cache compiled kernels for future runs.
+    - Use `--skip-server-warmup` to defer compilation until the first request.
+  </Accordion>
+  <Accordion title="Connection Issues">
+    - Ensure `--host=0.0.0.0` is set for external access.
+    - Check firewall rules for the default port `30000`.
+    - Verify health via `curl http://localhost:30000/health`.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Benchmarking
+
+Use the built-in scripts to measure performance on your TPU instance.
+
+<CodeGroup>
+```bash Throughput
+python3 -m sgl_jax.bench_serving \
+  --backend sgl-jax \
+  --dataset-name random \
+  --num-prompts=100 \
+  --max-concurrency=8

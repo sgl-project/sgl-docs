@@ -1,0 +1,61 @@
+{
+  "name": "SGLang Documentation",
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Docs",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "index",
+              "docs/get-started/install"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Cookbook",
+        "pages": [
+          "cookbook/intro",
+          {
+            "group": "Autoregressive Models",
+            "pages": [
+              {
+                "group": "Qwen",
+                "pages": [
+                  "cookbook/autoregressive/Qwen/Qwen3.5"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "SGLang",
+          "href": "https://sglang.io/",
+          "icon": "/favicon.png"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/sgl-project/sglang",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  }
+}

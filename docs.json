@@ -38,6 +38,7 @@
             "group": "Get Started",
             "pages": [
               "index",
+              "docs/get-started/install",
               "docs/get-started/quickstart",
               "docs/get-started/installation"
             ]
@@ -86,13 +87,11 @@
               "docs/supported-models/classification-models"
             ]
           },
-            {
-              "group": "Specialized models",
-              "pages": [
-                "docs/supported-models/reward-models"
-              ]
-            }
-          ]
+          {
+            "group": "Specialized models",
+            "pages": ["docs/supported-models/reward-models"]
+          }
+        ]
       },
       {
         "tab": "Cookbook",

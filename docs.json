@@ -36,10 +36,27 @@
         "groups": [
           {
             "group": "Get Started",
-            "pages": [
-              "index",
+            "pages": [ "index",
               "docs/get-started/quickstart",
-              "docs/get-started/installation"
+              "docs/get-started/installation"]
+          },
+          {
+            "group": "Hardware Platforms",
+            "pages": [
+              {
+                "group": "Ascend NPUs",
+                "pages": [
+                  "docs/hardware-platforms/ascend-npus/Support Features on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/DeepSeek Examples",
+                  "docs/hardware-platforms/ascend-npus/Qwen3 Examples",
+                  "docs/hardware-platforms/ascend-npus/MindSpore Models",
+                  "docs/hardware-platforms/ascend-npus/Contribution Guide",
+                  "docs/hardware-platforms/ascend-npus/Best Practice on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/Qwen3.5",
+                  "docs/hardware-platforms/ascend-npus/GLM-5"
+                ]
+              }
             ]
           }
         ]
@@ -69,9 +86,32 @@
             "pages": [
               "docs/supported-models/reward-models"
             ]
+          },
+          {
+            "group": "Hardware Platforms",
+            "pages": [
+              "docs/hardware-platforms/amd-gpus",
+              {
+                "group": "Ascend NPUs",
+                "pages": [
+                  "docs/hardware-platforms/ascend-npus/SGLang installation with NPUs support",
+                  "docs/hardware-platforms/ascend-npus/Support Features on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/DeepSeek Examples",
+                  "docs/hardware-platforms/ascend-npus/Qwen3 Examples",
+                  "docs/hardware-platforms/ascend-npus/MindSpore Models",
+                  "docs/hardware-platforms/ascend-npus/Contribution Guide",
+                  "docs/hardware-platforms/ascend-npus/Best Practice on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/Qwen3.5",
+                  "docs/hardware-platforms/ascend-npus/GLM-5"
+                ]
+              },
+              "docs/hardware-platforms/xpu"
+            ]
           }
         ]
       },
+
       {
         "tab": "Cookbook",
         "pages": [
@@ -81,9 +121,7 @@
             "pages": [
               {
                 "group": "Qwen",
-                "pages": [
-                  "cookbook/autoregressive/Qwen/Qwen3.5"
-                ]
+                "pages": ["cookbook/autoregressive/Qwen/Qwen3.5"]
               }
             ]
           }

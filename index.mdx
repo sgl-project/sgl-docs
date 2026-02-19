@@ -1,139 +1,106 @@
 ---
-title: Introduction
+title: "Introduction"
 ---
 
 <a class="github-button" href="https://github.com/sgl-project/sglang" data-size="large" data-show-count="true" aria-label="Star sgl-project/sglang on GitHub">Star</a>
-<a class="github-button" href="https://github.com/sgl-project/sglang/fork" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork sgl-project/sglang on GitHub">Fork</a>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<br></br>
 
-SGLang is a high-performance serving framework for large language models
-and multimodal models. It is designed to deliver low-latency and
-high-throughput inference across a wide range of setups, from a single
-GPU to large distributed clusters. Its core features include:
+ <a class="github-button" href="https://github.com/sgl-project/sglang/fork" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork sgl-project/sglang on GitHub">Fork</a>
 
-  - **Fast Runtime**: Provides efficient serving with RadixAttention for
-    prefix caching, a zero-overhead CPU scheduler, prefill-decode
-    disaggregation, speculative decoding, continuous batching, paged
-    attention, tensor/pipeline/expert/data parallelism, structured
-    outputs, chunked prefill, quantization (FP4/FP8/INT4/AWQ/GPTQ), and
-    multi-LoRA batching.
-  - **Broad Model Support**: Supports a wide range of language models
-    (Llama, Qwen, DeepSeek, Kimi, GLM, GPT, Gemma, Mistral, etc.),
-    embedding models (e5-mistral, gte, mcdse), reward models (Skywork),
-    and diffusion models (WAN, Qwen-Image), with easy extensibility for
-    adding new models. Compatible with most Hugging Face models and
-    OpenAI APIs.
-  - **Extensive Hardware Support**: Runs on NVIDIA GPUs
-    (GB200/B300/H100/A100/Spark), AMD GPUs (MI355/MI300), Intel Xeon
-    CPUs, Google TPUs, Ascend NPUs, and more.
-  - **Active Community**: SGLang is open-source and supported by a
-    vibrant community with widespread industry adoption, powering over
-    400,000 GPUs worldwide.
-  - **RL & Post-Training Backbone**: SGLang is a proven rollout backend
-    across the world, with native RL integrations and adoption by
-    well-known post-training frameworks such as AReaL, Miles, slime,
-    Tunix, verl and more.
+<script async defer src="https://buttons.github.io/buttons.js" />
+
+<br />
+
+SGLang is a high-performance serving framework for large language models and multimodal models. It is designed to deliver low-latency and high-throughput inference across a wide range of setups, from a single GPU to large distributed clusters. Its core features include:
+
+- **Fast Runtime**: Provides efficient serving with RadixAttention for prefix caching, a zero-overhead CPU scheduler, prefill-decode disaggregation, speculative decoding, continuous batching, paged attention, tensor/pipeline/expert/data parallelism, structured outputs, chunked prefill, quantization (FP4/FP8/INT4/AWQ/GPTQ), and multi-LoRA batching.
+- **Broad Model Support**: Supports a wide range of language models (Llama, Qwen, DeepSeek, Kimi, GLM, GPT, Gemma, Mistral, etc.), embedding models (e5-mistral, gte, mcdse), reward models (Skywork), and diffusion models (WAN, Qwen-Image), with easy extensibility for adding new models. Compatible with most Hugging Face models and OpenAI APIs.
+- **Extensive Hardware Support**: Runs on NVIDIA GPUs (GB200/B300/H100/A100/Spark), AMD GPUs (MI355/MI300), Intel Xeon CPUs, Google TPUs, Ascend NPUs, and more.
+- **Active Community**: SGLang is open-source and supported by a vibrant community with widespread industry adoption, powering over 400,000 GPUs worldwide.
+- **RL & Post-Training Backbone**: SGLang is a proven rollout backend across the world, with native RL integrations and adoption by well-known post-training frameworks such as AReaL, Miles, slime, Tunix, verl and more.
 
 <div class="toctree" data-maxdepth="1" data-caption="Get Started">
-
-get\_started/install.md
-
+  get\_started/install.md
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="Basic Usage">
-
-basic\_usage/send\_request.ipynb basic\_usage/openai\_api.rst
-basic\_usage/ollama\_api.md basic\_usage/offline\_engine\_api.ipynb
-basic\_usage/native\_api.ipynb basic\_usage/sampling\_params.md
-basic\_usage/popular\_model\_usage.rst basic\_usage/diffusion\_llms.md
-basic\_usage/diffusion.md
-
+  basic\_usage/send\_request.ipynb basic\_usage/openai\_api.rst
+  basic\_usage/ollama\_api.md basic\_usage/offline\_engine\_api.ipynb
+  basic\_usage/native\_api.ipynb basic\_usage/sampling\_params.md
+  basic\_usage/popular\_model\_usage.rst basic\_usage/diffusion\_llms.md
+  basic\_usage/diffusion.md
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="Advanced Features">
-
-advanced\_features/server\_arguments.md
-advanced\_features/hyperparameter\_tuning.md
-advanced\_features/attention\_backend.md
-advanced\_features/speculative\_decoding.ipynb
-advanced\_features/structured\_outputs.ipynb
-advanced\_features/structured\_outputs\_for\_reasoning\_models.ipynb
-advanced\_features/tool\_parser.ipynb
-advanced\_features/separate\_reasoning.ipynb
-advanced\_features/quantization.md
-advanced\_features/quantized\_kv\_cache.md
-advanced\_features/expert\_parallelism.md
-advanced\_features/dp\_dpa\_smg\_guide.md advanced\_features/lora.ipynb
-advanced\_features/pd\_disaggregation.md
-advanced\_features/epd\_disaggregation.md
-advanced\_features/pipeline\_parallelism.md
-advanced\_features/hicache.rst advanced\_features/pd\_multiplexing.md
-advanced\_features/vlm\_query.ipynb
-advanced\_features/dp\_for\_multi\_modal\_encoder.md
-advanced\_features/cuda\_graph\_for\_multi\_modal\_encoder.md
-advanced\_features/sgl\_model\_gateway.md
-advanced\_features/deterministic\_inference.md
-advanced\_features/observability.md
-advanced\_features/checkpoint\_engine.md
-advanced\_features/sglang\_for\_rl.md
-
+  advanced\_features/server\_arguments.md
+  advanced\_features/hyperparameter\_tuning.md
+  advanced\_features/attention\_backend.md
+  advanced\_features/speculative\_decoding.ipynb
+  advanced\_features/structured\_outputs.ipynb
+  advanced\_features/structured\_outputs\_for\_reasoning\_models.ipynb
+  advanced\_features/tool\_parser.ipynb
+  advanced\_features/separate\_reasoning.ipynb
+  advanced\_features/quantization.md
+  advanced\_features/quantized\_kv\_cache.md
+  advanced\_features/expert\_parallelism.md
+  advanced\_features/dp\_dpa\_smg\_guide.md advanced\_features/lora.ipynb
+  advanced\_features/pd\_disaggregation.md
+  advanced\_features/epd\_disaggregation.md
+  advanced\_features/pipeline\_parallelism.md
+  advanced\_features/hicache.rst advanced\_features/pd\_multiplexing.md
+  advanced\_features/vlm\_query.ipynb
+  advanced\_features/dp\_for\_multi\_modal\_encoder.md
+  advanced\_features/cuda\_graph\_for\_multi\_modal\_encoder.md
+  advanced\_features/sgl\_model\_gateway.md
+  advanced\_features/deterministic\_inference.md
+  advanced\_features/observability.md
+  advanced\_features/checkpoint\_engine.md
+  advanced\_features/sglang\_for\_rl.md
 </div>
 
 <div class="toctree" data-maxdepth="2" data-caption="Supported Models">
-
-supported\_models/text\_generation/index
-supported\_models/retrieval\_ranking/index
-supported\_models/specialized/index supported\_models/extending/index
-
+  supported\_models/text\_generation/index
+  supported\_models/retrieval\_ranking/index
+  supported\_models/specialized/index supported\_models/extending/index
 </div>
 
 <div class="toctree" data-maxdepth="2" data-caption="SGLang Diffusion">
-
-diffusion/index diffusion/installation diffusion/compatibility\_matrix
-diffusion/api/cli diffusion/api/openai\_api diffusion/performance/index
-diffusion/performance/attention\_backends
-diffusion/performance/profiling diffusion/performance/cache/index
-diffusion/performance/cache/cache\_dit
-diffusion/performance/cache/teacache diffusion/support\_new\_models
-diffusion/contributing diffusion/ci\_perf
-diffusion/environment\_variables
-
+  diffusion/index diffusion/installation diffusion/compatibility\_matrix
+  diffusion/api/cli diffusion/api/openai\_api diffusion/performance/index
+  diffusion/performance/attention\_backends
+  diffusion/performance/profiling diffusion/performance/cache/index
+  diffusion/performance/cache/cache\_dit
+  diffusion/performance/cache/teacache diffusion/support\_new\_models
+  diffusion/contributing diffusion/ci\_perf
+  diffusion/environment\_variables
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="Hardware Platforms">
-
-platforms/amd\_gpu.md platforms/cpu\_server.md platforms/tpu.md
-platforms/nvidia\_jetson.md platforms/ascend\_npu\_support.rst
-platforms/xpu.md
-
+  platforms/amd\_gpu.md platforms/cpu\_server.md platforms/tpu.md
+  platforms/nvidia\_jetson.md platforms/ascend\_npu\_support.rst
+  platforms/xpu.md
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="Developer Guide">
-
-developer\_guide/contribution\_guide.md
-developer\_guide/development\_guide\_using\_docker.md
-developer\_guide/development\_jit\_kernel\_guide.md
-developer\_guide/benchmark\_and\_profiling.md
-developer\_guide/bench\_serving.md
-developer\_guide/evaluating\_new\_models.md
-
+  developer\_guide/contribution\_guide.md
+  developer\_guide/development\_guide\_using\_docker.md
+  developer\_guide/development\_jit\_kernel\_guide.md
+  developer\_guide/benchmark\_and\_profiling.md
+  developer\_guide/bench\_serving.md
+  developer\_guide/evaluating\_new\_models.md
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="References">
-
-references/faq.md references/environment\_variables.md
-references/production\_metrics.md
-references/production\_request\_trace.md
-references/multi\_node\_deployment/multi\_node\_index.rst
-references/custom\_chat\_template.md
-references/frontend/frontend\_index.rst
-references/post\_training\_integration.md references/learn\_more.md
-
+  references/faq.md references/environment\_variables.md
+  references/production\_metrics.md
+  references/production\_request\_trace.md
+  references/multi\_node\_deployment/multi\_node\_index.rst
+  references/custom\_chat\_template.md
+  references/frontend/frontend\_index.rst
+  references/post\_training\_integration.md references/learn\_more.md
 </div>
 
 <div class="toctree" data-maxdepth="1" data-caption="Security Acknowledgement">
-
-security/acknowledgements.md
-
+  security/acknowledgements.md
 </div>
+
+Version Feb 2026

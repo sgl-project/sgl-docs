@@ -14,10 +14,7 @@
 
 ## Terminology
 
-
 ## Style preferences
-
-
 
 - Use active voice and second person ("you")
 - Keep sentences concise — one idea per sentence
@@ -27,6 +24,3 @@
 
 
 ## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}

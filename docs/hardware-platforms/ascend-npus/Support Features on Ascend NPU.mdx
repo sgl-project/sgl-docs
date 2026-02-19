@@ -1,0 +1,654 @@
+This section describes the basic functions and features supported by the Ascend NPU.If you encounter issues or have any
+questions, please [open an issue](https://github.com/sgl-project/sglang/issues).
+
+If you want to know the meaning and usage of each parameter,
+click [Server Arguments](https://docs.sglang.io/advanced_features/server_arguments.html).
+
+<Accordion title="Model and tokenizer">
+
+
+| Argument                               | Defaults | Options                               | A2  | A3  |
+| -------------------------------------- | -------- | ------------------------------------- | :-: | :-: |
+| `--model-path`<br/>`--model`           | `None`   | Type: str                             | ✅  | ✅  |
+| `--tokenizer-path`                     | `None`   | Type: str                             | ✅  | ✅  |
+| `--tokenizer-mode`                     | `auto`   | `auto`, `slow`                        | ✅  | ✅  |
+| `--tokenizer-worker-num`               | `1`      | Type: int                             | ✅  | ✅  |
+| `--skip-tokenizer-init`                | `False`  | bool flag (set to enable)             | ✅  | ✅  |
+| `--load-format`                        | `auto`   | `auto`, `safetensors`                 | ✅  | ✅  |
+| `--model-loader-` <br/> `extra-config` | {}       | Type: str                             | ✅  | ✅  |
+| `--trust-remote-code`                  | `False`  | bool flag (set to enable)             | ✅  | ✅  |
+| `--context-length`                     | `None`   | Type: int                             | ✅  | ✅  |
+| `--is-embedding`                       | `False`  | bool flag (set to enable)             | ✅  | ✅  |
+| `--enable-multimodal`                  | `None`   | bool flag (set to enable)             | ✅  | ✅  |
+| `--revision`                           | `None`   | Type: str                             | ✅  | ✅  |
+| `--model-impl`                         | `auto`   | `auto`, `sglang`,<br/> `transformers` | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="HTTP server">
+
+
+| Argument               | Defaults    | Options                   | A2  | A3  |
+| ---------------------- | ----------- | ------------------------- | :-: | :-: |
+| `--host`               | `127.0.0.1` | Type: str                 | ✅  | ✅  |
+| `--port`               | `30000`     | Type: int                 | ✅  | ✅  |
+| `--skip-server-warmup` | `False`     | bool flag (set to enable) | ✅  | ✅  |
+| `--warmups`            | `None`      | Type: str                 | ✅  | ✅  |
+| `--nccl-port`          | `None`      | Type: int                 | ✅  | ✅  |
+| `--fastapi-root-path`  | `None`      | Type: str                 | ✅  | ✅  |
+| `--grpc-mode`          | `False`     | bool flag (set to enable) | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Quantization and data type">
+
+
+| Argument                                    | Defaults | Options                                 | A2  | A3  | Special |
+| ------------------------------------------- | -------- | --------------------------------------- | :-: | :-: | :-----: |
+| `--dtype`                                   | `auto`   | `auto`,<br/> `float16`,<br/> `bfloat16` | ✅  | ✅  |   ❌    |
+| `--quantization`                            | `None`   | `modelslim`                             | ✅  | ✅  |   ❌    |
+| `--quantization-param-path`                 | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+| `--kv-cache-dtype`                          | `auto`   | `auto`                                  | ✅  | ✅  |   ❌    |
+| `--enable-fp32-lm-head`                     | `False`  | bool flag <br/> (set to enable)         | ✅  | ✅  |   ❌    |
+| `--modelopt-quant`                          | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+| `--modelopt-checkpoint-`<br/>`restore-path` | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+| `--modelopt-checkpoint-`<br/>`save-path`    | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+| `--modelopt-export-path`                    | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+| `--quantize-and-serve`                      | `False`  | bool flag <br/> (set to enable)         | ❌  | ❌  |   ✅    |
+| `--rl-quant-profile`                        | `None`   | Type: str                               | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="Memory and scheduling">
+
+
+| Argument                                            | Defaults | Options                        | A2  | A3  |
+| --------------------------------------------------- | -------- | ------------------------------ | :-: | :-: |
+| `--mem-fraction-static`                             | `None`   | Type: float                    | ✅  | ✅  |
+| `--max-running-requests`                            | `None`   | Type: int                      | ✅  | ✅  |
+| `--prefill-max-requests`                            | `None`   | Type: int                      | ✅  | ✅  |
+| `--max-queued-requests`                             | `None`   | Type: int                      | ✅  | ✅  |
+| `--max-total-tokens`                                | `None`   | Type: int                      | ✅  | ✅  |
+| `--chunked-prefill-size`                            | `None`   | Type: int                      | ✅  | ✅  |
+| `--max-prefill-tokens`                              | `16384`  | Type: int                      | ✅  | ✅  |
+| `--schedule-policy`                                 | `fcfs`   | `lpm`, `fcfs`                  | ✅  | ✅  |
+| `--enable-priority-`<br/>`scheduling`               | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--schedule-low-priority-`<br/>`values-first`       | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--priority-scheduling-`<br/>`preemption-threshold` | `10`     | Type: int                      | ✅  | ✅  |
+| `--schedule-conservativeness`                       | `1.0`    | Type: float                    | ✅  | ✅  |
+| `--page-size`                                       | `128`    | Type: int                      | ✅  | ✅  |
+| `--swa-full-tokens-ratio`                           | `0.8`    | Type: float                    | ✅  | ✅  |
+| `--disable-hybrid-swa-memory`                       | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--abort-on-priority-`<br/>`when-disabled`          | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--enable-dynamic-chunking`                         | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Runtime options">
+
+
+| Argument                                           | Defaults | Options                   | A2  | A3  |
+| -------------------------------------------------- | -------- | ------------------------- | :-: | :-: |
+| `--device`                                         | `None`   | Type: str                 | ✅  | ✅  |
+| `--tensor-parallel-size`<br/>`--tp-size`           | `1`      | Type: int                 | ✅  | ✅  |
+| `--pipeline-parallel-size`<br/>`--pp-size`         | `1`      | Type: int                 | ✅  | ✅  |
+| `--pp-max-micro-batch-size`                        | `None`   | Type: int                 | ✅  | ✅  |
+| `--pp-async-batch-depth`                           | `None`   | Type: int                 | ✅  | ✅  |
+| `--stream-interval`                                | `1`      | Type: int                 | ✅  | ✅  |
+| `--stream-output`                                  | `False`  | bool flag (set to enable) | ✅  | ✅  |
+| `--random-seed`                                    | `None`   | Type: int                 | ✅  | ✅  |
+| `--constrained-json-`<br/>`whitespace-pattern`     | `None`   | Type: str                 | ✅  | ✅  |
+| `--constrained-json-`<br/>`disable-any-whitespace` | `False`  | bool flag (set to enable) | ✅  | ✅  |
+| `--watchdog-timeout`                               | `300`    | Type: float               | ✅  | ✅  |
+| `--soft-watchdog-timeout`                          | `300`    | Type: float               | ✅  | ✅  |
+| `--dist-timeout`                                   | `None`   | Type: int                 | ✅  | ✅  |
+| `--base-gpu-id`                                    | `0`      | Type: int                 | ✅  | ✅  |
+| `--gpu-id-step`                                    | `1`      | Type: int                 | ✅  | ✅  |
+| `--sleep-on-idle`                                  | `False`  | bool flag (set to enable) | ✅  | ✅  |
+| `--custom-sigquit-handler`                         | `None`   | Optional[Callable]        | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Logging">
+
+
+| Argument                                           | Defaults          | Options                        | A2  | A3  | Special |
+| -------------------------------------------------- | ----------------- | ------------------------------ | :-: | :-: | :-----: |
+| `--log-level`                                      | `info`            | Type: str                      | ✅  | ✅  |   ❌    |
+| `--log-level-http`                                 | `None`            | Type: str                      | ✅  | ✅  |   ❌    |
+| `--log-requests`                                   | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--log-requests-level`                             | `2`               | `0`, `1`, `2`, `3`             | ✅  | ✅  |   ❌    |
+| `--log-requests-format`                            | text              | text, json                     | ✅  | ✅  |   ❌    |
+| `--crash-dump-folder`                              | `None`            | Type: str                      | ✅  | ✅  |   ❌    |
+| `--enable-metrics`                                 | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--enable-metrics-for-`<br/>`all-schedulers`       | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--tokenizer-metrics-`<br/>`custom-labels-header`  | `x-custom-labels` | Type: str                      | ✅  | ✅  |   ❌    |
+| `--tokenizer-metrics-`<br/>`allowed-custom-labels` | `None`            | List[str]                      | ✅  | ✅  |   ❌    |
+| `--bucket-time-to-`<br/>`first-token`              | `None`            | List[float]                    | ✅  | ✅  |   ❌    |
+| `--bucket-inter-token-`<br/>`latency`              | `None`            | List[float]                    | ✅  | ✅  |   ❌    |
+| `--bucket-e2e-request-`<br/>`latency`              | `None`            | List[float]                    | ✅  | ✅  |   ❌    |
+| `--collect-tokens-`<br/>`histogram`                | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--prompt-tokens-buckets`                          | `None`            | List[str]                      | ✅  | ✅  |   ❌    |
+| `--generation-tokens-buckets`                      | `None`            | List[str]                      | ✅  | ✅  |   ❌    |
+| `--gc-warning-threshold-secs`                      | `0.0`             | Type: float                    | ✅  | ✅  |   ❌    |
+| `--decode-log-interval`                            | `40`              | Type: int                      | ✅  | ✅  |   ❌    |
+| `--enable-request-time-`<br/>`stats-logging`       | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--kv-events-config`                               | `None`            | Type: str                      | ❌  | ❌  |   ✅    |
+| `--enable-trace`                                   | `False`           | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |
+| `--oltp-traces-endpoint`                           | `localhost:4317`  | Type: str                      | ✅  | ✅  |   ❌    |
+
+
+</Accordion>
+
+
+<Accordion title="RequestMetricsExporter configuration">
+
+
+| Argument                              | Defaults | Options                        | A2  | A3  |
+| ------------------------------------- | -------- | ------------------------------ | :-: | :-: |
+| `--export-metrics-to-`<br/>`file`     | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--export-metrics-to-`<br/>`file-dir` | `None`   | Type: str                      | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="API related">
+
+
+| Argument                | Defaults  | Options                        | A2  | A3  |
+| ----------------------- | --------- | ------------------------------ | :-: | :-: |
+| `--api-key`             | `None`    | Type: str                      | ✅  | ✅  |
+| `--admin-api-key`       | `None`    | Type: str                      | ✅  | ✅  |
+| `--served-model-name`   | `None`    | Type: str                      | ✅  | ✅  |
+| `--weight-version`      | `default` | Type: str                      | ✅  | ✅  |
+| `--chat-template`       | `None`    | Type: str                      | ✅  | ✅  |
+| `--completion-template` | `None`    | Type: str                      | ✅  | ✅  |
+| `--enable-cache-report` | `False`   | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--reasoning-parser`    | `None`    | `deepseek-r1`                  | ✅  | ✅  |
+| `--tool-call-parser`    | `None`    | `llama`,`pythonic`             | ✅  | ✅  |
+| `--sampling-defaults`   | `model`   | `openai`, `model`              | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Data parallelism">
+
+
+| Argument                               | Defaults      | Options                                                   | A2  | A3  |
+| -------------------------------------- | ------------- | --------------------------------------------------------- | :-: | :-: |
+| `--data-parallel-size`<br/>`--dp-size` | `1`           | Type: int                                                 | ✅  | ✅  |
+| `--load-balance-method`                | `round_robin` | `round_robin`,<br/> `total_requests`,<br/> `total_tokens` | ✅  | ✅  |
+| `--prefill-round-robin-balance`        | `False`       | bool flag<br/> (set to enable)                            | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Multi-node distributed serving">
+
+
+| Argument                                  | Defaults | Options   | A2  | A3  |
+| ----------------------------------------- | -------- | --------- | :-: | :-: |
+| `--dist-init-addr`<br/>`--nccl-init-addr` | `None`   | Type: str | ✅  | ✅  |
+| `--nnodes`                                | `1`      | Type: int | ✅  | ✅  |
+| `--node-rank`                             | `0`      | Type: int | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Model override args">
+
+
+| Argument                             | Defaults | Options   | A2  | A3  |
+| ------------------------------------ | -------- | --------- | :-: | :-: |
+| `--json-model-override-`<br/>`args`  | `{}`     | Type: str | ✅  | ✅  |
+| `--preferred-sampling-`<br/>`params` | `None`   | Type: str | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="LoRA">
+
+
+| Argument                 | Defaults | Options                             | A2  | A3  | Special |
+| ------------------------ | -------- | ----------------------------------- | :-: | :-: | :-----: |
+| `--enable-lora`          | `False`  | Bool flag <br/>(set to enable)      | ✅  | ✅  |   ❌    |
+| `--max-lora-rank`        | `None`   | Type: int                           | ✅  | ✅  |   ❌    |
+| `--lora-target-modules`  | `None`   | `all`                               | ✅  | ✅  |   ❌    |
+| `--lora-paths`           | `None`   | Type: List[str] /<br/> JSON objects | ✅  | ✅  |   ❌    |
+| `--max-loras-per-batch`  | `8`      | Type: int                           | ✅  | ✅  |   ❌    |
+| `--max-loaded-loras`     | `None`   | Type: int                           | ✅  | ✅  |   ❌    |
+| `--lora-eviction-policy` | `lru`    | `lru`,<br/> `fifo`                  | ✅  | ✅  |   ❌    |
+| `--lora-backend`         | `triton` | `triton`                            | ✅  | ✅  |   ❌    |
+| `--max-lora-chunk-size`  | `16`     | `16`, `32`,<br/> `64`, `128`        | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="Kernel Backends (Attention, Sampling, Grammar, GEMM)">
+
+
+| Argument                               | Defaults          | Options                                                                                        | A2  | A3  | Special |
+| -------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- | :-: | :-: | :-----: |
+| `--attention-backend`                  | `None`            | `ascend`                                                                                       | ✅  | ✅  |   ❌    |
+| `--prefill-attention-backend`          | `None`            | `ascend`                                                                                       | ✅  | ✅  |   ❌    |
+| `--decode-attention-backend`           | `None`            | `ascend`                                                                                       | ✅  | ✅  |   ❌    |
+| `--sampling-backend`                   | `None`            | `pytorch`,<br/>`ascend`                                                                        | ✅  | ✅  |   ❌    |
+| `--grammar-backend`                    | `None`            | `xgrammar`                                                                                     | ✅  | ✅  |   ❌    |
+| `--mm-attention-backend`               | `None`            | `ascend_attn`                                                                                  | ✅  | ✅  |   ❌    |
+| `--nsa-prefill-backend`                | `flashmla_sparse` | `flashmla_sparse`,<br/> `flashmla_decode`,<br/>`fa3`,<br/> `tilelang`,<br/> `aiter`            | ❌  | ❌  |   ✅    |
+| `--nsa-decode-backend`                 | `fa3`             | `flashmla_prefill`,<br/> `flashmla_kv`,<br/> `fa3`,<br/>`tilelang`,<br/> `aiter`               | ❌  | ❌  |   ✅    |
+| `--fp8-gemm-backend`                   | `auto`            | `auto`,<br/> `deep_gemm`,<br/> `flashinfer_trtllm`,<br/>`cutlass`,<br/> `triton`,<br/> `aiter` | ❌  | ❌  |   ✅    |
+| `--disable-flashinfer-`<br/>`autotune` | `False`           | bool flag<br/> (set to enable)                                                                 | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="Speculative decoding">
+
+
+| Argument                                                         | Defaults  | Options                  | A2  | A3  | Special |
+| ---------------------------------------------------------------- | --------- | ------------------------ | :-: | :-: | :-----: |
+| `--speculative-algorithm`                                        | `None`    | `EAGLE3`,<br/> `NEXTN`   | ✅  | ✅  |   ❌    |
+| `--speculative-draft-model-path`<br/>`--speculative-draft-model` | `None`    | Type: str                | ✅  | ✅  |   ❌    |
+| `--speculative-draft-model-`<br/>`revision`                      | `None`    | Type: str                | ✅  | ✅  |   ❌    |
+| `--speculative-draft-load-format`                                | `None`    | `auto`                   | ✅  | ✅  |   ❌    |
+| `--speculative-num-steps`                                        | `None`    | Type: int                | ✅  | ✅  |   ❌    |
+| `--speculative-eagle-topk`                                       | `None`    | Type: int                | ✅  | ✅  |   ❌    |
+| `--speculative-num-draft-tokens`                                 | `None`    | Type: int                | ✅  | ✅  |   ❌    |
+| `--speculative-accept-`<br/>`threshold-single`                   | `1.0`     | Type: float              | ❌  | ❌  |   ✅    |
+| `--speculative-accept-`<br/>`threshold-acc`                      | `1.0`     | Type: float              | ❌  | ❌  |   ✅    |
+| `--speculative-token-map`                                        | `None`    | Type: str                | ✅  | ✅  |   ❌    |
+| `--speculative-attention-`<br/>`mode`                            | `prefill` | `prefill`,<br/> `decode` | ✅  | ✅  |   ❌    |
+| `--speculative-moe-runner-`<br/>`backend`                        | `None`    | `auto`                   | ✅  | ✅  |   ❌    |
+| `--speculative-moe-a2a-`<br/>`backend`                           | `None`    | `ascend_fuseep`          | ✅  | ✅  |   ❌    |
+| `--speculative-draft-attention-backend`                          | `None`    | `ascend`                 | ✅  | ✅  |   ❌    |
+| `--speculative-draft-model-quantization`                         | `None`    | `unquant`                | ✅  | ✅  |   ❌    |
+
+
+</Accordion>
+
+
+<Accordion title="Ngram speculative decoding">
+
+
+| Argument                                           | Defaults   | Options            | A2  | A3  | Experimental |
+| -------------------------------------------------- | ---------- | ------------------ | :-: | :-: | :----------: |
+| `--speculative-ngram-`<br/>`min-match-window-size` | `1`        | Type: int          | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`max-match-window-size` | `12`       | Type: int          | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`min-bfs-breadth`       | `1`        | Type: int          | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`max-bfs-breadth`       | `10`       | Type: int          | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`match-type`            | `BFS`      | `BFS`,<br/> `PROB` | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`branch-length`         | `18`       | Type: int          | ❌  | ❌  |      ✅      |
+| `--speculative-ngram-`<br/>`capacity`              | `10000000` | Type: int          | ❌  | ❌  |      ✅      |
+
+
+</Accordion>
+
+
+<Accordion title="Expert parallelism">
+
+
+| Argument                                              | Defaults  | Options                                     | A2  | A3  | Special |
+| ----------------------------------------------------- | --------- | ------------------------------------------- | :-: | :-: | :-----: |
+| `--expert-parallel-size`<br/>`--ep-size`<br/>`--ep`   | `1`       | Type: int                                   | ✅  | ✅  |   ❌    |
+| `--moe-a2a-backend`                                   | `none`    | `none`,<br/> `deepep`,<br/> `ascend_fuseep` | ✅  | ✅  |   ❌    |
+| `--moe-runner-backend`                                | `auto`    | `auto`, `triton`                            | ✅  | ✅  |   ❌    |
+| `--flashinfer-mxfp4-`<br/>`moe-precision`             | `default` | `default`,<br/> `bf16`                      | ❌  | ❌  |   ✅    |
+| `--enable-flashinfer-`<br/>`allreduce-fusion`         | `False`   | bool flag<br/> (set to enable)              | ❌  | ❌  |   ✅    |
+| `--deepep-mode`                                       | `auto`    | `normal`, <br/>`low_latency`,<br/> `auto`   | ✅  | ✅  |   ❌    |
+| `--deepep-config`                                     | `None`    | Type: str                                   | ❌  | ❌  |   ✅    |
+| `--ep-num-redundant-experts`                          | `0`       | Type: int                                   | ✅  | ✅  |   ❌    |
+| `--ep-dispatch-algorithm`                             | `None`    | Type: str                                   | ✅  | ✅  |   ❌    |
+| `--init-expert-location`                              | `trivial` | Type: str                                   | ✅  | ✅  |   ❌    |
+| `--enable-eplb`                                       | `False`   | bool flag<br/> (set to enable)              | ✅  | ✅  |   ❌    |
+| `--eplb-algorithm`                                    | `auto`    | Type: str                                   | ✅  | ✅  |   ❌    |
+| `--eplb-rebalance-layers-`<br/>`per-chunk`            | `None`    | Type: int                                   | ✅  | ✅  |   ❌    |
+| `--eplb-min-rebalancing-`<br/>`utilization-threshold` | `1.0`     | Type: float                                 | ✅  | ✅  |   ❌    |
+| `--expert-distribution-`<br/>`recorder-mode`          | `None`    | Type: str                                   | ✅  | ✅  |   ❌    |
+| `--expert-distribution-`<br/>`recorder-buffer-size`   | `None`    | Type: int                                   | ✅  | ✅  |   ❌    |
+| `--enable-expert-distribution-`<br/>`metrics`         | `False`   | bool flag (set to enable)                   | ✅  | ✅  |   ❌    |
+| `--moe-dense-tp-size`                                 | `None`    | Type: int                                   | ✅  | ✅  |   ❌    |
+| `--elastic-ep-backend`                                | `None`    | `none`, `mooncake`                          | ❌  | ❌  |   ✅    |
+| `--mooncake-ib-device`                                | `None`    | Type: str                                   | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="Mamba Cache">
+
+
+| Argument                     | Defaults  | Options                                       | A2  | A3  |
+| ---------------------------- | --------- | --------------------------------------------- | :-: | :-: |
+| `--max-mamba-cache-size`     | `None`    | Type: int                                     | ✅  | ✅  |
+| `--mamba-ssm-dtype`          | `float32` | `float32`,<br/> `bfloat16`                    | ✅  | ✅  |
+| `--mamba-full-memory-ratio`  | `0.2`     | Type: float                                   | ✅  | ✅  |
+| `--mamba-scheduler-strategy` | `auto`    | `auto`, <br/>`no_buffer`,<br/> `extra_buffer` | ✅  | ✅  |
+| `--mamba-track-interval`     | `256`     | Type: int                                     | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Hierarchical cache">
+
+
+| Argument                                        | Defaults        | Options                                                            | A2  | A3  | Special |
+| ----------------------------------------------- | --------------- | ------------------------------------------------------------------ | :-: | :-: | :-----: |
+| `--enable-hierarchical-`<br/>`cache`            | `False`         | bool flag<br/> (set to enable)                                     | ✅  | ✅  |   ❌    |
+| `--hicache-ratio`                               | `2.0`           | Type: float                                                        | ✅  | ✅  |   ❌    |
+| `--hicache-size`                                | `0`             | Type: int                                                          | ✅  | ✅  |   ❌    |
+| `--hicache-write-policy`                        | `write_through` | `write_back`,<br/> `write_through`,<br/> `write_through_selective` | ✅  | ✅  |   ❌    |
+| `--radix-eviction-policy`                       | `lru`           | `lru`, `lfu`                                                       | ✅  | ✅  |   ❌    |
+| `--hicache-io-backend`                          | `kernel`        | `kernel_ascend`,<br/> `direct`                                     | ✅  | ✅  |   ❌    |
+| `--hicache-mem-layout`                          | `layer_first`   | `page_first_direct`,<br/> `page_first_kv_split`                    | ✅  | ✅  |   ❌    |
+| `--hicache-storage-`<br/>`backend`              | `None`          | `file`                                                             | ✅  | ✅  |   ❌    |
+| `--hicache-storage-`<br/>`prefetch-policy`      | `best_effort`   | `best_effort`,<br/> `wait_complete`,<br/> `timeout`                | ❌  | ❌  |   ✅    |
+| `--hicache-storage-`<br/>`backend-extra-config` | `None`          | Type: str                                                          | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="LMCache">
+
+
+| Argument           | Defaults | Options                        | A2  | A3  | Special |
+| ------------------ | -------- | ------------------------------ | :-: | :-: | :-----: |
+| `--enable-lmcache` | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="Offloading">
+
+
+| Argument                  | Defaults | Options   | A2  | A3  |
+| ------------------------- | -------- | --------- | :-: | :-: |
+| `--cpu-offload-gb`        | `0`      | Type: int | ✅  | ✅  |
+| `--offload-group-size`    | `-1`     | Type: int | ✅  | ✅  |
+| `--offload-num-in-group`  | `1`      | Type: int | ✅  | ✅  |
+| `--offload-prefetch-step` | `1`      | Type: int | ✅  | ✅  |
+| `--offload-mode`          | `cpu`    | Type: str | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Args for multi-item scoring">
+
+
+| Argument                         | Defaults | Options   | A2  | A3  |
+| -------------------------------- | -------- | --------- | :-: | :-: |
+| `--multi-item-scoring-delimiter` | `None`   | Type: int | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Optimization/debug options">
+
+
+| Argument                                                | Defaults | Options                        | A2  | A3  | Special | Planned |
+| ------------------------------------------------------- | -------- | ------------------------------ | :-: | :-: | :-----: | :-----: |
+| `--disable-radix-cache`                                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--cuda-graph-max-bs`                                   | `None`   | Type: int                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--cuda-graph-bs`                                       | `None`   | List[int]                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-cuda-graph`                                  | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-cuda-graph-`<br/>`padding`                   | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-profile-`<br/>`cuda-graph`                    | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-cudagraph-gc`                                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-nccl-nvls`                                    | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--enable-symm-mem`                                     | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--disable-flashinfer-`<br/>`cutlass-moe-fp4-allgather` | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--enable-tokenizer-`<br/>`batch-encode`                | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-tokenizer-`<br/>`batch-encode`               | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-outlines-`<br/>`disk-cache`                  | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-custom-`<br/>`all-reduce`                    | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-mscclpp`                                      | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--enable-torch-`<br/>`symm-mem`                        | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--disable-overlap`<br/>`-schedule`                     | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-mixed-`<br/>`chunk`                           | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-dp-attention`                                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-dp-lm-head`                                   | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-two-`<br/>`batch-overlap`                     | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ❌    |   ✅    |
+| `--enable-single-`<br/>`batch-overlap`                  | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--tbo-token-`<br/>`distribution-threshold`             | `0.48`   | Type: float                    | ❌  | ❌  |   ❌    |   ✅    |
+| `--enable-torch-`<br/>`compile`                         | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-torch-`<br/>`compile-debug-mode`              | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-piecewise-`<br/>`cuda-graph`                  | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--piecewise-cuda-`<br/>`graph-tokens`                  | `None`   | Type: JSON<br/> list           | ✅  | ✅  |   ❌    |   ❌    |
+| `--piecewise-cuda-`<br/>`graph-compiler`                | `eager`  | ["eager", "inductor"]          | ✅  | ✅  |   ❌    |   ❌    |
+| `--torch-compile-max-bs`                                | `32`     | Type: int                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--piecewise-cuda-`<br/>`graph-max-tokens`              | `4096`   | Type: int                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--torchao-config`                                      | ``       | Type: str                      | ❌  | ❌  |   ✅    |   ❌    |
+| `--enable-nan-detection`                                | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-p2p-check`                                    | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--triton-attention-`<br/>`reduce-in-fp32`              | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--triton-attention-`<br/>`num-kv-splits`               | `8`      | Type: int                      | ❌  | ❌  |   ✅    |   ❌    |
+| `--triton-attention-`<br/>`split-tile-size`             | `None`   | Type: int                      | ❌  | ❌  |   ✅    |   ❌    |
+| `--delete-ckpt-`<br/>`after-loading`                    | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-memory-saver`                                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-weights-`<br/>`cpu-backup`                    | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-draft-weights-`<br/>`cpu-backup`              | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--allow-auto-truncate`                                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-custom-`<br/>`logit-processor`                | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--flashinfer-mla-`<br/>`disable-ragged`                | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--disable-shared-`<br/>`experts-fusion`                | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-chunked-`<br/>`prefix-cache`                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--disable-fast-`<br/>`image-processor`                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--keep-mm-feature-`<br/>`on-device`                    | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-return-`<br/>`hidden-states`                  | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-return-`<br/>`routed-experts`                 | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--scheduler-recv-`<br/>`interval`                      | `1`      | Type: int                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--numa-node`                                           | `None`   | List[int]                      | ✅  | ✅  |   ❌    |   ❌    |
+| `--rl-on-policy-target`                                 | `None`   | `fsdp`                         | ❌  | ❌  |   ❌    |   ✅    |
+| `--enable-layerwise-`<br/>`nvtx-marker`                 | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+| `--enable-attn-tp-`<br/>`input-scattered`               | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ❌    |   ❌    |
+| `--enable-nsa-prefill-`<br/>`context-parallel`          | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |   ❌    |   ❌    |
+| `--enable-fused-qk-`<br/>`norm-rope`                    | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |   ❌    |
+
+
+</Accordion>
+
+
+<Accordion title="Dynamic batch tokenizer">
+
+
+| Argument                                         | Defaults | Options                        | A2  | A3  |
+| ------------------------------------------------ | -------- | ------------------------------ | :-: | :-: |
+| `--enable-dynamic-`<br/>`batch-tokenizer`        | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--dynamic-batch-`<br/>`tokenizer-batch-size`    | `32`     | Type: int                      | ✅  | ✅  |
+| `--dynamic-batch-`<br/>`tokenizer-batch-timeout` | `0.002`  | Type: float                    | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Debug tensor dumps">
+
+
+| Argument                                   | Defaults | Options   | A2  | A3  |
+| ------------------------------------------ | -------- | --------- | :-: | :-: |
+| `--debug-tensor-dump-`<br/>`output-folder` | `None`   | Type: str | ✅  | ✅  |
+| `--debug-tensor-dump-`<br/>`layers`        | `None`   | List[int] | ✅  | ✅  |
+| `--debug-tensor-dump-`<br/>`input-file`    | `None`   | Type: str | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="PD disaggregation">
+
+
+| Argument                                                | Defaults   | Options                               | A2  | A3  | Special |
+| ------------------------------------------------------- | ---------- | ------------------------------------- | :-: | :-: | :-----: |
+| `--disaggregation-mode`                                 | `null`     | `null`,<br/> `prefill`,<br/> `decode` | ✅  | ✅  |   ❌    |
+| `--disaggregation-transfer-backend`                     | `mooncake` | `ascend`                              | ✅  | ✅  |   ❌    |
+| `--disaggregation-bootstrap-port`                       | `8998`     | Type: int                             | ✅  | ✅  |   ❌    |
+| `--disaggregation-decode-tp`                            | `None`     | Type: int                             | ✅  | ✅  |   ❌    |
+| `--disaggregation-decode-dp`                            | `None`     | Type: int                             | ✅  | ✅  |   ❌    |
+| `--disaggregation-ib-device`                            | `None`     | Type: str                             | ❌  | ❌  |   ✅    |
+| `--disaggregation-decode-`<br/>`enable-offload-kvcache` | `False`    | bool flag<br/> (set to enable)        | ✅  | ✅  |   ❌    |
+| `--disaggregation-decode-`<br/>`enable-fake-auto`       | `False`    | bool flag<br/> (set to enable)        | ✅  | ✅  |   ❌    |
+| `--num-reserved-decode-tokens`                          | `512`      | Type: int                             | ✅  | ✅  |   ❌    |
+| `--disaggregation-decode-`<br/>`polling-interval`       | `1`        | Type: int                             | ✅  | ✅  |   ❌    |
+
+
+</Accordion>
+
+
+<Accordion title="Encode prefill disaggregation">
+
+
+| Argument                     | Defaults           | Options                                                       | A2  | A3  |
+| ---------------------------- | ------------------ | ------------------------------------------------------------- | :-: | :-: |
+| `--encoder-only`             | `False`            | bool flag<br/> (set to enable)                                | ✅  | ✅  |
+| `--language-only`            | `False`            | bool flag<br/> (set to enable)                                | ✅  | ✅  |
+| `--encoder-transfer-backend` | `zmq_to_scheduler` | `zmq_to_scheduler`, <br/> `zmq_to_tokenizer`,<br/> `mooncake` | ✅  | ✅  |
+| `--encoder-urls`             | `[]`               | List[str]                                                     | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Custom weight loader">
+
+
+| Argument                                                                | Defaults | Options                         | A2  | A3  | Special |
+| ----------------------------------------------------------------------- | -------- | ------------------------------- | :-: | :-: | :-----: |
+| `--custom-weight-loader`                                                | `None`   | List[str]                       | ✅  | ✅  |   ❌    |
+| `--weight-loader-disable-`<br/>`mmap`                                   | `False`  | bool flag<br/> (set to enable)  | ✅  | ✅  |   ❌    |
+| `--remote-instance-weight-`<br/>`loader-seed-instance-ip`               | `None`   | Type: str                       | ✅  | ✅  |   ❌    |
+| `--remote-instance-weight-`<br/>`loader-seed-instance-service-port`     | `None`   | Type: int                       | ✅  | ✅  |   ❌    |
+| `--remote-instance-weight-`<br/>`loader-send-weights-group-ports`       | `None`   | Type: JSON<br/> list            | ✅  | ✅  |   ❌    |
+| `--remote-instance-weight-`<br/>`loader-backend`                        | `nccl`   | `transfer_engine`, <br/> `nccl` | ✅  | ✅  |   ❌    |
+| `--remote-instance-weight-`<br/>`loader-start-seed-via-transfer-engine` | `False`  | bool flag<br/> (set to enable)  | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="For PD-Multiplexing">
+
+
+| Argument              | Defaults | Options                        | A2  | A3  | Special |
+| --------------------- | -------- | ------------------------------ | :-: | :-: | :-----: |
+| `--enable-pdmux`      | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |
+| `--pdmux-config-path` | `None`   | Type: str                      | ❌  | ❌  |   ✅    |
+| `--sm-group-num`      | `8`      | Type: int                      | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="For Multi-Modal">
+
+
+| Argument                                      | Defaults | Options                        | A2  | A3  |
+| --------------------------------------------- | -------- | ------------------------------ | :-: | :-: |
+| `--mm-max-concurrent-calls`                   | 32       | Type: int                      | ✅  | ✅  |
+| `--mm-per-request-timeout`                    | 10.0     | Type: float                    | ✅  | ✅  |
+| `--enable-broadcast-mm-`<br/>`inputs-process` | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--mm-process-config`                         | `None`   | Type: JSON / Dict              | ✅  | ✅  |
+| `--mm-enable-dp-encoder`                      | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+| `--limit-mm-data-per-request`                 | `None`   | Type: JSON / Dict              | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="For checkpoint decryption">
+
+
+| Argument                        | Defaults | Options                        | A2  | A3  |
+| ------------------------------- | -------- | ------------------------------ | :-: | :-: |
+| `--decrypted-config-file`       | `None`   | Type: str                      | ✅  | ✅  |
+| `--decrypted-draft-config-file` | `None`   | Type: str                      | ✅  | ✅  |
+| `--enable-prefix-mm-cache`      | `False`  | bool flag<br/> (set to enable) | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="For deterministic inference">
+
+
+| Argument                                  | Defaults | Options                        | A2  | A3  | Planned |
+| ----------------------------------------- | -------- | ------------------------------ | :-: | :-: | :-----: |
+| `--enable-deterministic-`<br/>`inference` | `False`  | bool flag<br/> (set to enable) | ❌  | ❌  |   ✅    |
+
+
+</Accordion>
+
+
+<Accordion title="For registering hooks">
+
+
+| Argument          | Defaults | Options         | A2  | A3  |
+| ----------------- | -------- | --------------- | :-: | :-: |
+| `--forward-hooks` | `None`   | Type: JSON list | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Configuration file support">
+
+
+| Argument   | Defaults | Options   | A2  | A3  |
+| ---------- | -------- | --------- | :-: | :-: |
+| `--config` | `None`   | Type: str | ✅  | ✅  |
+
+
+</Accordion>
+
+
+<Accordion title="Other Params">
+
+
+The following parameters are not supported because the third-party components that depend on are not compatible with the
+NPU, like Ktransformer, checkpoint-engine etc.
+
+| Argument                                                          | Defaults  | Options                   |
+| ----------------------------------------------------------------- | --------- | ------------------------- |
+| `--checkpoint-engine-` <br/> `wait-weights-` <br/> `before-ready` | `False`   | bool flag (set to enable) |
+| `--kt-weight-path`                                                | `None`    | Type: str                 |
+| `--kt-method`                                                     | `AMXINT4` | Type: str                 |
+| `--kt-cpuinfer`                                                   | `None`    | Type: int                 |
+| `--kt-threadpool-count`                                           | 2         | Type: int                 |
+| `--kt-num-gpu-experts`                                            | `None`    | Type: int                 |
+| `--kt-max-deferred-`<br/>`experts-per-token`                      | `None`    | Type: int                 |
+
+The following parameters have some functional deficiencies on community
+
+| Argument                              | Defaults | Options                        |
+| ------------------------------------- | -------- | ------------------------------ |
+| `--enable-double-sparsity`            | `False`  | bool flag<br/> (set to enable) |
+| `--ds-channel-config-path`            | `None`   | Type: str                      |
+| `--ds-heavy-channel-num`              | `32`     | Type: int                      |
+| `--ds-heavy-token-num`                | `256`    | Type: int                      |
+| `--ds-heavy-channel-type`             | `qk`     | Type: str                      |
+| `--ds-sparse-decode-`<br/>`threshold` | `4096`   | Type: int                      |
+| `--tool-server`                       | `None`   | Type: str                      |
+
+</Accordion>
+

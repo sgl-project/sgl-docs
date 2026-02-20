@@ -61,6 +61,7 @@
                   "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU"
                 ]
               },
+              "docs/hardware-platforms/tpu",
               "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/xpu"
             ]

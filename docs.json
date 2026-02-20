@@ -115,6 +115,7 @@
             "group": "Hardware Platforms",
             "pages": [
               "docs/hardware-platforms/amd-gpus",
+              "docs/hardware-platforms/cpu-server",
               {
                 "group": "Ascend NPUs",
                 "pages": [

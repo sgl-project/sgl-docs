@@ -1,0 +1,23 @@
+/* Hide scrollbars globally, except for code examples. */
+:where(*) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:where(*)::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Keep scrollbars visible for code block wrappers and code content. */
+:where(pre, code, .code-block, .code-group, #request-example, #response-example),
+:where(pre, code, .code-block, .code-group, #request-example, #response-example) * {
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
+}
+
+:where(pre, code, .code-block, .code-group, #request-example, #response-example)::-webkit-scrollbar,
+:where(pre, code, .code-block, .code-group, #request-example, #response-example) *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}

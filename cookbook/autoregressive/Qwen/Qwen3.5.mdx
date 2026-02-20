@@ -60,11 +60,11 @@ This section provides deployment configurations optimized for different hardware
 - **Multimodal Attention Backend**: Use `--mm-attention-backend fa3` on H100/H200 for better vision performance, or `--mm-attention-backend fa4` on B200.
 - For processing large images or videos, you may need to lower `--mem-fraction-static` to leave room for image feature tensors.
 
-| Hardware | TP |
-| -------- | -- |
-| H100     | 16 |
-| H200     | 8  |
-| B200     | 8  |
+| Hardware | TP  |
+| -------- | --- |
+| H100     | 16  |
+| H200     | 8   |
+| B200     | 8   |
 
 ## 4. Model Invocation
 
@@ -591,11 +591,13 @@ Tool Call: None
 #### 5.1.1 GSM8K Benchmark
 
 - Benchmark Command
+
 ```bash
 python3 benchmark/gsm8k/bench_sglang.py --port 30000
 ```
 
 - Test Result
+
 ```
 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 200/200 [00:31<00:00,  6.43it/s]
 Accuracy: 0.975
@@ -607,11 +609,13 @@ Output throughput: 998.166 token/s
 #### 5.1.2 MMMU Benchmark
 
 - Benchmark Command
+
 ```bash
 python3 benchmark/mmmu/bench_sglang.py --concurrency 128 --port 30000 --max-new-tokens 512
 ```
 
 - Test Result
+
 ```
 {'Accounting': {'acc': 1.0, 'num': 3},
  'Agriculture': {'acc': 1.0, 'num': 4},
@@ -657,6 +661,7 @@ Overall accuracy: 0.978
 - SGLang Version: main branch
 
 Server Launch Command:
+
 ```bash
 SGLANG_USE_CUDA_IPC_TRANSPORT=1 python -m sglang.launch_server \
   --model Qwen/Qwen3.5-397B-A17B \

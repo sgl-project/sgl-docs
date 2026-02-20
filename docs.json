@@ -1,11 +1,32 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "aspen",
   "name": "SGLang Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#d55816",
+    "light": "#d55816",
+    "dark": "#d55816"
+  },
+  "background": {
+    "decoration": "grid",
+    "color": {
+      "dark": "#1d1d1d",
+      "light": "#fffcfb"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Approach",
+      "source": "/fonts/Approach-Medium.woff2",
+      "format": "woff2",
+      "weight": 500
+    },
+    "body": {
+      "family": "Approach",
+      "source": "/fonts/Approach-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    }
   },
   "favicon": "/favicon.png",
   "navigation": {
@@ -17,7 +38,8 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "docs/get-started/install"
+              "docs/get-started/quickstart",
+              "docs/get-started/installation"
             ]
           },
           {
@@ -27,24 +49,50 @@
               {
                 "group": "Ascend NPUs",
                 "pages": [
+                  "docs/hardware-platforms/ascend-npus/Best Practice on Ascend NPU",
+                  "docs/hardware-platforms/ascend-npus/Contribution Guide",
+                  "docs/hardware-platforms/ascend-npus/DeepSeek Examples",
+                  "docs/hardware-platforms/ascend-npus/GLM-5",
+                  "docs/hardware-platforms/ascend-npus/MindSpore Models",
+                  "docs/hardware-platforms/ascend-npus/Qwen3 Examples",
+                  "docs/hardware-platforms/ascend-npus/Qwen3.5",
                   "docs/hardware-platforms/ascend-npus/SGLang installation with NPUs support",
                   "docs/hardware-platforms/ascend-npus/Support Features on Ascend NPU",
-                  "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU",
-                  "docs/hardware-platforms/ascend-npus/DeepSeek Examples",
-                  "docs/hardware-platforms/ascend-npus/Qwen3 Examples",
-                  "docs/hardware-platforms/ascend-npus/MindSpore Models",
-                  "docs/hardware-platforms/ascend-npus/Contribution Guide",
-                  "docs/hardware-platforms/ascend-npus/Best Practice on Ascend NPU",
-                  "docs/hardware-platforms/ascend-npus/Qwen3.5",
-                  "docs/hardware-platforms/ascend-npus/GLM-5"
+                  "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU"
                 ]
               },
+              "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/xpu"
             ]
           }
         ]
       },
-
+      {
+        "tab": "Supported Models",
+        "pages": [
+          "docs/supported-models",
+          {
+            "group": "Text generation",
+            "pages": [
+              "docs/supported-models/large-language-models",
+              "docs/supported-models/vision-language-models",
+              "docs/supported-models/diffusion-language-models"
+            ]
+          },
+          {
+            "group": "Retrieval and ranking",
+            "pages": [
+              "docs/supported-models/embedding-models",
+              "docs/supported-models/rerank-models",
+              "docs/supported-models/classification-models"
+            ]
+          },
+          {
+            "group": "Specialized models",
+            "pages": ["docs/supported-models/reward-models"]
+          }
+        ]
+      },
       {
         "tab": "Cookbook",
         "pages": [
@@ -96,7 +144,7 @@
     "socials": {
       "github": "https://github.com/sgl-project/sglang",
       "x": "https://x.com/lmsysorg",
-      "linkedin": "https://www.linkedin.com/company/sgl-project/posts/?feedView=all",
+      "linkedin": "https://www.linkedin.com/company/sgl-project/posts?feedView=all",
       "slack": "https://slack.sglang.io/",
       "discord": "https://discord.gg/4ugb2t6YY2"
     }

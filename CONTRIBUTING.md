@@ -18,7 +18,7 @@ Thank you for your interest in contributing to our documentation! This guide wil
 2. Install the Mintlify CLI: `npm i -g mint`
 3. Create a branch for your changes
 4. Make changes
-5. Navigate to the docs directory and run `mint dev`
+5. Run `mint dev`
 6. Preview your changes at `http://localhost:3000`
 7. Commit your changes and submit a pull request
 

@@ -1,0 +1,18 @@
+---
+title: SGLang Diffusion
+description: Score-based diffusion backbones in SGLang.
+---
+
+SGLang integrates score-based diffusion backbones that ship alongside the standard autoregressive suites, enabling structured text sampling workflows and high-performance diffusion model serving.
+
+## Supported Models
+
+Currently, SGLang supports a variety of diffusion-based language models. This section will be expanded as more models are validated and integrated into the core engine.
+
+### Using Diffusion Models
+
+To get started with diffusion models in SGLang, you can follow the same patterns as standard LLMs but with specific configuration for score-based generation.
+
+```bash
+python -m sglang.launch_server --model-path <path_to_diffusion_model>
+```

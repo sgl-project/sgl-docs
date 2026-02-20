@@ -38,7 +38,6 @@
             "group": "Get Started",
             "pages": [
               "index",
-              "docs/get-started/install",
               "docs/get-started/quickstart",
               "docs/get-started/installation"
             ]
@@ -46,6 +45,7 @@
           {
             "group": "Hardware Platforms",
             "pages": [
+              "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/amd-gpus",
               {
                 "group": "Ascend NPUs",

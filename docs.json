@@ -2,6 +2,12 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "aspen",
   "name": "SGLang Documentation",
+  "redirects": [
+    {
+      "source": "/docs/supported-models/diffusion-language-models",
+      "destination": "/docs/sglang-diffusion/index"
+    }
+  ],
   "colors": {
     "primary": "#d55816",
     "light": "#d55816",
@@ -88,10 +94,18 @@
               "docs/supported-models/classification-models"
             ]
           },
-          {
-            "group": "Specialized models",
-            "pages": ["docs/supported-models/reward-models"]
-          }
+            {
+              "group": "Specialized models",
+              "pages": [
+                "docs/supported-models/reward-models"
+              ]
+            }
+          ]
+      },
+      {
+        "tab": "SGLang Diffusion",
+        "pages": [
+          "docs/sglang-diffusion/index"
         ]
       },
       {

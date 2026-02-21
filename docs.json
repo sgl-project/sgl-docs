@@ -65,6 +65,12 @@
               "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/xpu"
             ]
+          },
+          {
+            "group": "Developer Guide",
+            "pages": [
+              "docs/developer-guide/using-docker"
+            ]
           }
         ]
       },

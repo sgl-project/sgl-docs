@@ -1,17 +1,15 @@
----
-title: Large Language Models
----
+# Large Language Models
 
 These models accept text input and produce text output (e.g., chat completions). They are primarily large language models (LLMs), some with mixture-of-experts (MoE) architectures for scaling.
 
-<RequestExample>
-    ```shell Launch Command
-    python3 -m sglang.launch_server \
-    --model-path meta-llama/Llama-3.2-1B-Instruct \  # example HF/local path
-    --host 0.0.0.0 \
-    --port 30000 \
-    ```
-</RequestExample>
+## Example launch Command
+
+```shell
+python3 -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.2-1B-Instruct \  # example HF/local path
+  --host 0.0.0.0 \
+  --port 30000 \
+```
 
 ## Supported models
 

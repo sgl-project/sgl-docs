@@ -115,7 +115,6 @@
             "group": "Hardware Platforms",
             "pages": [
               "docs/hardware-platforms/amd-gpus",
-              "docs/hardware-platforms/cpu-server",
               {
                 "group": "Ascend NPUs",
                 "pages": [
@@ -131,8 +130,9 @@
                   "docs/hardware-platforms/ascend-npus/Support Models on Ascend NPU"
                 ]
               },
-              "docs/hardware-platforms/tpu",
+              "docs/hardware-platforms/cpu-server",
               "docs/hardware-platforms/nvidia",
+              "docs/hardware-platforms/tpu",
               "docs/hardware-platforms/xpu"
             ]
           },
@@ -199,7 +199,9 @@
           },
           {
             "group": "Specialized models",
-            "pages": ["docs/supported-models/reward-models"]
+            "pages": [
+              "docs/supported-models/reward-models"
+            ]
           }
         ]
       },
@@ -253,7 +255,9 @@
               },
               {
                 "group": "OpenAI",
-                "pages": ["cookbook/autoregressive/OpenAI/GPT-OSS"]
+                "pages": [
+                  "cookbook/autoregressive/OpenAI/GPT-OSS"
+                ]
               },
               {
                 "group": "Moonshotai",
@@ -264,11 +268,15 @@
               },
               {
                 "group": "MiniMax",
-                "pages": ["cookbook/autoregressive/MiniMax/MiniMax-M2"]
+                "pages": [
+                  "cookbook/autoregressive/MiniMax/MiniMax-M2"
+                ]
               },
               {
                 "group": "NVIDIA",
-                "pages": ["cookbook/autoregressive/NVIDIA/Nemotron3-Nano"]
+                "pages": [
+                  "cookbook/autoregressive/NVIDIA/Nemotron3-Nano"
+                ]
               },
               {
                 "group": "Ernie",
@@ -279,15 +287,21 @@
               },
               {
                 "group": "InternVL",
-                "pages": ["cookbook/autoregressive/InternVL/InternVL3.5"]
+                "pages": [
+                  "cookbook/autoregressive/InternVL/InternVL3.5"
+                ]
               },
               {
                 "group": "InternLM",
-                "pages": ["cookbook/autoregressive/InternLM/Intern-S1"]
+                "pages": [
+                  "cookbook/autoregressive/InternLM/Intern-S1"
+                ]
               },
               {
                 "group": "Jina AI",
-                "pages": ["cookbook/autoregressive/Jina/Jina-reranker-m0"]
+                "pages": [
+                  "cookbook/autoregressive/Jina/Jina-reranker-m0"
+                ]
               },
               {
                 "group": "Mistral",
@@ -298,11 +312,15 @@
               },
               {
                 "group": "Xiaomi",
-                "pages": ["cookbook/autoregressive/Xiaomi/MiMo-V2-Flash"]
+                "pages": [
+                  "cookbook/autoregressive/Xiaomi/MiMo-V2-Flash"
+                ]
               },
               {
                 "group": "FlashLabs",
-                "pages": ["cookbook/autoregressive/FlashLabs/Chroma1.0"]
+                "pages": [
+                  "cookbook/autoregressive/FlashLabs/Chroma1.0"
+                ]
               }
             ]
           },
@@ -311,7 +329,9 @@
             "pages": [
               {
                 "group": "FLUX",
-                "pages": ["cookbook/diffusion/FLUX/FLUX"]
+                "pages": [
+                  "cookbook/diffusion/FLUX/FLUX"
+                ]
               },
               {
                 "group": "Wan",
@@ -329,7 +349,9 @@
               },
               {
                 "group": "Z-Image",
-                "pages": ["cookbook/diffusion/Z-Image/Z-Image-Turbo"]
+                "pages": [
+                  "cookbook/diffusion/Z-Image/Z-Image-Turbo"
+                ]
               }
             ]
           },
@@ -349,7 +371,9 @@
           },
           {
             "group": "Reference",
-            "pages": ["cookbook/base/reference/server_arguments"]
+            "pages": [
+              "cookbook/base/reference/server_arguments"
+            ]
           }
         ]
       }

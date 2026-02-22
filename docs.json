@@ -43,6 +43,75 @@
             ]
           },
           {
+            "group": "Basic Usage",
+            "pages": [
+              "docs/basic_usage/send_request",
+              {
+                "group": "OpenAI-Compatible APIs",
+                "pages": [
+                  "docs/basic_usage/openai_api_completions",
+                  "docs/basic_usage/openai_api_vision",
+                  "docs/basic_usage/openai_api_embeddings"
+                ]
+              },
+              "docs/basic_usage/ollama_api",
+              "docs/basic_usage/offline_engine_api",
+              "docs/basic_usage/native_api",
+              "docs/basic_usage/sampling_params",
+              {
+                "group": "Popular Model Usage",
+                "pages": [
+                  "docs/basic_usage/deepseek_v3",
+                  "docs/basic_usage/deepseek_v32",
+                  "docs/basic_usage/glm45",
+                  "docs/basic_usage/glmv",
+                  "docs/basic_usage/gpt_oss",
+                  "docs/basic_usage/kimi_k2_5",
+                  "docs/basic_usage/minimax_m2",
+                  "docs/basic_usage/qwen3",
+                  "docs/basic_usage/qwen3_vl",
+                  "docs/basic_usage/llama4"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Advanced Features",
+            "pages": [
+              "docs/advanced_features/server_arguments",
+              "docs/advanced_features/hyperparameter_tuning",
+              "docs/advanced_features/attention_backend",
+              "docs/advanced_features/speculative_decoding",
+              "docs/advanced_features/structured_outputs",
+              "docs/advanced_features/structured_outputs_for_reasoning_models",
+              "docs/advanced_features/tool_parser",
+              "docs/advanced_features/separate_reasoning",
+              "docs/advanced_features/quantization",
+              "docs/advanced_features/quantized_kv_cache",
+              "docs/advanced_features/expert_parallelism",
+              "docs/advanced_features/lora",
+              "docs/advanced_features/pd_disaggregation",
+              "docs/advanced_features/epd_disaggregation",
+              "docs/advanced_features/pipeline_parallelism",
+              {
+                "group": "Hierarchical KV Caching (HiCache)",
+                "pages": [
+                  "docs/advanced_features/hicache_best_practices",
+                  "docs/advanced_features/hicache_design",
+                  "docs/advanced_features/hicache_storage_runtime_attach_detach"
+                ]
+              },
+              "docs/advanced_features/vlm_query",
+              "docs/advanced_features/dp_for_multi_modal_encoder",
+              "docs/advanced_features/cuda_graph_for_multi_modal_encoder",
+              "docs/advanced_features/sgl_model_gateway",
+              "docs/advanced_features/deterministic_inference",
+              "docs/advanced_features/observability",
+              "docs/advanced_features/checkpoint_engine",
+              "docs/advanced_features/sglang_for_rl"
+            ]
+          },
+          {
             "group": "Hardware Platforms",
             "pages": [
               "docs/hardware-platforms/amd-gpus",
@@ -64,6 +133,45 @@
               "docs/hardware-platforms/tpu",
               "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/xpu"
+            ]
+          },
+          {
+            "group": "Developer Guide",
+            "pages": [
+              "docs/developer_guide/contribution_guide",
+              "docs/developer_guide/development_guide_using_docker",
+              "docs/developer_guide/JIT_kernels",
+              "docs/developer_guide/benchmark_and_profiling",
+              "docs/developer_guide/bench_serving",
+              "docs/developer_guide/evaluating_new_models"
+            ]
+          },
+          {
+            "group": "References",
+            "pages": [
+              "docs/references/faq",
+              "docs/references/environment_variables",
+              "docs/references/production_metrics",
+              "docs/references/production_request_trace",
+              {
+                "group": "Multi-Node Deployment",
+                "pages": [
+                  "docs/references/multi_node_deployment/multi_node",
+                  "docs/references/multi_node_deployment/deploy_on_k8s",
+                  "docs/references/multi_node_deployment/lws_pd/lws_pd_deploy",
+                  "docs/references/multi_node_deployment/rbg_pd/deepseekv32_pd"
+                ]
+              },
+              "docs/references/custom_chat_template",
+              {
+                "group": "Frontend Language",
+                "pages": [
+                  "docs/references/frontend/frontend_tutorial",
+                  "docs/references/frontend/choices_methods"
+                ]
+              },
+              "docs/references/post_training_integration",
+              "docs/references/learn_more"
             ]
           }
         ]

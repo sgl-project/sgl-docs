@@ -10,7 +10,7 @@ Quantized KV cache is a memory optimization technique that primarily benefits th
 <Warning>
 **Performance Warning**: When quantized KV cache must be dequantized before use in attention operations, performance can be extremely slow if dequantization is not fused with the attention kernel. Always verify that your chosen attention backend supports quantized KV cache. Backends without fused support may experience significant throughput degradation, potentially negating the memory benefits.
 
-**Backend Support**: Not all attention backends support quantized KV cache. Refer to [Attention Backend](attention_backend) for which backends support it.
+**Backend Support**: Not all attention backends support quantized KV cache. Refer to [Attention Backend](./attention_backend) for which backends support it.
 </Warning>
 
 ## Supported Formats
@@ -250,7 +250,7 @@ Evaluate FP4 accuracy on your specific model and workload. Large models on simpl
 
 <Note>
 See also:
-- [Quantization](quantization)
-- [Attention Backend](attention_backend)
-- [Server Arguments](server_arguments)
+- [Quantization](./quantization)
+- [Attention Backend](./attention_backend)
+- [Server Arguments](./server_arguments)
 </Note>

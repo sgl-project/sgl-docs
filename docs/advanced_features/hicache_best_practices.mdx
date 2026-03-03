@@ -24,7 +24,7 @@ SGLang HiCache extends the traditional RadixAttention with a three-tier hierarch
 
 Notes:
 
-- Besides configuring `--hicache-storage-backend` at startup, SGLang also supports **runtime attach/detach** of the HiCache storage backend (no restart required) via HTTP admin endpoints. See [Runtime Attach/Detach HiCache Storage Backend](hicache_storage_runtime_attach_detach).
+- Besides configuring `--hicache-storage-backend` at startup, SGLang also supports **runtime attach/detach** of the HiCache storage backend (no restart required) via HTTP admin endpoints. See [Runtime Attach/Detach HiCache Storage Backend](./hicache_storage_runtime_attach_detach).
 
 ## Key Configurations with Storage Backends Enabled
 
@@ -108,7 +108,7 @@ python3 -m sglang.launch_server \
 
 ### Deployment with HF3FS
 
-Here is an example of deploying DeepSeek-R1 with HiCache-HF3FS. For more details, see the [HF3FS Documentation](../../python/sglang/srt/mem_cache/storage/hf3fs/docs/README).
+Here is an example of deploying DeepSeek-R1 with HiCache-HF3FS. For more details, see the [HF3FS Documentation](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/mem_cache/storage/hf3fs/docs).
 
 ```bash Command
 python3 -m sglang.launch_server \
@@ -133,7 +133,7 @@ python3 -m sglang.launch_server \
 
 ### Deployment with Mooncake
 
-Here is an example of deploying Qwen3-235B-A22B-Instruct-2507 with Mooncake. For more details, see the [Mooncake Documentation](../../python/sglang/srt/mem_cache/storage/mooncake_store/README).
+Here is an example of deploying Qwen3-235B-A22B-Instruct-2507 with Mooncake. For more details, see the [Mooncake Documentation](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/mem_cache/storage/mooncake_store).
 
 ```bash Command
 # Set Mooncake environment variables
@@ -167,7 +167,7 @@ To integrate a new storage backend:
    - `exists(key)`: Check key existence
    - `set(key, value)`: Store key-value pair
 
-2. **Register your backend:** Add your storage backend to the HiCache [BackendFactory](../../python/sglang/srt/mem_cache/storage/backend_factory.py#L188)
+2. **Register your backend:** Add your storage backend to the HiCache [BackendFactory](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/mem_cache/storage/backend_factory.py#L188)
 
 The HiCache controller handles all scheduling and synchronization automatically.
 

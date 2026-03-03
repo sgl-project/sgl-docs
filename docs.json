@@ -217,18 +217,13 @@
         ]
       },
       {
-        "tab": "SGLang Diffusion",
-        "pages": [
-          "docs/sglang-diffusion/index"
-        ]
-      },
-      {
         "tab": "Cookbook",
         "pages": [
           "cookbook/intro",
           {
             "group": "Autoregressive Models",
             "pages": [
+              "cookbook/autoregressive/intro",
               {
                 "group": "Qwen",
                 "pages": [
@@ -365,6 +360,7 @@
           {
             "group": "Diffusion Models",
             "pages": [
+              "cookbook/diffusion/intro",
               {
                 "group": "FLUX",
                 "pages": [

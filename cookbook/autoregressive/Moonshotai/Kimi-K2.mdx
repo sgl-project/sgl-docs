@@ -52,7 +52,7 @@ See [Basic API Usage](https://docs.sglang.ai/get_started/quick_start.html).
 
 Enable reasoning parser for Kimi-K2-Thinking:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model moonshotai/Kimi-K2-Thinking \
   --reasoning-parser kimi_k2 \
@@ -63,7 +63,7 @@ python -m sglang.launch_server \
 
 **Example:**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -112,7 +112,7 @@ print()
 
 **Output Example:**
 
-```text
+```text Output
 =============== Thinking =================
   The user asks: "What is 15% of 240?" This is a straightforward percentage calculation problem. I need to solve it step by step.
 
@@ -173,7 +173,7 @@ Kimi-K2-Instruct and Kimi-K2-Thinking support tool calling capabilities. Enable 
 
 **Deployment Command:**
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model moonshotai/Kimi-K2-Instruct \
   --tool-call-parser kimi_k2 \
@@ -185,7 +185,7 @@ python -m sglang.launch_server \
 
 **Python Example (with Thinking Process):**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -282,7 +282,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
   The user is asking about the weather in Beijing. I need to use the get_weather function to retrieve this information. Beijing is a major city in China, so I should be able to get weather data for it. The location parameter is required, but the unit parameter is optional. Since the user didn't specify a temperature unit, I can just provide the location and let the function use its default. I'll check the weather in Beijing for you.
 =============== Content =================
@@ -299,7 +299,7 @@ print()
 
 **Handling Tool Call Results:**
 
-```python
+```python Example
 # After getting the tool call, execute the function
 def get_weather(location, unit="celsius"):
     # Your actual weather API call here
@@ -353,7 +353,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation on 
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
     --model-path moonshotai/Kimi-K2-Instruct \
     --tp 8 \
@@ -366,7 +366,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -378,7 +378,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results**:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -421,7 +421,7 @@ Max ITL (ms):                            19.94
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
     --model-path moonshotai/Kimi-K2-Instruct \
     --tp 8 \
@@ -435,7 +435,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -447,7 +447,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results**:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -492,7 +492,7 @@ Max ITL (ms):                            1703.21
 
 - Server Command
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
     --model-path moonshotai/Kimi-K2-Instruct \
     --tp 8 \
@@ -504,13 +504,13 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command
 
-```shell
+```shell Command
 python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 ```
 
 - **Result**:
 
-```
+```text Output
 Accuracy: 0.960
 Invalid: 0.000
 Latency: 15.956 s

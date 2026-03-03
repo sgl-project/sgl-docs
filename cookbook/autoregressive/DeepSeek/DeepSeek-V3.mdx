@@ -51,7 +51,7 @@ For basic API usage and request examples, please refer to:
 
 DeepSeek-V3 supports reasoning mode. Enable the reasoning parser during deployment to separate the thinking and content sections:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model deepseek-ai/DeepSeek-V3 \
   --reasoning-parser deepseek-v3 \
@@ -60,7 +60,7 @@ python -m sglang.launch_server \
 
 **Streaming with Thinking Process:**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -110,7 +110,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 To determine 15% of a number, follow these steps:
 
@@ -148,7 +148,7 @@ DeepSeek-V3 supports tool calling capabilities. Enable the tool call parser:
 
 **Deployment Command:**
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model deepseek-ai/DeepSeek-V3 \
   --tool-call-parser deepseekv3 \
@@ -162,7 +162,7 @@ python -m sglang.launch_server \
 
 **Python Example (with Thinking Process):**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -260,7 +260,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 <｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>get_weather
 ```json
@@ -278,7 +278,7 @@ print()
 
 Please attach the code blocks below to the previous Python script.
 
-```python
+```python Example
 # After getting the tool call, execute the function
 def get_weather(location, unit="celsius"):
     # Your actual weather API call here
@@ -333,7 +333,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation on 
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3 \
   --tp 8 \
@@ -349,7 +349,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -363,7 +363,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -407,7 +407,7 @@ Max ITL (ms):                            61.49
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3 \
   --tp 8 \
@@ -420,7 +420,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -434,7 +434,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -479,13 +479,13 @@ Max ITL (ms):                            43465.60
 
 - **Benchmark Command:**
 
-```shell
+```shell Command
 python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 ```
 
 - **Test Results**:
   - DeepSeek-V3
-    ```
+    ```text Output
     Accuracy: 0.960
     Invalid: 0.000
     Latency: 32.450 s
@@ -496,7 +496,7 @@ python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 
 - **Benchmark Command:**
 
-```shell
+```shell Command
 cd sglang
 bash benchmark/mmlu/download_data.sh
 python3 benchmark/mmlu/bench_sglang.py --nsub 10 --port 8000
@@ -504,7 +504,7 @@ python3 benchmark/mmlu/bench_sglang.py --nsub 10 --port 8000
 
 - **Test Results**:
   - DeepSeek-V3
-    ```
+    ```text Output
     subject: abstract_algebra, #q:100, acc: 0.800
     subject: anatomy, #q:135, acc: 0.874
     subject: astronomy, #q:152, acc: 0.928

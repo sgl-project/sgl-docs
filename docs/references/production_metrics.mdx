@@ -9,7 +9,7 @@ An example of the monitoring dashboard is available in [examples/monitoring/graf
 
 Here is an example of the metrics:
 
-```
+```text Output
 $ curl http://localhost:30000/metrics
 # HELP sglang:prompt_tokens_total Number of prefill tokens processed.
 # TYPE sglang:prompt_tokens_total counter
@@ -141,7 +141,7 @@ This section describes how to set up the monitoring stack (Prometheus + Grafana)
 
 1.  **Start your SGLang server with metrics enabled:**
 
-    ```bash
+    ```bash Command
     python -m sglang.launch_server \
       --model-path <your_model_path> \
       --port 30000 \
@@ -150,12 +150,12 @@ This section describes how to set up the monitoring stack (Prometheus + Grafana)
     Replace `<your_model_path>` with the actual path to your model (e.g., `meta-llama/Meta-Llama-3.1-8B-Instruct`). Ensure the server is accessible from the monitoring stack (you might need `--host 0.0.0.0` if running in Docker). By default, the metrics endpoint will be available at `http://<sglang_server_host>:30000/metrics`.
 
 2.  **Navigate to the monitoring example directory:**
-    ```bash
+    ```bash Command
     cd examples/monitoring
     ```
 
 3.  **Start the monitoring stack:**
-    ```bash
+    ```bash Command
     docker compose up -d
     ```
     This command will start Prometheus and Grafana in the background.
@@ -179,13 +179,13 @@ This section describes how to set up the monitoring stack (Prometheus + Grafana)
 To modify Grafana's port to the other one(like 3090) in your Docker Compose file, you need to explicitly specify the port mapping under the grafana service.
 
     Option 1: Add GF_SERVER_HTTP_PORT to the environment section:
-    ```
+    ```text Output
       environment:
     - GF_AUTH_ANONYMOUS_ENABLED=true
     - GF_SERVER_HTTP_PORT=3090  # <-- Add this line
     ```
     Option 2: Use port mapping:
-    ```
+    ```text Output
     grafana:
       image: grafana/grafana:latest
       container_name: grafana
@@ -198,7 +198,7 @@ To modify Grafana's port to the other one(like 3090) in your Docker Compose file
     *   Confirm that your SGLang server is running and the metrics endpoint (`http://<sglang_server_host>:30000/metrics`) is accessible *from the Prometheus container*. If SGLang is running on your host machine and Prometheus is in Docker, use `host.docker.internal` (on Docker Desktop) or your machine's network IP instead of `localhost` in the `prometheus.yaml` scrape configuration.
 *   **No Data on Dashboard:**
     *   Generate some traffic to your SGLang server to produce metrics. For example, run a benchmark:
-        ```bash
+        ```bash Command
         python3 -m sglang.bench_serving --backend sglang --dataset-name random --num-prompts 100 --random-input 128 --random-output 128
         ```
     *   Check the Prometheus UI (`http://localhost:9090`) under `Status` -> `Targets` to see if the SGLang endpoint is being scraped successfully.
@@ -219,7 +219,7 @@ You can customize the setup by modifying these files. For instance, you might ne
 #### Check if the metrics are being collected
 
 Run:
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --dataset-name random \

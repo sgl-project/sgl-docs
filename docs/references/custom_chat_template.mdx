@@ -10,7 +10,7 @@ It should just work for most official models such as Llama-2/Llama-3.
 
 If needed, you can also override the chat template when launching the server:
 
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-2-7b-chat-hf \
   --port 30000 \
@@ -23,7 +23,7 @@ If the chat template you are looking for is missing, you are welcome to contribu
 
 You can load the JSON format, which is defined by `conversation.py`.
 
-```json
+```json Config
 {
   "name": "my_model",
   "system": "<|im_start|>system",
@@ -35,7 +35,7 @@ You can load the JSON format, which is defined by `conversation.py`.
 }
 ```
 
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-2-7b-chat-hf \
   --port 30000 \
@@ -46,7 +46,7 @@ python -m sglang.launch_server \
 
 You can also use the [Jinja template format](https://huggingface.co/docs/transformers/main/en/chat_templating) as defined by Hugging Face Transformers.
 
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-2-7b-chat-hf \
   --port 30000 \

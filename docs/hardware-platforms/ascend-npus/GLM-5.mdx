@@ -15,7 +15,7 @@ The GLM (General Language Model) series is an open-source bilingual large langua
 
 The dependencies required for the NPU runtime environment have been integrated into a Docker image and uploaded to the quay.io platform. You can directly pull it.
 
-```{code-block} bash
+```bash Command
 #Atlas 800 A3
 docker pull swr.cn-southwest-2.myhuaweicloud.com/base_image/dockerhub/lmsysorg/sglang:cann8.5.0-a3-glm5
 #Atlas 800 A2
@@ -52,7 +52,7 @@ swr.cn-southwest-2.myhuaweicloud.com/base_image/dockerhub/lmsysorg/sglang:${TAG}
 ```
 
 Note: Using this image, you need to update transformers to main branch
-``` shell
+```shell Command
 # reinstall transformers
 pip install git+https://github.com/huggingface/transformers.git
 ```
@@ -65,7 +65,7 @@ pip install git+https://github.com/huggingface/transformers.git
 
 Run the following script to execute online inference.
 
-```shell
+```shell Command
 # high performance cpu
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
@@ -119,7 +119,7 @@ Modify the IP of 2 nodes, then run the same scripts on two nodes.
 
 **node 0/1**
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0

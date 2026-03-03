@@ -14,7 +14,7 @@ This notebook provides a quick-start guide to use SGLang in chat completions aft
 
 
 
-```python
+```python Example
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
@@ -36,7 +36,7 @@ wait_for_server(f"http://localhost:{port}")
 
 
 
-```python
+```python Example
 import subprocess, json
 
 curl_command = f"""
@@ -53,7 +53,7 @@ print_highlight(response)
 
 
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:{port}/v1/chat/completions"
@@ -71,7 +71,7 @@ print_highlight(response.json())
 
 
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
@@ -91,7 +91,7 @@ print_highlight(response)
 
 
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
@@ -119,7 +119,7 @@ You can also use the native `/generate` endpoint with requests, which provides m
 
 
 
-```python
+```python Example
 import requests
 
 response = requests.post(
@@ -139,7 +139,7 @@ print_highlight(response.json())
 
 
 
-```python
+```python Example
 import requests, json
 
 response = requests.post(
@@ -167,7 +167,7 @@ for chunk in response.iter_lines(decode_unicode=False):
         prev = len(output)
 ```
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 

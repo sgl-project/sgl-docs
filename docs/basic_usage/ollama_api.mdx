@@ -7,7 +7,7 @@ SGLang provides Ollama API compatibility, allowing you to use the Ollama CLI and
 
 ## Prerequisites
 
-```bash
+```bash Command
 # Install the Ollama Python library (for Python client usage)
 pip install ollama
 ```
@@ -16,19 +16,53 @@ pip install ollama
 
 ## Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET, HEAD | Health check for Ollama CLI |
-| `/api/tags` | GET | List available models |
-| `/api/chat` | POST | Chat completions (streaming & non-streaming) |
-| `/api/generate` | POST | Text generation (streaming & non-streaming) |
-| `/api/show` | POST | Model information |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "34%"}} />
+    <col style={{width: "33%"}} />
+    <col style={{width: "33%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Endpoint</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Method</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`/`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>GET, HEAD</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Health check for Ollama CLI</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`/api/tags`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>GET</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>List available models</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`/api/chat`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>POST</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Chat completions (streaming & non-streaming)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`/api/generate`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>POST</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Text generation (streaming & non-streaming)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`/api/show`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>POST</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Model information</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Quick Start
 
 ### 1. Launch SGLang Server
 
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model Qwen/Qwen2.5-1.5B-Instruct \
     --port 30001 \
@@ -39,7 +73,7 @@ python -m sglang.launch_server \
 
 ### 2. Use Ollama CLI
 
-```bash
+```bash Command
 # List available models
 OLLAMA_HOST=http://localhost:30001 ollama list
 
@@ -49,7 +83,7 @@ OLLAMA_HOST=http://localhost:30001 ollama run "Qwen/Qwen2.5-1.5B-Instruct"
 
 If connecting to a remote server behind a firewall:
 
-```bash
+```bash Command
 # SSH tunnel
 ssh -L 30001:localhost:30001 user@gpu-server -N &
 
@@ -59,7 +93,7 @@ OLLAMA_HOST=http://localhost:30001 ollama list
 
 ### 3. Use Ollama Python Library
 
-```python
+```python Example
 import ollama
 
 client = ollama.Client(host='http://localhost:30001')
@@ -87,8 +121,29 @@ For intelligent routing between local Ollama (fast) and remote SGLang (powerful)
 
 ## Summary
 
-| Component | Purpose |
-|-----------|---------|
-| **Ollama API** | Familiar CLI/API that developers already know |
-| **SGLang Backend** | High-performance inference engine |
-| **Smart Router** | Intelligent routing - fast local for simple tasks, powerful remote for complex tasks |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Component</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**Ollama API**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Familiar CLI/API that developers already know</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**SGLang Backend**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>High-performance inference engine</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**Smart Router**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Intelligent routing - fast local for simple tasks, powerful remote for complex tasks</td>
+    </tr>
+  </tbody>
+</table>

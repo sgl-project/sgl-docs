@@ -33,11 +33,11 @@ If `--base-url` is provided, requests are sent to it. Otherwise, `--host` and `-
 
 Run a basic benchmark against an sglang server exposing `/generate`:
 
-```bash
+```bash Command
 python3 -m sglang.launch_server --model-path meta-llama/Llama-3.1-8B-Instruct
 ```
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -47,7 +47,7 @@ python3 -m sglang.bench_serving \
 
 Or, using an OpenAI-compatible endpoint (completions):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend vllm \
   --base-url http://127.0.0.1:8000 \
@@ -94,11 +94,11 @@ Image dataset flags (for `image`):
 
 1. To benchmark image dataset with 3 images per request, 500 prompts, 512 input length, and 512 output length, you can run:
 
-```bash
+```bash Command
 python -m sglang.launch_server --model-path Qwen/Qwen2.5-VL-3B-Instruct --disable-radix-cache
 ```
 
-```bash
+```bash Command
 python -m sglang.bench_serving \
     --backend sglang-oai-chat \
     --dataset-name image \
@@ -111,11 +111,11 @@ python -m sglang.bench_serving \
 
 2. To benchmark random dataset with 3000 prompts, 1024 input length, and 1024 output length, you can run:
 
-```bash
+```bash Command
 python -m sglang.launch_server --model-path Qwen/Qwen2.5-3B-Instruct
 ```
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
     --backend sglang \
     --dataset-name random \
@@ -154,7 +154,7 @@ python3 -m sglang.bench_serving \
 
 If your target endpoint requires OpenAI-style auth, set:
 
-```bash
+```bash Command
 export OPENAI_API_KEY=sk-...yourkey...
 ```
 
@@ -197,7 +197,7 @@ With `--output-details`, an extended object also includes arrays:
 
 1) sglang native `/generate` (streaming):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -212,7 +212,7 @@ python3 -m sglang.bench_serving \
 
 2) OpenAI-compatible Completions (e.g., vLLM):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend vllm \
   --base-url http://127.0.0.1:8000 \
@@ -224,7 +224,7 @@ python3 -m sglang.bench_serving \
 
 3) OpenAI-compatible Chat Completions (streaming):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend vllm-chat \
   --base-url http://127.0.0.1:8000 \
@@ -236,7 +236,7 @@ python3 -m sglang.bench_serving \
 
 4) Images (VLM) with chat template:
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -251,7 +251,7 @@ python3 -m sglang.bench_serving \
 
 4a) Images with custom resolution:
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -266,7 +266,7 @@ python3 -m sglang.bench_serving \
 
 4b) 1080p images with PNG format and blank content:
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -283,7 +283,7 @@ python3 -m sglang.bench_serving \
 
 5) Generated shared prefix (long system prompts + short questions):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -296,7 +296,7 @@ python3 -m sglang.bench_serving \
 
 6) Tokenized prompts (ids) for strict length control (sglang only):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -308,7 +308,7 @@ python3 -m sglang.bench_serving \
 
 7) Profiling and cache flush (sglang):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -319,7 +319,7 @@ python3 -m sglang.bench_serving \
 
 8) TensorRT-LLM streaming endpoint:
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend trt \
   --base-url http://127.0.0.1:8000 \
@@ -331,7 +331,7 @@ python3 -m sglang.bench_serving \
 
 9) Evaluating large-scale KVCache sharing with mooncake trace (sglang only):
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \

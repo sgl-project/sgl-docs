@@ -31,7 +31,7 @@ In this section, we’ll make some simple modifications to adapt the setup to th
 
 * Check your env:
 
-```bash
+```bash Command
 [root@node1 ~]# ibstatus
 Infiniband device 'mlx5_bond_0' port 1 status:
         default gid:     fe80:0000:0000:0000:0225:9dff:fe64:c79a
@@ -72,7 +72,7 @@ Infiniband device 'mlx5_bond_3' port 1 status:
 
 * Prepare the `lws.yaml` file for deploying on k8s.
 
-```yaml
+```yaml Config
 apiVersion: leaderworkerset.x-k8s.io/v1
 kind: LeaderWorkerSet
 metadata:
@@ -222,7 +222,7 @@ spec:
 
 * Then use  `kubectl apply -f lws.yaml` you will get this output.
 
-```text
+```text Output
 NAME           READY   STATUS    RESTARTS       AGE
 sglang-0       0/1     Running   0              9s
 sglang-0-1     1/1     Running   0              9s
@@ -234,7 +234,7 @@ You can use the command `kubectl logs -f sglang-0` to view the logs of the leade
 
 Once successful, you should see output like this:
 
-```text
+```text Output
 [2025-02-17 05:27:24 TP1] Capture cuda graph end. Time elapsed: 84.89 s
 [2025-02-17 05:27:24 TP6] max_total_num_tokens=712400, chunked_prefill_size=8192, max_prefill_tokens=16384, max_running_requests=50, context_len=163840
 [2025-02-17 05:27:24 TP0] max_total_num_tokens=712400, chunked_prefill_size=8192, max_prefill_tokens=16384, max_running_requests=50, context_len=163840
@@ -270,7 +270,7 @@ This should resolve most NCCL-related issues.
 * Please make sure that the nodes in the cluster have Mellanox NICs with RoCE. In this example, we use Mellanox ConnectX 5 model NICs, and the proper OFED driver has been installed. If not, please refer to the document [Install OFED Driver](https://docs.nvidia.com/networking/display/mlnxofedv461000/installing+mellanox+ofed) to install the driver.
 * Check your env:
 
-  ```shell
+  ```shell Command
   $ lspci -nn | grep Eth | grep Mellanox
   0000:7f:00.0 Ethernet controller [0200]: Mellanox Technologies MT43244 BlueField-3 integrated ConnectX-7 network controller [15b3:a2dc] (rev 01)
   0000:7f:00.1 Ethernet controller [0200]: Mellanox Technologies MT43244 BlueField-3 integrated ConnectX-7 network controller [15b3:a2dc] (rev 01)
@@ -284,14 +284,14 @@ This should resolve most NCCL-related issues.
 
 * Check the OFED driver:
 
-  ```shell
+  ```shell Command
   ofed_info -s
   OFED-internal-23.07-0.5.0:
   ```
 
 * Show RDMA link status and check IB devices:
 
-  ```shell
+  ```shell Command
   $ rdma link show
   8/1: mlx5_bond_0/1: state ACTIVE physical_state LINK_UP netdev reth0
   9/1: mlx5_bond_1/1: state ACTIVE physical_state LINK_UP netdev reth2
@@ -307,7 +307,7 @@ This should resolve most NCCL-related issues.
 
 * Test RoCE network speed on the host:
 
-  ```shell
+  ```shell Command
   yum install qperf
   # for server：
   execute qperf
@@ -317,7 +317,7 @@ This should resolve most NCCL-related issues.
 
 * Check RDMA accessible in your container:
 
-  ```shell
+  ```shell Command
   # ibv_devices
   # ibv_devinfo
   ```

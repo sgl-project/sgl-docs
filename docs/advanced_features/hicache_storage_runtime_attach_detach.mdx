@@ -73,13 +73,13 @@ The examples below assume your SGLang HTTP server is at `http://127.0.0.1:30000`
 
 ### 3.1 Query current storage backend status
 
-```bash
+```bash Command
 curl -s http://127.0.0.1:30000/hicache/storage-backend
 ```
 
 Example response:
 
-```json
+```json Config
 {
   "hicache_storage_backend": "mooncake",
   "hicache_storage_backend_extra_config": "{\"master_server_address\":\"127.0.0.1:50051\", ...}"
@@ -87,7 +87,7 @@ Example response:
 ```
 
 ### 3.2 Attach (enable) a storage backend
-```bash
+```bash Command
 curl -s -X PUT http://127.0.0.1:30000/hicache/storage-backend \
   -H 'Content-Type: application/json' \
   -d '{
@@ -95,7 +95,7 @@ curl -s -X PUT http://127.0.0.1:30000/hicache/storage-backend \
   }'
 ```
 
-```bash
+```bash Command
 curl -s -X PUT http://127.0.0.1:30000/hicache/storage-backend \
   -H 'Content-Type: application/json' \
   -d '{
@@ -113,7 +113,7 @@ Notes:
 
 ### 3.3 Detach (disable) the storage backend
 
-```bash
+```bash Command
 curl -s -X DELETE http://127.0.0.1:30000/hicache/storage-backend
 ```
 

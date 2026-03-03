@@ -40,7 +40,7 @@ The examples below demonstrate all three approaches with both Qwen2.5-VL and Lla
 
 
 
-```python
+```python Example
 import nest_asyncio
 
 nest_asyncio.apply()
@@ -50,7 +50,7 @@ chat_template = "qwen2-vl"
 ```
 
 
-```python
+```python Example
 from io import BytesIO
 import requests
 from PIL import Image
@@ -80,7 +80,7 @@ image
 
 
 
-```python
+```python Example
 from sglang import Engine
 
 
@@ -88,7 +88,7 @@ llm = Engine(model_path=model_path, chat_template=chat_template, log_level="warn
 ```
 
 
-```python
+```python Example
 out = llm.generate(prompt=conv.get_prompt(), image_data=[image])
 print("Model response:")
 print(out["text"])
@@ -100,7 +100,7 @@ Using a HuggingFace processor to preprocess text and images, and passing the `pr
 
 
 
-```python
+```python Example
 from transformers import AutoProcessor
 
 processor = AutoProcessor.from_pretrained(model_path, use_fast=True)
@@ -122,7 +122,7 @@ You can pre-calculate image features to avoid repeated visual encoding processes
 
 
 
-```python
+```python Example
 from transformers import AutoProcessor
 from transformers import Qwen2_5_VLForConditionalGeneration
 
@@ -133,7 +133,7 @@ vision = (
 ```
 
 
-```python
+```python Example
 processor_output = processor(
     images=[image], text=conv.get_prompt(), return_tensors="pt"
 )
@@ -159,7 +159,7 @@ llm.shutdown()
 
 ## Querying Llama 4 Vision Model
 
-```python
+```python Example
 model_path = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
 chat_template = "llama-4"
 
@@ -195,7 +195,7 @@ image
 
 Llama 4 requires more computational resources, so it's configured with multi-GPU parallelism (tp_size=4) and larger context length.
 
-```python
+```python Example
 llm = Engine(
     model_path=model_path,
     enable_multimodal=True,
@@ -214,7 +214,7 @@ print(out["text"])
 
 Using HuggingFace processor to preprocess data can reduce computational overhead during inference.
 
-```python
+```python Example
 from transformers import AutoProcessor
 
 processor = AutoProcessor.from_pretrained(model_path, use_fast=True)
@@ -233,7 +233,7 @@ print(out)
 
 ### Call with Precomputed Embeddings
 
-```python
+```python Example
 from transformers import AutoProcessor
 from transformers import Llama4ForConditionalGeneration
 

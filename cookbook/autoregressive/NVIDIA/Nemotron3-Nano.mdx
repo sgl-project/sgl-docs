@@ -23,7 +23,7 @@ At a high level:
 SGLang offers multiple installation methods. You can choose the most suitable installation method based on your hardware platform and requirements.
 
 For a quick start, please install the nightly wheel for SGLang:
-```bash
+```bash Command
 pip install sglang==0.5.6.post2.dev7852+g8102e36b5 --extra-index-url https://sgl-project.github.io/whl/nightly/
 ```
 ---
@@ -63,7 +63,7 @@ import { Nemotron3NanoDeployment } from "/src/snippets/autoregressive/nemotron3-
 
 SGLang provides an OpenAI-compatible endpoint. Example with the OpenAI Python client:
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -86,7 +86,7 @@ print(resp.choices[0].message.content)
 ```
 
 Streaming chat completion
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -113,7 +113,7 @@ for chunk in stream:
 ### 4.2 Reasoning
 To enable reasoning, `--reasoning-parser nano_v3` should be appended to the launching command. The model supports two modes - Reasoning ON (default) vs OFF. This can be toggled by setting enable_thinking to False, as shown below.
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -153,7 +153,7 @@ print(resp.choices[0].message.reasoning_content)
 ### 4.3 Tool calling
 To enable reasoning, `--tool-call-parser qwen3_coder` should be appended to the launching command. Call functions using the OpenAI Tools schema and inspect returned tool_calls.
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -216,7 +216,7 @@ print(completion.choices[0].message.tool_calls)
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-FP8 \
   --trust-remote-code \
@@ -227,7 +227,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -242,7 +242,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -285,7 +285,7 @@ Max ITL (ms):                            5368.19
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16 \
   --trust-remote-code \
@@ -296,7 +296,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -311,7 +311,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -360,7 +360,7 @@ Max ITL (ms):                            5237.28
 - Model: BF16 checkpoint
 
 **Launch Model**
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16 \
   --trust-remote-code \
@@ -368,16 +368,62 @@ python3 -m sglang.launch_server \
 ```
 
 **Run Benchmark with lm-eval**
-```bash
+```bash Command
 pip install lm-eval[api]==0.4.9.2
 
 lm_eval --model local-completions --tasks gsm8k --model_args "model=nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16,base_url=http://127.0.0.1:30000/v1/completions,num_concurrent=4,max_retries=3,tokenized_requests=False,max_lengths=16384" --gen_kwargs '{"chat_template_kwargs":{"thinking":true}}' --batch_size 256
 ```
 
 **Test Results:**
-```
-|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value |   |Stderr|
-|-----|------:|----------------|-----:|-----------|---|-----:|---|-----:|
-|gsm8k|      3|flexible-extract|     5|exact_match|↑  |0.5603|±  |0.0137|
-|     |       |strict-match    |     5|exact_match|↑  |0.8453|±  |0.0100|
+```text Output
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "12%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Tasks</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Version</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Filter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>n-shot</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Metric</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}></th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Value</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}></th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Stderr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>gsm8k</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>flexible-extract</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>5</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>exact_match</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>↑</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>0.5603</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>±</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>0.0137</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}></td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>strict-match</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>5</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>exact_match</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>↑</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>0.8453</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>±</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>0.0100</td>
+    </tr>
+  </tbody>
+</table>
 ```

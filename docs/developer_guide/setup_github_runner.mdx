@@ -10,7 +10,7 @@ metatags:
 **You can mount a folder for the shared huggingface model weights cache. **
 The command below uses `/tmp/huggingface` as an example.
 
-```
+```text Output
 docker pull nvidia/cuda:12.9.1-devel-ubuntu22.04
 # Nvidia
 docker run --shm-size 128g -it -v /tmp/huggingface:/hf_home --gpus all nvidia/cuda:12.9.1-devel-ubuntu22.04 /bin/bash
@@ -24,7 +24,7 @@ docker run --rm --device=/dev/kfd --device=/dev/dri/renderD176 --device=/dev/dri
 
 Run these commands inside the container.
 
-```
+```text Output
 apt update && apt install -y curl python3-pip git
 pip install --upgrade pip
 export RUNNER_ALLOW_RUNASROOT=1
@@ -40,7 +40,7 @@ Then follow https://github.com/sgl-project/sglang/settings/actions/runners/new?a
 ### Step 3: Run the runner by `run.sh`
 
 - Set up environment variables
-```
+```text Output
 export HF_HOME=/hf_home
 export SGLANG_IS_IN_CI=true
 export HF_TOKEN=hf_xxx
@@ -49,6 +49,6 @@ export CUDA_VISIBLE_DEVICES=0
 ```
 
 - Run it forever
-```
+```text Output
 while true; do ./run.sh; echo "Restarting..."; sleep 2; done
 ```

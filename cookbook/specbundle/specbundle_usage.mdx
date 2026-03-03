@@ -18,7 +18,7 @@ Speculative decoding, especially EAGLE3, offer strong theoretical guarantees alo
 
 ## Installation
 
-```bash
+```bash Command
 git clone https://github.com/sgl-project/SpecForge.git
 ```
 
@@ -28,7 +28,7 @@ git clone https://github.com/sgl-project/SpecForge.git
 
 You can use the following command to launch the SGLang server with SpecBundle models. Please add `--tp`, `--ep` and `--mem-fraction-static` arguments when you encounter memory issues.
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model <target-model-path> \
     --speculative-algorithm EAGLE3 \
@@ -40,7 +40,7 @@ python3 -m sglang.launch_server \
 
 For example:
 
-```bash
+```bash Command
 SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1 python3 -m sglang.launch_server \
     --model Qwen/Qwen3-30B-A3B-Instruct-2507 \
     --speculative-algorithm EAGLE3 \
@@ -59,7 +59,7 @@ We provide a benchmark suite to evaluate the performance of SpecBundle draft mod
 
 1. Launch a SGLang Server
 
-```bash
+```bash Command
 SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1 python3 -m sglang.launch_server \
     --model Qwen/Qwen3-30B-A3B-Instruct-2507 \
     --speculative-algorithm EAGLE3 \
@@ -84,7 +84,7 @@ SGLANG_ALLOW_OVERWRITE_LONGER_CONTEXT_LEN=1 python3 -m sglang.launch_server \
 - `--config-list`: the list of speculative decoding configuration to test, the format is `<batch-size>,<num-steps>,<topk>,<num-draft-tokens>`.
 - `--benchmark-list`: the list of benchmarks to test, the format is `<benchmark-name>:<num-prompts>:<subset>`.
 
-```bash
+```bash Command
 cd SpecForge/benchmarks
 python bench_eagle3.py \
     --model-path Qwen/Qwen3-30B-A3B-Instruct-2507 \
@@ -102,7 +102,7 @@ import { SpecBundleDeployment } from "/src/snippets/specbundle/specbundle-deploy
 
 It will generate a json file, content is listed below:
 
-```json
+```json Config
 {
   "mtbench": [
     {

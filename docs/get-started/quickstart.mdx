@@ -35,17 +35,17 @@ For other platforms, see the dedicated guides for [AMD GPUs](/platforms/amd_gpu)
 
     <Steps>
       <Step title="Upgrade pip">
-        ```bash
+        ```bash Command
         pip install --upgrade pip
         ```
       </Step>
       <Step title="Install uv">
-        ```bash
+        ```bash Command
         pip install uv
         ```
       </Step>
       <Step title="Install SGLang">
-        ```bash
+        ```bash Command
         uv pip install sglang
         ```
       </Step>
@@ -54,14 +54,14 @@ For other platforms, see the dedicated guides for [AMD GPUs](/platforms/amd_gpu)
   <Tab title="From Source">
     <Steps>
       <Step title="Clone the release branch">
-        ```bash
+        ```bash Command
         # Use the last release branch
         git clone -b v0.5.6.post2 https://github.com/sgl-project/sglang.git
         cd sglang
         ```
       </Step>
       <Step title="Install the Python packages">
-        ```bash
+        ```bash Command
         # Install the python packages
         pip install --upgrade pip
         pip install -e "python"
@@ -74,7 +74,7 @@ For other platforms, see the dedicated guides for [AMD GPUs](/platforms/amd_gpu)
 
     Replace `<secret>` with your [Hugging Face token](https://huggingface.co/docs/hub/en/security-tokens):
 
-    ```bash
+    ```bash Command
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -87,7 +87,7 @@ For other platforms, see the dedicated guides for [AMD GPUs](/platforms/amd_gpu)
 
     For production deployments, use the smaller **runtime** variant (~40% size reduction):
 
-    ```bash
+    ```bash Command
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -102,7 +102,7 @@ For other platforms, see the dedicated guides for [AMD GPUs](/platforms/amd_gpu)
 
 <Tip>
 If you encounter `OSError: CUDA_HOME environment variable is not set`, set it with:
-```bash
+```bash Command
 export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
 ```
 </Tip>
@@ -113,7 +113,7 @@ export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
 
 Start the SGLang server with a model. Here we use `qwen/qwen2.5-0.5b-instruct` as a lightweight example:
 
-```bash
+```bash Command
 python3 -m sglang.launch_server --model-path qwen/qwen2.5-0.5b-instruct --host 0.0.0.0 --port 30000
 ```
 
@@ -138,7 +138,7 @@ SGLang is fully **OpenAI API-compatible**, so you can use the same tools and lib
 
 ### Using cURL
 
-```bash
+```bash Command
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -153,13 +153,13 @@ curl http://localhost:30000/v1/chat/completions \
 
 Install the OpenAI Python library if you haven't:
 
-```bash
+```bash Command
 pip install openai
 ```
 
 Then send a request:
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url="http://127.0.0.1:30000/v1", api_key="None")
@@ -178,7 +178,7 @@ print(response.choices[0].message.content)
 
 #### Streaming
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url="http://127.0.0.1:30000/v1", api_key="None")
@@ -200,7 +200,7 @@ for chunk in response:
 
 ### Using Python Requests
 
-```python
+```python Example
 import requests
 
 url = "http://localhost:30000/v1/chat/completions"
@@ -218,7 +218,7 @@ print(response.json())
 
 SGLang also provides a native `/generate` endpoint for more flexibility.
 
-```python
+```python Example
 import requests
 
 response = requests.post(
@@ -237,7 +237,7 @@ print(response.json())
 
 #### Streaming with `/generate`
 
-```python
+```python Example
 import requests
 import json
 
@@ -272,7 +272,7 @@ for chunk in response.iter_lines(decode_unicode=False):
 
 SGLang also supports offline batch inference using the `Engine` class directly — no HTTP server required.
 
-```python
+```python Example
 import sglang as sgl
 
 llm = sgl.Engine(model_path="qwen/qwen2.5-0.5b-instruct")
@@ -301,24 +301,24 @@ llm.shutdown()
 <AccordionGroup>
   <Accordion title="CUDA_HOME not set">
     Set the `CUDA_HOME` environment variable to your CUDA install root:
-    ```bash
+    ```bash Command
     export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
     ```
   </Accordion>
   <Accordion title="FlashInfer issues on sm75+ devices">
     Switch to alternative backends by adding these flags when launching the server:
-    ```bash
+    ```bash Command
     --attention-backend triton --sampling-backend pytorch
     ```
   </Accordion>
   <Accordion title="Reinstalling FlashInfer">
-    ```bash
+    ```bash Command
     pip3 install --upgrade flashinfer-python --force-reinstall --no-deps
     rm -rf ~/.cache/flashinfer
     ```
   </Accordion>
   <Accordion title="ptxas error on B300/GB300 (sm_103a)">
-    ```bash
+    ```bash Command
     export TRITON_PTXAS_PATH=/usr/local/cuda/bin/ptxas
     ```
   </Accordion>

@@ -11,7 +11,7 @@ SGLang HiCache extends the traditional RadixAttention with a three-tier hierarch
 
 ## Core HiCache Parameters
 
-```bash
+```bash Command
 # Essential HiCache flags
 --page-size 64                        # Page size for cache management
 --enable-hierarchical-cache           # Enable HiCache
@@ -30,7 +30,7 @@ Notes:
 
 ### Memory Layout Optimization
 
-```bash
+```bash Command
 # Page-first: Optimized for I/O efficiency with zero-copy (recommended with kernel backend)
 --hicache-mem-layout page_first
 # Page-first-direct: Optimized for direct I/O operations (Compatible with fa3 and same zero-copy performance as page_first)
@@ -44,7 +44,7 @@ Notes:
 
 ### Prefetch Policies
 
-```bash
+```bash Command
 # Best-effort: Terminate prefetch when needed
 --hicache-storage-prefetch-policy best_effort
 # Wait-complete: Ensure complete prefetch, higher cache reuse
@@ -60,7 +60,7 @@ HiCache works seamlessly with PD Disaggregation. You can choose between two conf
 1. **Prefill-only HiCache**: Enable HiCache only on Prefill nodes, allowing KV cache sharing among Prefill instances
 2. **Full HiCache with async offloading**: Enable HiCache on Prefill nodes and async KV cache offloading on Decode nodes, allowing Prefill nodes to reuse KV caches from Decode nodes in multi-turn dialogue scenarios
 
-```bash
+```bash Command
 # Prefill node with HiCache enabled for cross-prefill sharing (ideal for SystemPrompt scenarios)
 python3 -m sglang.launch_server \
   --model-path /xxx/DeepSeek-R1/ \
@@ -110,7 +110,7 @@ python3 -m sglang.launch_server \
 
 Here is an example of deploying DeepSeek-R1 with HiCache-HF3FS. For more details, see the [HF3FS Documentation](../../python/sglang/srt/mem_cache/storage/hf3fs/docs/README).
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path /xxx/DeepSeek-R1/ \
   --log-level info \
@@ -135,7 +135,7 @@ python3 -m sglang.launch_server \
 
 Here is an example of deploying Qwen3-235B-A22B-Instruct-2507 with Mooncake. For more details, see the [Mooncake Documentation](../../python/sglang/srt/mem_cache/storage/mooncake_store/README).
 
-```bash
+```bash Command
 # Set Mooncake environment variables
 export MOONCAKE_TE_META_DATA_SERVER="http://127.0.0.1:8080/metadata"
 export MOONCAKE_GLOBAL_SEGMENT_SIZE=816043786240
@@ -175,7 +175,7 @@ The HiCache controller handles all scheduling and synchronization automatically.
 
 Alternatively, you can use dynamic loading to avoid hard-coding your backend in the repository:
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path your-model \
   --enable-hierarchical-cache \

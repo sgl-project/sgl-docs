@@ -2,6 +2,11 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "aspen",
   "name": "SGLang Documentation",
+  "seo": {
+    "metatags": {
+      "google-site-verification": "bX3ofyYQhraIpAYf4DpyZQXZO_G4xLR_RqeBAKnJA7g"
+    }
+  },
   "redirects": [
     {
       "source": "/docs/supported-models/diffusion-language-models",
@@ -143,9 +148,37 @@
             ]
           },
           {
+            "group": "Supported Models",
+            "pages": [
+              "docs/supported-models",
+              {
+                "group": "Text generation",
+                "pages": [
+                  "docs/supported-models/large-language-models",
+                  "docs/supported-models/vision-language-models",
+                  "docs/supported-models/diffusion-language-models"
+                ]
+              },
+              {
+                "group": "Retrieval and ranking",
+                "pages": [
+                  "docs/supported-models/embedding-models",
+                  "docs/supported-models/rerank-models",
+                  "docs/supported-models/classification-models"
+                ]
+              },
+              {
+                "group": "Specialized models",
+                "pages": [
+                  "docs/supported-models/reward-models"
+                ]
+              }
+            ]
+          },
+          {
             "group": "Developer Guide",
             "pages": [
-              "docs/developer_guide/contribution_guide",
+              "docs/developer-guide/contribution-guide",
               "docs/developer_guide/development_guide_using_docker",
               "docs/developer_guide/JIT_kernels",
               "docs/developer_guide/benchmark_and_profiling",
@@ -184,46 +217,13 @@
         ]
       },
       {
-        "tab": "Supported Models",
-        "pages": [
-          "docs/supported-models",
-          {
-            "group": "Text generation",
-            "pages": [
-              "docs/supported-models/large-language-models",
-              "docs/supported-models/vision-language-models",
-              "docs/supported-models/diffusion-language-models"
-            ]
-          },
-          {
-            "group": "Retrieval and ranking",
-            "pages": [
-              "docs/supported-models/embedding-models",
-              "docs/supported-models/rerank-models",
-              "docs/supported-models/classification-models"
-            ]
-          },
-            {
-              "group": "Specialized models",
-              "pages": [
-                "docs/supported-models/reward-models"
-              ]
-            }
-          ]
-      },
-      {
-        "tab": "SGLang Diffusion",
-        "pages": [
-          "docs/sglang-diffusion/index"
-        ]
-      },
-      {
         "tab": "Cookbook",
         "pages": [
           "cookbook/intro",
           {
             "group": "Autoregressive Models",
             "pages": [
+              "cookbook/autoregressive/intro",
               {
                 "group": "Qwen",
                 "pages": [
@@ -360,6 +360,7 @@
           {
             "group": "Diffusion Models",
             "pages": [
+              "cookbook/diffusion/intro",
               {
                 "group": "FLUX",
                 "pages": [

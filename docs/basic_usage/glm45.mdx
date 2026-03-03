@@ -8,7 +8,7 @@ metatags:
 
 To serve GLM-4.5 / GLM-4.6 FP8 models on 8xH100/H200 GPUs:
 
-```bash
+```bash Command
 python3 -m sglang.launch_server --model zai-org/GLM-4.6-FP8 --tp 8
 ```
 
@@ -21,7 +21,7 @@ with [EAGLE speculative decoding](https://docs.sglang.io/advanced_features/specu
 Add arguments `--speculative-algorithm`, `--speculative-num-steps`, `--speculative-eagle-topk` and
 `--speculative-num-draft-tokens` to enable this feature. For example:
 
-``` bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path zai-org/GLM-4.6-FP8 \
   --tp-size 8 \
@@ -49,7 +49,7 @@ Launch a server with `--enable-custom-logit-processor` flag on.
 
 Sample Request:
 
-```python
+```python Example
 import openai
 from rich.pretty import pprint
 from sglang.srt.sampling.custom_logit_processor import Glm4MoeThinkingBudgetLogitProcessor

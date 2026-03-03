@@ -10,13 +10,13 @@ The classification API allows you to classify text inputs using classification m
 
 ## API endpoint
 
-```
+```text Output
 POST /v1/classify
 ```
 
 ## Request format
 
-```json
+```json Config
 {
   "model": "model_name",
   "input": "text to classify"
@@ -47,7 +47,7 @@ POST /v1/classify
 
 ## Response format
 
-```json
+```json Config
 {
   "id": "classify-9bf17f2847b046c7b2d5495f4b4f9682",
   "object": "list",
@@ -138,7 +138,7 @@ POST /v1/classify
 
 <Tabs>
   <Tab title="curl">
-    ```bash
+    ```bash Command
     curl -v "http://127.0.0.1:8000/v1/classify" \
       -H "Content-Type: application/json" \
       -d '{
@@ -148,7 +148,7 @@ POST /v1/classify
     ```
   </Tab>
   <Tab title="Python">
-    ```python
+    ```python Example
     import requests
     import json
 
@@ -176,13 +176,40 @@ The classification API works with any classification model supported by SGLang, 
 
 <Tabs>
   <Tab title="Classification models (multi-class)">
-    | Model | Type |
-    |-------|------|
-    | `LlamaForSequenceClassification` | Multi-class classification |
-    | `Qwen2ForSequenceClassification` | Multi-class classification |
-    | `Qwen3ForSequenceClassification` | Multi-class classification |
-    | `BertForSequenceClassification` | Multi-class classification |
-    | `Gemma2ForSequenceClassification` | Multi-class classification |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50.0%"}} />
+    <col style={{width: "50.0%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`LlamaForSequenceClassification`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Multi-class classification</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`Qwen2ForSequenceClassification`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Multi-class classification</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`Qwen3ForSequenceClassification`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Multi-class classification</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`BertForSequenceClassification`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Multi-class classification</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`Gemma2ForSequenceClassification`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Multi-class classification</td>
+    </tr>
+  </tbody>
+</table>
 
     <Note>
       The API automatically uses the `id2label` mapping from the model's `config.json` file to provide meaningful label names instead of generic class names. If `id2label` is not available, it falls back to `LABEL_0`, `LABEL_1`, etc., or `Class_0`, `Class_1` as a last resort.
@@ -190,11 +217,32 @@ The classification API works with any classification model supported by SGLang, 
 
   </Tab>
   <Tab title="Reward models (single score)">
-    | Model | Type |
-    |-------|------|
-    | `InternLM2ForRewardModel` | Single reward score |
-    | `Qwen2ForRewardModel` | Single reward score |
-    | `LlamaForSequenceClassificationWithNormal_Weights` | Special reward model |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50.0%"}} />
+    <col style={{width: "50.0%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`InternLM2ForRewardModel`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Single reward score</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`Qwen2ForRewardModel`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Single reward score</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`LlamaForSequenceClassificationWithNormal_Weights`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Special reward model</td>
+    </tr>
+  </tbody>
+</table>
 
     <Info>
       The `/classify` endpoint in SGLang was originally designed for reward models but now supports all non-generative models. The `/v1/classify` endpoint provides a standardized vLLM-compatible interface for classification tasks.
@@ -207,14 +255,32 @@ The classification API works with any classification model supported by SGLang, 
 
 The API returns appropriate HTTP status codes and error messages:
 
-| Status code                 | Meaning                                           |
-| --------------------------- | ------------------------------------------------- |
-| `400 Bad Request`           | Invalid request format or missing required fields |
-| `500 Internal Server Error` | Server-side processing error                      |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Status code</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`400 Bad Request`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Invalid request format or missing required fields</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`500 Internal Server Error`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Server-side processing error</td>
+    </tr>
+  </tbody>
+</table>
 
 Error response format:
 
-```json
+```json Config
 {
   "error": "Error message",
   "type": "error_type",
@@ -243,7 +309,7 @@ Error response format:
 
 Use the provided test script to verify the implementation:
 
-```bash
+```bash Command
 python test_classify_api.py
 ```
 

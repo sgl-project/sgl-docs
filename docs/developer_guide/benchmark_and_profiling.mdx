@@ -8,24 +8,24 @@ metatags:
 - Benchmark the latency of running a single static batch without a server. The arguments are the same as for `launch_server.py`.
   Note that this is a simplified test script without a dynamic batching server, so it may run out of memory for a batch size that a real server can handle. A real server truncates the prefill into several batches, while this simplified script does not.
   - Without a server (do not need to launch a server)
-    ```bash
+    ```bash Command
     python -m sglang.bench_one_batch --model-path meta-llama/Meta-Llama-3.1-8B-Instruct --batch 32 --input-len 256 --output-len 32
     ```
   - With a server (please use `sglang.launch_server` to launch a server first and run the following command.)
-    ```bash
+    ```bash Command
     python -m sglang.bench_one_batch_server --base-url http://127.0.0.1:30000 --model-path meta-llama/Meta-Llama-3.1-8B-Instruct --batch-size 32 --input-len 256 --output-len 32
     ```
 
 
 - Benchmark offline processing. This script will start an offline engine and run the benchmark.
 
-  ```bash
+  ```bash Command
   python3 -m sglang.bench_offline_throughput --model-path meta-llama/Meta-Llama-3.1-8B-Instruct --num-prompts 10
   ```
 
 - Benchmark online serving. Please use `sglang.launch_server` to launch a server first and run the following command.
 
-  ```bash
+  ```bash Command
   python3 -m sglang.bench_serving --backend sglang --num-prompt 10
   ```
 
@@ -35,7 +35,7 @@ metatags:
 
 ### Profile a server with `sglang.bench_serving`
 
-```bash
+```bash Command
 # set trace path
 export SGLANG_TORCH_PROFILER_DIR=/root/sglang/profile_log
 
@@ -56,7 +56,7 @@ When profiling in PD disaggregation mode, prefill and decode workers **must be p
 
 #### Profile Prefill Workers
 
-```bash
+```bash Command
 # set trace path
 export SGLANG_TORCH_PROFILER_DIR=/root/sglang/profile_log
 
@@ -73,7 +73,7 @@ python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-
 
 #### Profile Decode Workers
 
-```bash
+```bash Command
 # send profiling request targeting decode workers
 python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-Instruct --num-prompts 10 --sharegpt-output-len 100 --profile --pd-separated --profile-decode-url http://127.0.0.1:30001
 ```
@@ -82,7 +82,7 @@ python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-
 
 - `--profile-prefill-url` and `--profile-decode-url` are **mutually exclusive** - you cannot profile both at the same time
 - Both options support multiple worker URLs for multi-instance setups:
-  ```bash
+  ```bash Command
   # Profile multiple prefill workers
   python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-Instruct --num-prompts 10 --profile --pd-separated --profile-prefill-url http://127.0.0.1:30000 http://127.0.0.1:30002
 
@@ -93,7 +93,7 @@ python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-
 - For more details on setting up PD disaggregation, see [PD Disaggregation Guide](../advanced_features/pd_disaggregation)
 
 ### Profile a server with `sglang.bench_offline_throughput`
-```bash
+```bash Command
 export SGLANG_TORCH_PROFILER_DIR=/root/sglang/profile_log
 
 # profile one batch with bench_one_batch.py
@@ -110,7 +110,7 @@ When the server is running (e.g., processing a decoding request), you can start 
 
 You can do this by running `python3 -m sglang.profiler`. For example:
 
-```
+```text Output
 # Terminal 1: Send a generation request
 python3 -m sglang.test.send_one
 
@@ -121,7 +121,7 @@ python3 -m sglang.profiler
 
 You can also combine the above operations into a single command
 
-```
+```text Output
 python3 -m sglang.test.send_one --profile
 ```
 
@@ -135,7 +135,7 @@ The `/start_profile` endpoint starts profiling on the server. You can control wh
 
 **Basic usage:**
 
-```bash
+```bash Command
 # Start profiling immediately for 10 steps
 curl -X POST http://127.0.0.1:30000/start_profile \
   -H "Content-Type: application/json" \
@@ -156,7 +156,7 @@ curl -X POST http://127.0.0.1:30000/start_profile \
 
 **Advanced usage with `start_step`:**
 
-```bash
+```bash Command
 # Wait 5 steps (warmup), then profile for 10 steps
 curl -X POST http://127.0.0.1:30000/start_profile \
   -H "Content-Type: application/json" \
@@ -170,7 +170,7 @@ curl -X POST http://127.0.0.1:30000/start_profile \
 
 **Continuous profiling (manual stop):**
 
-```bash
+```bash Command
 # Start profiling without num_steps - must manually stop with /end_profile
 curl -X POST http://127.0.0.1:30000/start_profile
 ```
@@ -179,7 +179,7 @@ curl -X POST http://127.0.0.1:30000/start_profile
 
 The `/end_profile` endpoint stops an ongoing profiling session and saves the trace file.
 
-```bash
+```bash Command
 # Stop profiling and save traces
 curl -X POST http://127.0.0.1:30000/end_profile
 ```
@@ -188,7 +188,7 @@ This is only needed when you start profiling without specifying `num_steps`. If 
 
 #### Example workflow
 
-```bash
+```bash Command
 # Terminal 1: Start the server
 export SGLANG_TORCH_PROFILER_DIR=/tmp/profiles
 python -m sglang.launch_server --model-path meta-llama/Llama-3.1-8B-Instruct
@@ -219,7 +219,7 @@ If there is no shared storage accessible across nodes, automatic merging of trac
 
 #### HTTP API Usage
 
-```bash
+```bash Command
 # Start profiling with automatic trace merging enabled
 curl -X POST <BASE_URL>/start_profile \
   -H "Content-Type: application/json" \
@@ -233,7 +233,7 @@ curl -X POST <BASE_URL>/start_profile \
 
 #### Command Line Usage
 
-```bash
+```bash Command
 # Start profiling with merge enabled
 python -m sglang.profiler \
   --num-steps 10 \
@@ -251,11 +251,11 @@ The profile merger generates:
 
 ### Possible PyTorch bugs
 If in any cases you encounter the following error (for example, using qwen 2.5 VL):
-```bash
+```bash Command
 RuntimeError: !stack.empty() INTERNAL ASSERT FAILED at "/pytorch/torch/csrc/autograd/profiler_python.cpp":983, please report a bug to PyTorch. Python replay stack is empty.
 ```
 This is likely a PyTorch Bug reported in [Bug: vLLM Profiler](https://github.com/vllm-project/vllm/issues/18240) and [Bug: torch.profiler.profile](https://github.com/pytorch/pytorch/issues/101632). As a workaround, you may disable `with_stack` with an environment variable such as follows:
-```bash
+```bash Command
 export SGLANG_PROFILE_WITH_STACK=False
 python -m sglang.bench_offline_throughput --model-path meta-llama/Llama-3.1-8B-Instruct --dataset-name random --num-prompts 10 --profile --mem-frac=0.8
 ```
@@ -271,7 +271,7 @@ If browser cannot open trace file due to its large size,
 client can generate a small trace file (&lt;100MB) by controlling number of prompts and lengths of prompt outputs.
 For example, when profiling a server,
 
-```bash
+```bash Command
 python -m sglang.bench_serving --backend sglang --model meta-llama/Llama-3.1-8B-Instruct --num-prompts 2 --sharegpt-output-len 100 --profile
 ```
 
@@ -287,7 +287,7 @@ Additionally, if you want to locate the SGLang Python source code through the cu
 
    Install using apt, or run inside a [NVIDIA Docker container](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch/tags) or [SGLang Docker container](https://github.com/sgl-project/sglang/tree/main/docker).
 
-   ```bash
+   ```bash Command
    # install nsys
    # https://docs.nvidia.com/nsight-systems/InstallationGuide/index.html
    apt update
@@ -300,13 +300,13 @@ Additionally, if you want to locate the SGLang Python source code through the cu
 
 2. To profile a single batch, use
 
-   ```bash
+   ```bash Command
    nsys profile --trace-fork-before-exec=true --cuda-graph-trace=node python3 -m sglang.bench_one_batch --model meta-llama/Meta-Llama-3-8B --batch-size 64 --input-len 512
    ```
 
 3. To profile a server, e.g.
 
-   ```bash
+   ```bash Command
    # launch the server, set the delay and duration times according to needs
    # after the duration time has been used up, server will be killed by nsys
 
@@ -318,13 +318,13 @@ Additionally, if you want to locate the SGLang Python source code through the cu
 
    In practice, we recommend users to set `--duration` argument to a large value. Whenever user wants the server to stop profiling. Firstly run:
 
-   ```bash
+   ```bash Command
    nsys sessions list
    ```
 
    to get the session id in the form of `profile-XXXXX`, then run:
 
-   ```bash
+   ```bash Command
    nsys stop --session=profile-XXXXX
    ```
 
@@ -332,12 +332,12 @@ Additionally, if you want to locate the SGLang Python source code through the cu
 
 4. Use NVTX to annotate code regions, e.g. to see their execution time.
 
-   ```bash
+   ```bash Command
    # install nvtx
    pip install nvtx
    ```
 
-   ```python
+   ```python Example
    # code snippets
    import nvtx
    with nvtx.annotate("description", color="color"):
@@ -358,7 +358,7 @@ This method allows you to control exactly when profiling starts/stops via HTTP A
 
 1. Launch the server with layerwise NVTX enabled under Nsight Systems:
 
-   ```bash
+   ```bash Command
    # Terminal 1: Start server with nsys and capture-range option
    nsys profile --trace-fork-before-exec=true \
      --cuda-graph-trace=node \
@@ -375,7 +375,7 @@ This method allows you to control exactly when profiling starts/stops via HTTP A
 
 2. In another terminal, control profiling via `/start_profile` with `CUDA_PROFILER` activity:
 
-   ```bash
+   ```bash Command
    # Terminal 2: Wait for server to be ready, then start CUDA profiling
    # Wait 3 steps for warmup, then profile for 10 steps
    curl -X POST http://127.0.0.1:30000/start_profile \
@@ -389,14 +389,14 @@ This method allows you to control exactly when profiling starts/stops via HTTP A
 
 3. Send requests to generate load:
 
-   ```bash
+   ```bash Command
    # Terminal 3: Generate workload
    python -m sglang.bench_serving --backend sglang --num-prompts 100
    ```
 
 4. Profiling will automatically stop after 10 steps (due to `num_steps: 10`). If you hadn't specified `num_steps`, you would need to manually stop it:
 
-   ```bash
+   ```bash Command
    # Terminal 2: Only needed if num_steps was not specified
    curl -X POST http://127.0.0.1:30000/end_profile
    ```
@@ -407,7 +407,7 @@ The `--capture-range=cudaProfilerApi` option tells Nsight Systems to only captur
 
 For simpler use cases where you don't need fine-grained control over profiling start/stop, you can profile with Nsight Systems capturing the entire workload:
 
-```bash
+```bash Command
 # Terminal 1: Start server with layerwise NVTX
 # Note: --disable-cuda-graph ensures all NVTX markers are emitted
 python -m sglang.launch_server \
@@ -428,7 +428,7 @@ This approach profiles the entire client execution, including all server interac
 
 Open the generated `.qdrep` file with Nsight Systems:
 
-```bash
+```bash Command
 nsys-ui layerwise_profile.qdrep
 ```
 
@@ -451,7 +451,7 @@ In the Nsight Systems GUI, you'll see:
 1. You can benchmark a model using dummy weights by only providing the config.json file. This allows for quick testing of model variants without training. To do so, add `--load-format dummy` to the above commands and then you only need a correct `config.json` under the checkpoint folder.
 2. You can benchmark a model with modified configs (e.g., less layers) by using `--json-model-override-args`. For example, you can benchmark a model with only 2 layers and 2 kv heads using:
 
-   ```bash
+   ```bash Command
    python -m sglang.bench_one_batch --model-path meta-llama/Meta-Llama-3.1-8B-Instruct --batch 32 --input-len 256 --output-len 32 --load-format dummy --json-model-override-args '{"num_hidden_layers": 1, "num_key_value_heads": 1}'
    ```
 

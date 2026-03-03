@@ -8,7 +8,9 @@ metatags:
 Achieving a large batch size is the most important thing for attaining high throughput in offline batch inference.
 When the server is running at full load in a steady state, look for the following in the log:
 
-```Decode batch. #running-req: 233, #token: 370959, token usage: 0.82, cuda graph: True, gen throughput (token/s): 4594.01, #queue-req: 317```
+```text Output
+Decode batch. #running-req: 233, #token: 370959, token usage: 0.82, cuda graph: True, gen throughput (token/s): 4594.01, #queue-req: 317
+```
 
 ### Adjust the request submission speed to control `#queue-req`
 
@@ -43,7 +45,7 @@ SGLang uses simple heuristics to set the default value of `--mem-fraction-static
 As a rule of thumb, reserving 5–8 GB of memory for activations is typically sufficient. You can check this by inspecting the logs just before the server is ready.
 Look for log entries like this:
 
-```
+```text Output
 [2025-08-11 17:17:03] max_total_num_tokens=665690, chunked_prefill_size=8192, max_prefill_tokens=16384, max_running_requests=4096, context_len=65536, available_gpu_mem=13.50 GB
 ```
 

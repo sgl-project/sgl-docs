@@ -8,21 +8,87 @@ This guide demonstrates how to use SGLang’s [Function calling](https://platfor
 
 ## Currently supported parsers:
 
-| Parser | Supported Models | Notes |
-|---|---|---|
-| `deepseekv3` | DeepSeek-v3 (e.g., `deepseek-ai/DeepSeek-V3-0324`) | Recommend adding `--chat-template ./examples/chat_template/tool_chat_template_deepseekv3.jinja` to launch command. |
-| `deepseekv31` | DeepSeek-V3.1 and DeepSeek-V3.2-Exp (e.g. `deepseek-ai/DeepSeek-V3.1`, `deepseek-ai/DeepSeek-V3.2-Exp`) | Recommend adding `--chat-template ./examples/chat_template/tool_chat_template_deepseekv31.jinja` (Or ..deepseekv32.jinja for DeepSeek-V3.2) to launch command. |
-| `deepseekv32` | DeepSeek-V3.2 (`deepseek-ai/DeepSeek-V3.2`) | |
-| `glm` | GLM series (e.g. `zai-org/GLM-4.6`) | |
-| `gpt-oss` | GPT-OSS (e.g., `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `lmsys/gpt-oss-120b-bf16`, `lmsys/gpt-oss-20b-bf16`) | The gpt-oss tool parser filters out analysis channel events and only preserves normal text. This can cause the content to be empty when explanations are in the analysis channel. To work around this, complete the tool round by returning tool results as `role="tool"` messages, which enables the model to generate the final content. |
-| `kimi_k2` | `moonshotai/Kimi-K2-Instruct` | |
-| `llama3` | Llama 3.1 / 3.2 / 3.3 (e.g. `meta-llama/Llama-3.1-8B-Instruct`, `meta-llama/Llama-3.2-1B-Instruct`, `meta-llama/Llama-3.3-70B-Instruct`) | |
-| `llama4` | Llama 4 (e.g. `meta-llama/Llama-4-Scout-17B-16E-Instruct`) | |
-| `mistral` | Mistral (e.g. `mistralai/Mistral-7B-Instruct-v0.3`, `mistralai/Mistral-Nemo-Instruct-2407`, `mistralai/Mistral-7B-v0.3`) | |
-| `pythonic` | Llama-3.2 / Llama-3.3 / Llama-4 | Model outputs function calls as Python code. Requires `--tool-call-parser pythonic` and is recommended to use with a specific chat template. |
-| `qwen` | Qwen series (e.g. `Qwen/Qwen3-Next-80B-A3B-Instruct`, `Qwen/Qwen3-VL-30B-A3B-Thinking`) except Qwen3-Coder| |
-| `qwen3_coder` | Qwen3-Coder (e.g. `Qwen/Qwen3-Coder-30B-A3B-Instruct`) | |
-| `step3` | Step-3 | |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "34%"}} />
+    <col style={{width: "33%"}} />
+    <col style={{width: "33%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Parser</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Supported Models</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`deepseekv3`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>DeepSeek-v3 (e.g., `deepseek-ai/DeepSeek-V3-0324`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Recommend adding `--chat-template ./examples/chat_template/tool_chat_template_deepseekv3.jinja` to launch command.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`deepseekv31`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>DeepSeek-V3.1 and DeepSeek-V3.2-Exp (e.g. `deepseek-ai/DeepSeek-V3.1`, `deepseek-ai/DeepSeek-V3.2-Exp`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Recommend adding `--chat-template ./examples/chat_template/tool_chat_template_deepseekv31.jinja` (Or ..deepseekv32.jinja for DeepSeek-V3.2) to launch command.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`deepseekv32`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>DeepSeek-V3.2 (`deepseek-ai/DeepSeek-V3.2`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`glm`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>GLM series (e.g. `zai-org/GLM-4.6`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`gpt-oss`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>GPT-OSS (e.g., `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `lmsys/gpt-oss-120b-bf16`, `lmsys/gpt-oss-20b-bf16`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>The gpt-oss tool parser filters out analysis channel events and only preserves normal text. This can cause the content to be empty when explanations are in the analysis channel. To work around this, complete the tool round by returning tool results as `role="tool"` messages, which enables the model to generate the final content.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`kimi_k2`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>`moonshotai/Kimi-K2-Instruct`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`llama3`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Llama 3.1 / 3.2 / 3.3 (e.g. `meta-llama/Llama-3.1-8B-Instruct`, `meta-llama/Llama-3.2-1B-Instruct`, `meta-llama/Llama-3.3-70B-Instruct`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`llama4`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Llama 4 (e.g. `meta-llama/Llama-4-Scout-17B-16E-Instruct`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`mistral`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Mistral (e.g. `mistralai/Mistral-7B-Instruct-v0.3`, `mistralai/Mistral-Nemo-Instruct-2407`, `mistralai/Mistral-7B-v0.3`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`pythonic`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Llama-3.2 / Llama-3.3 / Llama-4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Model outputs function calls as Python code. Requires `--tool-call-parser pythonic` and is recommended to use with a specific chat template.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`qwen`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Qwen series (e.g. `Qwen/Qwen3-Next-80B-A3B-Instruct`, `Qwen/Qwen3-VL-30B-A3B-Thinking`) except Qwen3-Coder</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`qwen3_coder`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Qwen3-Coder (e.g. `Qwen/Qwen3-Coder-30B-A3B-Instruct`)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`step3`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Step-3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}></td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -33,7 +99,7 @@ This guide demonstrates how to use SGLang’s [Function calling](https://platfor
 
 
 
-```python
+```python Example
 import json
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
@@ -53,7 +119,7 @@ Below is a Python snippet that shows how to define a tool as a dictionary. The d
 
 
 
-```python
+```python Example
 # Define tools
 tools = [
     {
@@ -90,7 +156,7 @@ tools = [
 
 
 
-```python
+```python Example
 def get_messages():
     return [
         {
@@ -107,7 +173,7 @@ messages = get_messages()
 
 
 
-```python
+```python Example
 # Initialize OpenAI-like client
 client = OpenAI(api_key="None", base_url=f"http://0.0.0.0:{port}/v1")
 model_name = client.models.list().data[0].id
@@ -117,7 +183,7 @@ model_name = client.models.list().data[0].id
 
 
 
-```python
+```python Example
 # Non-streaming mode test
 response_non_stream = client.chat.completions.create(
     model=model_name,
@@ -141,7 +207,7 @@ When the engine determines it should call a particular tool, it will return argu
 
 
 
-```python
+```python Example
 name_non_stream = response_non_stream.choices[0].message.tool_calls[0].function.name
 arguments_non_stream = (
     response_non_stream.choices[0].message.tool_calls[0].function.arguments
@@ -155,7 +221,7 @@ print_highlight(f"Final streamed function call arguments: {arguments_non_stream}
 
 
 
-```python
+```python Example
 # Streaming mode test
 print_highlight("Streaming response:")
 response_stream = client.chat.completions.create(
@@ -190,7 +256,7 @@ When the engine determines it should call a particular tool, it will return argu
 
 
 
-```python
+```python Example
 # Parse and combine function call arguments
 arguments = []
 for tool_call in tool_calls:
@@ -209,7 +275,7 @@ print_highlight(f"streamed function call arguments: {full_arguments}")
 
 
 
-```python
+```python Example
 # This is a demonstration, define real function according to your usage.
 def get_current_weather(city: str, state: str, unit: "str"):
     return (
@@ -226,7 +292,7 @@ available_tools = {"get_current_weather": get_current_weather}
 
 
 
-```python
+```python Example
 messages.append(response_non_stream.choices[0].message)
 
 # Call the corresponding tool function
@@ -252,7 +318,7 @@ print_highlight(f"Updated message history: {messages}")
 
 
 
-```python
+```python Example
 final_response = client.chat.completions.create(
     model=model_name,
     messages=messages,
@@ -272,7 +338,7 @@ print_highlight(final_response.choices[0].message.content)
 
 
 
-```python
+```python Example
 from transformers import AutoTokenizer
 import requests
 
@@ -319,7 +385,7 @@ print("function arguments: ", function_call_response_json["calls"][0]["parameter
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -327,7 +393,7 @@ terminate_process(server_process)
 
 
 
-```python
+```python Example
 import sglang as sgl
 from sglang.srt.function_call.function_call_parser import FunctionCallParser
 from sglang.srt.managers.io_struct import Tool, Function
@@ -386,7 +452,7 @@ for call in calls:
 ```
 
 
-```python
+```python Example
 llm.shutdown()
 ```
 
@@ -407,7 +473,7 @@ Tool choice is fully supported with the **Xgrammar backend**, which is the defau
 
 
 
-```python
+```python Example
 from openai import OpenAI
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 from sglang.test.doc_patch import launch_server_cmd
@@ -474,7 +540,7 @@ print("Tool calls:", response_required.choices[0].message.tool_calls)
 
 
 
-```python
+```python Example
 # Example with specific function choice - forces the model to call a specific function
 messages_specific = [
     {"role": "user", "content": "What are the most attactive places in France?"}
@@ -503,7 +569,7 @@ if response_specific.choices[0].message.tool_calls:
 ```
 
 
-```python
+```python Example
 terminate_process(server_process_tool_choice)
 ```
 
@@ -511,13 +577,13 @@ terminate_process(server_process_tool_choice)
 
 Some Llama models (such as Llama-3.2-1B, Llama-3.2-3B, Llama-3.3-70B, and Llama-4) support a "pythonic" tool call format, where the model outputs function calls as Python code, e.g.:
 
-```python
+```python Example
 [get_current_weather(city="San Francisco", state="CA", unit="celsius")]
 ```
 
 - The output is a Python list of function calls, with arguments as Python literals (not JSON).
 - Multiple tool calls can be returned in the same list:
-```python
+```python Example
 [get_current_weather(city="San Francisco", state="CA", unit="celsius"),
  get_current_weather(city="New York", state="NY", unit="fahrenheit")]
 ```
@@ -536,7 +602,7 @@ If you don't want to specify a chat template, you must give the model extremely 
 
 
 
-```python
+```python Example
 import openai
 
 server_process, port = launch_server_cmd(
@@ -658,7 +724,7 @@ terminate_process(server_process)
 
 ## How to support a new model?
 1. Update the TOOLS_TAG_LIST in sglang/srt/function_call_parser.py with the model’s tool tags. Currently supported tags include:
-```
+```text Output
 	TOOLS_TAG_LIST = [
 	    “<|plugin|>“,
 	    “<function=“,
@@ -668,7 +734,7 @@ terminate_process(server_process)
 	]
 ```
 2. Create a new detector class in sglang/srt/function_call_parser.py that inherits from BaseFormatDetector. The detector should handle the model’s specific function call format. For example:
-```
+```text Output
     class NewModelDetector(BaseFormatDetector):
 ```
 3. Add the new detector to the MultiFormatParser class that manages all the format detectors.

@@ -11,7 +11,7 @@ Before starting, ensure the following:
 - CUDA Toolkit and cuDNN are installed.
 - Verify that the Jetson AGX Orin is in high-performance mode:
 
-```bash
+```bash Command
 sudo nvpmodel -m 0
 ```
 
@@ -19,19 +19,19 @@ sudo nvpmodel -m 0
 
 <Steps>
   <Step title="Clone the jetson-containers repository">
-    ```bash
+    ```bash Command
     git clone https://github.com/dusty-nv/jetson-containers.git
     ```
   </Step>
 
   <Step title="Run the installation script">
-    ```bash
+    ```bash Command
     bash jetson-containers/install.sh
     ```
   </Step>
 
   <Step title="Build the container image">
-    ```bash
+    ```bash Command
     jetson-containers build sglang
     ```
   </Step>
@@ -39,12 +39,12 @@ sudo nvpmodel -m 0
   <Step title="Run the container">
     <Tabs>
       <Tab title="Using jetson-containers">
-        ```bash
+        ```bash Command
         jetson-containers run $(autotag sglang)
         ```
       </Tab>
       <Tab title="Using Docker manually">
-        ```bash
+        ```bash Command
         docker run --runtime nvidia -it --rm --network=host IMAGE_NAME
         ```
       </Tab>
@@ -56,7 +56,7 @@ sudo nvpmodel -m 0
 
 Launch the server:
 
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --device cuda \
@@ -74,7 +74,7 @@ After launching the engine, refer to [Chat completions](https://docs.sglang.io/b
 
 TorchAO is suggested to NVIDIA Jetson Orin.
 
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path meta-llama/Meta-Llama-3.1-8B-Instruct \
   --device cuda \

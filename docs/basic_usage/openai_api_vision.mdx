@@ -18,7 +18,7 @@ Launch the server in your terminal and wait for it to initialize.
 
 
 
-```python
+```python Example
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
@@ -37,7 +37,7 @@ Once the server is up, you can send test requests using curl or requests.
 
 
 
-```python
+```python Example
 import subprocess
 
 curl_command = f"""
@@ -78,7 +78,7 @@ print_highlight(response)
 
 
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:{port}/v1/chat/completions"
@@ -110,7 +110,7 @@ print_highlight(response.text)
 
 
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(base_url=f"http://localhost:{port}/v1", api_key="None")
@@ -146,7 +146,7 @@ The server also supports multiple images and interleaved text and images if the 
 
 
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(base_url=f"http://localhost:{port}/v1", api_key="None")
@@ -184,6 +184,6 @@ print_highlight(response.choices[0].message.content)
 ```
 
 
-```python
+```python Example
 terminate_process(vision_process)
 ```

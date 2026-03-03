@@ -9,7 +9,7 @@ metatags:
 1. In the remote host, download `code` from [Https://code.visualstudio.com/docs/?dv=linux64cli](https://code.visualstudio.com/download) and run `code tunnel` in a shell.
 
 Example
-```bash
+```bash Command
 wget https://vscode.download.prss.microsoft.com/dbazure/download/stable/fabdb6a30b49f79a7aba0f2ad9df9b399473380f/vscode_cli_alpine_x64_cli.tar.gz
 tar xf vscode_cli_alpine_x64_cli.tar.gz
 
@@ -56,7 +56,7 @@ The following startup command is an example for internal development by the SGLa
     1. `--network host` and `--privileged` are required by RDMA. If you don't need RDMA, you can remove them but keeping them there does not harm. Thus, we enable these two flags by default in the commands below.
     2. You may need to set `NCCL_IB_GID_INDEX` if you are using RoCE, for example: `export NCCL_IB_GID_INDEX=3`.
 
-```bash
+```bash Command
 # Change the name to yours
 docker run -itd --shm-size 32g --gpus all -v <volumes-to-mount> --ipc=host --network=host --privileged --name sglang_dev lmsysorg/sglang:dev /bin/zsh
 docker exec -it sglang_dev /bin/zsh
@@ -66,19 +66,19 @@ Some useful volumes to mount are:
 2. **SGLang repository**: code changes in the SGLang local repository will be automatically synced to the .devcontainer.
 
 Example 1: Monting local cache folder `/opt/dlami/nvme/.cache` but not the SGLang repo. Use this when you prefer to manually transfer local code changes to the devcontainer.
-```bash
+```bash Command
 docker run -itd --shm-size 32g --gpus all -v /opt/dlami/nvme/.cache:/root/.cache --ipc=host --network=host --privileged --name sglang_zhyncs lmsysorg/sglang:dev /bin/zsh
 docker exec -it sglang_zhyncs /bin/zsh
 ```
 Example 2: Mounting both HuggingFace cache and local SGLang repo. Local code changes are automatically synced to the devcontainer as the SGLang is installed in editable mode in the dev image.
-```bash
+```bash Command
 docker run -itd --shm-size 32g --gpus all -v $HOME/.cache/huggingface/:/root/.cache/huggingface -v $HOME/src/sglang:/sgl-workspace/sglang --ipc=host --network=host --privileged --name sglang_zhyncs lmsysorg/sglang:dev /bin/zsh
 docker exec -it sglang_zhyncs /bin/zsh
 ```
 ## Debug SGLang with VSCode Debugger
 1. (Create if not exist) open `launch.json` in VSCode.
 2. Add the following config and save. Please note that you can edit the script as needed to apply different parameters or debug a different program (e.g. benchmark script).
-     ```JSON
+     ```JSON Config
        {
           "version": "0.2.0",
           "configurations": [
@@ -104,7 +104,7 @@ docker exec -it sglang_zhyncs /bin/zsh
 
 ## Profile
 
-```bash
+```bash Command
 # Change batch size, input, output and add `disable-cuda-graph` (for easier analysis)
 # e.g. DeepSeek V3
 nsys profile -o deepseek_v3 python3 -m sglang.bench_one_batch --batch-size 1 --input 128 --output 256 --model deepseek-ai/DeepSeek-V3 --trust-remote-code --tp 8 --disable-cuda-graph
@@ -112,7 +112,7 @@ nsys profile -o deepseek_v3 python3 -m sglang.bench_one_batch --batch-size 1 --i
 
 ## Evaluation
 
-```bash
+```bash Command
 # e.g. gsm8k 8 shot
 python3 benchmark/gsm8k/bench_sglang.py --num-questions 2000 --parallel 2000 --num-shots 8
 ```

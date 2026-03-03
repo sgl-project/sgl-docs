@@ -7,7 +7,7 @@ metatags:
 
 **Run 405B (fp16) on Two Nodes**
 
-```bash
+```bash Command
 # replace 172.16.4.52:20000 with your own node ip address and port of the first node
 
 python3 -m sglang.launch_server \
@@ -27,7 +27,7 @@ python3 -m sglang.launch_server \
 
 Note that LLama 405B (fp8) can also be launched on a single node.
 
-```bash
+```bash Command
 python -m sglang.launch_server --model-path meta-llama/Meta-Llama-3.1-405B-Instruct-FP8 --tp 8
 ```
 
@@ -39,7 +39,7 @@ Please refer to [DeepSeek documents for reference](https://docs.sglang.io/basic_
 
 This example showcases how to serve SGLang server across multiple nodes by SLURM. Submit the following job to the SLURM cluster.
 
-```bash
+```bash Command
 #!/bin/bash -l
 
 #SBATCH -o SLURM_Logs/%x_%j_master.out

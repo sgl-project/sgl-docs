@@ -16,7 +16,7 @@ Launch the server in your terminal and wait for it to initialize. Remember to ad
 
 
 
-```python
+```python Example
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
@@ -34,7 +34,7 @@ wait_for_server(f"http://localhost:{port}")
 
 
 
-```python
+```python Example
 import subprocess, json
 
 text = "Once upon a time"
@@ -56,7 +56,7 @@ print_highlight(f"Text embedding (first 10): {text_embedding[:10]}")
 
 
 
-```python
+```python Example
 import requests
 
 text = "Once upon a time"
@@ -75,7 +75,7 @@ print_highlight(f"Text embedding (first 10): {text_embedding[:10]}")
 
 
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
@@ -96,7 +96,7 @@ SGLang also supports `input_ids` as input to get the embedding.
 
 
 
-```python
+```python Example
 import json
 import os
 from transformers import AutoTokenizer
@@ -118,7 +118,7 @@ print_highlight(f"Input IDs embedding (first 10): {input_ids_embedding[:10]}")
 ```
 
 
-```python
+```python Example
 terminate_process(embedding_process)
 ```
 

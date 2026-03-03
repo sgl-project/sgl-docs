@@ -19,7 +19,7 @@ Currently, the following models are supported:
 
 > **Note**: Currently, MindSpore models are provided by an independent package `sgl-mindspore`. Support for MindSpore is built upon current SGLang support for Ascend NPU platform. Please first [install SGLang for Ascend NPU](ascend_npu.md) and then install `sgl-mindspore`:
 
-```shell
+```shell Command
 git clone https://github.com/mindspore-lab/sgl-mindspore.git
 cd sgl-mindspore
 pip install -e .
@@ -34,7 +34,7 @@ Current SGLang-MindSpore supports Qwen3 and DeepSeek V3/R1 models. This doc uses
 
 Use the following script for offline infer:
 
-```python
+```python Example
 import sglang as sgl
 
 # Initialize the engine with MindSpore backend
@@ -67,7 +67,7 @@ for prompt, output in zip(prompts, outputs):
 
 Launch a server with MindSpore backend:
 
-```bash
+```bash Command
 # Basic server startup
 python3 -m sglang.launch_server \
     --model-path /path/to/your/model \
@@ -81,7 +81,7 @@ python3 -m sglang.launch_server \
 
 For distributed server with multiple nodes:
 
-```bash
+```bash Command
 # Multi-node distributed server
 python3 -m sglang.launch_server \
     --model-path /path/to/your/model \
@@ -102,7 +102,7 @@ python3 -m sglang.launch_server \
 
 Enable sglang debug logging by log-level argument.
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model-path /path/to/your/model \
     --host 0.0.0.0 \
@@ -114,7 +114,7 @@ python3 -m sglang.launch_server \
 
 Enable mindspore info and debug logging by setting environments.
 
-```bash
+```bash Command
 export GLOG_v=1  # INFO
 export GLOG_v=0  # DEBUG
 ```
@@ -123,7 +123,7 @@ export GLOG_v=0  # DEBUG
 
 Use the following environment variable to explicitly select the devices to use.
 
-```shell
+```shell Command
 export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7  # to set device
 ```
 
@@ -131,7 +131,7 @@ export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7  # to set device
 
 In case of some environment with special communication environment, users need set some environment variables.
 
-```shell
+```shell Command
 export MS_ENABLE_LCCL=off # current not support LCCL communication mode in SGLang-MindSpore
 ```
 
@@ -139,7 +139,7 @@ export MS_ENABLE_LCCL=off # current not support LCCL communication mode in SGLan
 
 In case of some environment with special protobuf version, users need set some environment variables to avoid binary version mismatch.
 
-```shell
+```shell Command
 export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python  # to avoid protobuf binary version mismatch
 ```
 

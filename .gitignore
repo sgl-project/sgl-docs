@@ -24,3 +24,7 @@ __pycache__/
 # Misc
 *.swp
 *.swo
+
+.agents
+.claude
+skills-lock.json

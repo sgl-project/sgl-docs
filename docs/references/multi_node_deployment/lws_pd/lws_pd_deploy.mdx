@@ -22,7 +22,7 @@ Prefill manifest file [prefill.yaml](lws-examples/p.yaml)
 
 *Note: The NodeSelector section, model location section, and taint toleration section can be adjusted according to your actual deployment environment*
 
-```yaml
+```yaml Config
 apiVersion: leaderworkerset.x-k8s.io/v1
 kind: LeaderWorkerSet
 metadata:
@@ -343,7 +343,7 @@ Decode node deployment manifest file [decode.yaml](lws-examples/d.yaml)
 
 *Note: The NodeSelector section, model location section, and taint toleration section can be adjusted according to your actual deployment environment*
 
-```yaml
+```yaml Config
 apiVersion: leaderworkerset.x-k8s.io/v1
 kind: LeaderWorkerSet
 metadata:
@@ -636,7 +636,7 @@ spec:
 
 Execute separately:
 
-```bash
+```bash Command
 kubectl apply -f p.yaml
 kubectl apply -f d.yaml
 ```
@@ -651,7 +651,7 @@ Currently, we use a static K8S service + minilb approach to implement model API 
 
 #### Create prefill k8s service
 [p-svc.yaml](lws-examples/p-svc.yaml)
-```yaml
+```yaml Config
 apiVersion: v1
 kind: Service
 metadata:
@@ -669,7 +669,7 @@ Execute `kubectl apply -f p-svc.yaml`
 
 #### Create decode k8s service
 [d-svc.yaml](lws-examples/d-svc.yaml)
-```yaml
+```yaml Config
 apiVersion: v1
 kind: Service
 metadata:
@@ -687,7 +687,7 @@ Execute `kubectl apply -f d-svc.yaml`
 
 #### Deploy minilb and lb service
 [lb.yaml](lws-examples/lb.yaml)
-```yaml
+```yaml Config
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -748,7 +748,7 @@ Execute `kubectl apply -f lb.yaml`
 
 After waiting for all model deployments to succeed, you will get the following output:
 
-```bash
+```bash Command
 [root@ecs-001]# kubectl get po
 deepseekr10528-decode-main-0             1/1     Running   0          74m
 deepseekr10528-decode-main-0-1           1/1     Running   0          74m
@@ -763,7 +763,7 @@ deepseekr10528-prefill-main   ClusterIP   None             <none>        <none> 
 
 At this point, select a nodePort:30800 to access:
 
-```bash
+```bash Command
 [root@ecs-001]# curl -X POST "http://{nodePort}:30800/v1/chat/completions" \
 >     -H "Content-Type: application/json" \
 >     -H "Authorization: Bearer None" \

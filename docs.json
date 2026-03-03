@@ -11,6 +11,10 @@
     {
       "source": "/docs/supported-models/diffusion-language-models",
       "destination": "/docs/sglang-diffusion/index"
+    },
+    {
+      "source": "/docs/sglang-diffusion/index",
+      "destination": "/sglang-diffusion/intro"
     }
   ],
   "colors": {
@@ -221,7 +225,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "docs/sglang-diffusion/index",
+              "sglang-diffusion/intro",
               "docs/sglang-diffusion/installation",
               "docs/sglang-diffusion/compatibility-matrix"
             ]

@@ -217,8 +217,40 @@
       },
       {
         "tab": "SGLang Diffusion",
-        "pages": [
-          "docs/sglang-diffusion/index"
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "docs/sglang-diffusion/index",
+              "docs/sglang-diffusion/installation",
+              "docs/sglang-diffusion/compatibility-matrix"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "docs/sglang-diffusion/api/cli",
+              "docs/sglang-diffusion/api/openai-api"
+            ]
+          },
+          {
+            "group": "Performance Optimization",
+            "pages": [
+              "docs/sglang-diffusion/performance/index",
+              "docs/sglang-diffusion/performance/attention-backends",
+              "docs/sglang-diffusion/performance/caching-strategies",
+              "docs/sglang-diffusion/performance/profiling"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "docs/references/environment_variables",
+              "docs/sglang-diffusion/support-new-models",
+              "docs/sglang-diffusion/contributing",
+              "docs/sglang-diffusion/ci-performance"
+            ]
+          }
         ]
       },
       {

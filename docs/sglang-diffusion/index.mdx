@@ -1,18 +1,68 @@
 ---
 title: SGLang Diffusion
-description: Score-based diffusion backbones in SGLang.
+description: Accelerated image and video generation with diffusion models.
 ---
 
-SGLang integrates score-based diffusion backbones that ship alongside the standard autoregressive suites, enabling structured text sampling workflows and high-performance diffusion model serving.
+SGLang Diffusion is an inference framework for accelerated image and video generation using diffusion models. It provides an end-to-end unified pipeline with optimized kernels and an efficient scheduler loop.
 
-## Supported Models
+## Key features
 
-Currently, SGLang supports a variety of diffusion-based language models. This section will be expanded as more models are validated and integrated into the core engine.
+* **Broad model support:** Wan series, FastWan series, Hunyuan, Qwen-Image, Qwen-Image-Edit, Flux, Z-Image, GLM-Image, and more
+* **Fast inference:** optimized kernels, efficient scheduler loop, and Cache-DiT acceleration
+* **Ease of use:** OpenAI-compatible API, CLI, and Python SDK
+* **Multi-platform:** NVIDIA GPUs (H100, H200, A100, B200, 4090), AMD GPUs (MI300X, MI325X), and Ascend NPU (A2, A3)
 
-### Using Diffusion Models
+## Quick start
 
-To get started with diffusion models in SGLang, you can follow the same patterns as standard LLMs but with specific configuration for score-based generation.
+<Steps>
+  <Step title="Install SGLang Diffusion">
+
+  ```bash
+  uv pip install "sglang[diffusion]" --prerelease=allow
+  ```
+
+  See the [installation guide](https://docs.sglang.io/diffusion/installation.html) for more installation methods and ROCm-specific instructions.
+  </Step>
+  <Step title="Run a one-off generation">
+
+  ```bash
+  sglang generate --model-path Qwen/Qwen-Image \
+    --prompt "A beautiful sunset over the mountains" \
+    --save-output
+  ```
+  </Step>
+  <Step title="Serve with the OpenAI-compatible API">
+
+  ```bash
+  sglang serve --model-path Qwen/Qwen-Image --port 30010
+  ```
+  </Step>
+</Steps>
+
+## CLI quick reference
+
+### Generate (one-off generation)
 
 ```bash
-python -m sglang.launch_server --model-path <path_to_diffusion_model>
+sglang generate --model-path <MODEL> --prompt "<PROMPT>" --save-output
 ```
+
+### Serve (HTTP server)
+
+```bash
+sglang serve --model-path <MODEL> --port 30010
+```
+
+### Enable Cache-DiT acceleration
+
+```bash
+SGLANG_CACHE_DIT_ENABLED=true sglang generate --model-path <MODEL> --prompt "<PROMPT>"
+```
+
+## References
+
+* [SGLang GitHub](https://github.com/sgl-project/sglang)
+* [Cache-DiT](https://github.com/vipshop/cache-dit)
+* [FastVideo](https://github.com/hao-ai-lab/FastVideo)
+* [xDiT](https://github.com/xdit-project/xDiT)
+* [Diffusers](https://github.com/huggingface/diffusers)

@@ -27,11 +27,47 @@ Deterministic inference is only supported with the following three attention bac
 
 The following table shows feature compatibility for deterministic inference across different attention backends:
 
-| Attention Backend | CUDA Graph | Chunked Prefill | Radix Cache | Non-greedy Sampling (Temp > 0) |
-|-------------------|------------|-----------------|-------------|---------------------|
-| **FlashInfer** | ✅ Yes | ✅ Yes | ❌ No | ✅ Yes |
-| **FlashAttention 3 (FA3)** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Triton** | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Attention Backend</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>CUDA Graph</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Chunked Prefill</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Radix Cache</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Non-greedy Sampling (Temp > 0)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**FlashInfer**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>❌ No</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**FlashAttention 3 (FA3)**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>**Triton**</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅ Yes</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅ Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Usage
 
@@ -39,7 +75,7 @@ The following table shows feature compatibility for deterministic inference acro
 
 Enable deterministic inference by adding the `--enable-deterministic-inference` flag:
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --attention-backend fa3 \
@@ -48,15 +84,37 @@ python3 -m sglang.launch_server \
 
 ### Server Arguments
 
-| Argument | Type/Default | Description |
-|----------|--------------|-------------|
-| `--enable-deterministic-inference` | flag; default: disabled | Enable deterministic inference with batch-invariant operations |
-| `--attention-backend` | string; default: fa3 | Choose attention backend (flashinfer, fa3, or triton) |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "34%"}} />
+    <col style={{width: "33%"}} />
+    <col style={{width: "33%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Argument</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Type/Default</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--enable-deterministic-inference`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>flag; default: disabled</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Enable deterministic inference with batch-invariant operations</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--attention-backend`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>string; default: fa3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Choose attention backend (flashinfer, fa3, or triton)</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Example Configurations
 
 #### Qwen3-8B
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --attention-backend flashinfer \
@@ -64,7 +122,7 @@ python3 -m sglang.launch_server \
 ```
 
 #### Llama Models
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model-path meta-llama/Llama-3.1-8B-Instruct \
     --attention-backend fa3 \
@@ -72,7 +130,7 @@ python3 -m sglang.launch_server \
 ```
 
 #### Qwen3-30B-A3B (MoE Model)
-```bash
+```bash Command
 python3 -m sglang.launch_server \
     --model-path Qwen/Qwen3-30B-A3B \
     --attention-backend fa3 \
@@ -87,7 +145,7 @@ SGLang supports deterministic inference even with non-greedy sampling by using s
 
 By default, SGLang uses a sampling seed of `42` for reproducible sampling:
 
-```python
+```python Example
 import requests
 
 response = requests.post(
@@ -108,7 +166,7 @@ print(response.json())
 
 To sample different responses from the same prompt while maintaining reproducibility (e.g., for GRPO training), provide different sampling seeds in your requests:
 
-```python
+```python Example
 import requests
 
 # Prepare a list of sampling seeds for different responses
@@ -143,7 +201,7 @@ This approach ensures that:
 
 Run deterministic tests to verify consistent outputs:
 
-```bash
+```bash Command
 # Single test: same prompt, varying batch sizes
 python3 -m sglang.test.test_deterministic --test-mode single --n-trials 50
 

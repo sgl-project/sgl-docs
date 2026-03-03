@@ -21,7 +21,7 @@ Hooks are attached once during `ModelRunner.initialize` and run on every forward
 
 Hooks are configured via a `ServerArgs` field:
 
-```python
+```python Example
 class ServerArgs:
     ...
     # For forward hooks
@@ -30,7 +30,7 @@ class ServerArgs:
 
 In JSON form, a minimal configuration looks like:
 
-```jsonc
+```jsonc Example
 {
   "forward_hooks": [
     {
@@ -59,7 +59,7 @@ In JSON form, a minimal configuration looks like:
 
 Each entry in `forward_hooks` is a JSON object with the following shape:
 
-```jsonc
+```jsonc Example
 {
   "name": "optional-descriptive-name",
   "target_modules": ["pattern1", "pattern2", "..."],
@@ -75,7 +75,7 @@ Each entry in `forward_hooks` is a JSON object with the following shape:
 * Human-readable name for logging.
 * Used only in log messages such as:
 
-  ```text
+  ```text Output
   Registered forward hook 'outer_linear_hooks' on outer.0
   ```
 
@@ -105,7 +105,7 @@ Each entry in `forward_hooks` is a JSON object with the following shape:
 
 The path is resolved via:
 
-```python
+```python Example
 def resolve_callable(path: Optional[str]) -> Optional[Callable]:
     if path is None:
         return None
@@ -151,14 +151,14 @@ The first two cause initialization to fail fast with a descriptive error; the la
 
 Hooks are registered in `ModelRunner.initialize()`:
 
-```python
+```python Example
 if server_args.forward_hooks:
     register_forward_hooks(self.model, server_args.forward_hooks)
 ```
 
 The actual registration logic is implemented by `register_forward_hooks`:
 
-```python
+```python Example
 def register_forward_hooks(model: nn.Module, hook_specs: List[dict[str, Any]]) -> None:
     """
     hook_specs is a list of dicts from server_args.forward_hooks.
@@ -233,7 +233,7 @@ A hook factory is a regular Python function:
 
 Example:
 
-```python
+```python Example
 HOOK_CALLS = []
 
 def dummy_hook_factory(config):
@@ -255,7 +255,7 @@ def dummy_hook_factory(config):
 
 In JSON:
 
-```jsonc
+```jsonc Example
 {
   "forward_hooks": [
     {

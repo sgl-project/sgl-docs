@@ -22,7 +22,7 @@ Additionally, you can easily build a custom server on top of the SGLang offline 
 
 ## Nest Asyncio
 Note that if you want to use **Offline Engine** in ipython or some other nested loop code, you need to add the following code:
-```python
+```python Example
 import nest_asyncio
 
 nest_asyncio.apply()
@@ -43,7 +43,7 @@ SGLang offline engine supports batch inference with efficient scheduling.
 
 
 
-```python
+```python Example
 # launch the offline engine
 import asyncio
 
@@ -58,7 +58,7 @@ llm = sgl.Engine(model_path="qwen/qwen2.5-0.5b-instruct")
 
 
 
-```python
+```python Example
 prompts = [
     "Hello, my name is",
     "The president of the United States is",
@@ -78,7 +78,7 @@ for prompt, output in zip(prompts, outputs):
 
 
 
-```python
+```python Example
 prompts = [
     "Write a short, neutral self-introduction for a fictional character. Hello, my name is",
     "Provide a concise factual statement about France’s capital city. The capital of France is",
@@ -103,7 +103,7 @@ for prompt in prompts:
 
 
 
-```python
+```python Example
 prompts = [
     "Write a short, neutral self-introduction for a fictional character. Hello, my name is",
     "Provide a concise factual statement about France’s capital city. The capital of France is",
@@ -130,7 +130,7 @@ asyncio.run(main())
 
 
 
-```python
+```python Example
 prompts = [
     "Write a short, neutral self-introduction for a fictional character. Hello, my name is",
     "Provide a concise factual statement about France’s capital city. The capital of France is",
@@ -158,6 +158,6 @@ asyncio.run(main())
 ```
 
 
-```python
+```python Example
 llm.shutdown()
 ```

@@ -12,7 +12,7 @@ Launch the server in your terminal and wait for it to initialize.
 
 
 
-```python
+```python Example
 from sglang import assistant_begin, assistant_end
 from sglang import assistant, function, gen, system, user
 from sglang import image
@@ -34,7 +34,7 @@ Set the default backend. Note: Besides the local server, you may use also `OpenA
 
 
 
-```python
+```python Example
 set_default_backend(RuntimeEndpoint(f"http://localhost:{port}"))
 ```
 
@@ -44,7 +44,7 @@ The most simple way of using SGLang frontend language is a simple question answe
 
 
 
-```python
+```python Example
 @function
 def basic_qa(s, question):
     s += system(f"You are a helpful assistant than can answer questions.")
@@ -53,7 +53,7 @@ def basic_qa(s, question):
 ```
 
 
-```python
+```python Example
 state = basic_qa("List 3 countries and their capitals.")
 print_highlight(state["answer"])
 ```
@@ -64,7 +64,7 @@ SGLang frontend language can also be used to define multi-turn dialogs.
 
 
 
-```python
+```python Example
 @function
 def multi_turn_qa(s):
     s += system(f"You are a helpful assistant than can answer questions.")
@@ -86,7 +86,7 @@ You may use any Python code within the function to define more complex control f
 
 
 
-```python
+```python Example
 @function
 def tool_use(s, question):
     s += assistant(
@@ -114,7 +114,7 @@ Use `fork` to launch parallel prompts. Because `sgl.gen` is non-blocking, the fo
 
 
 
-```python
+```python Example
 @function
 def tip_suggestion(s):
     s += assistant(
@@ -146,7 +146,7 @@ Use `regex` to specify a regular expression as a decoding constraint. This is on
 
 
 
-```python
+```python Example
 @function
 def regular_expression_gen(s):
     s += user("What is the IP address of the Google DNS servers?")
@@ -167,7 +167,7 @@ Use `regex` to define a `JSON` decoding schema.
 
 
 
-```python
+```python Example
 character_regex = (
     r"""\{\n"""
     + r"""    "name": "[\w\d\s]{1,16}",\n"""
@@ -204,7 +204,7 @@ Use `run_batch` to run a batch of prompts.
 
 
 
-```python
+```python Example
 @function
 def text_qa(s, question):
     s += user(question)
@@ -230,7 +230,7 @@ Use `stream` to stream the output to the user.
 
 
 
-```python
+```python Example
 @function
 def text_qa(s, question):
     s += user(question)
@@ -251,7 +251,7 @@ You may use `{system|user|assistant}_{begin|end}` to define complex prompts.
 
 
 
-```python
+```python Example
 @function
 def chat_example(s):
     s += system("You are a helpful assistant.")
@@ -270,7 +270,7 @@ print_highlight(state["answer"])
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -281,7 +281,7 @@ See [here](https://docs.sglang.io/supported_models/generative_models.html) for s
 
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     "python -m sglang.launch_server --model-path Qwen/Qwen2.5-VL-7B-Instruct --host 0.0.0.0 --log-level warning"
 )
@@ -291,7 +291,7 @@ print(f"Server started on http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 set_default_backend(RuntimeEndpoint(f"http://localhost:{port}"))
 ```
 
@@ -299,7 +299,7 @@ Ask a question about an image.
 
 
 
-```python
+```python Example
 @function
 def image_qa(s, image_file, question):
     s += user(image(image_file) + question)
@@ -313,6 +313,6 @@ print_highlight(state["answer"])
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```

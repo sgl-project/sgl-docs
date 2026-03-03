@@ -7,7 +7,7 @@ metatags:
 
 In SGLang, Kimi-K2.5 uses the `kimi_k2` reasoning and tool-call parsers for correct thinking and tool handling.
 
-```{note}
+```{note} Example
 Kimi-K2.5 support is in SGLang main and will land in the next release. Use the latest main or a nightly image until then.
 ```
 
@@ -15,7 +15,7 @@ Official deployment guide: [Kimi-K2.5 deployment guide](https://huggingface.co/m
 
 ## Install (Latest Main)
 
-```bash
+```bash Command
 uv pip install "sglang @ git+https://github.com/sgl-project/sglang.git#subdirectory=python"
 # For CUDA 12:
 uv pip install "nvidia-cudnn-cu12==9.16.0.29"
@@ -27,7 +27,7 @@ uv pip install "nvidia-cudnn-cu13==9.16.0.29"
 
 Example: single node, TP8 on H200.
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path moonshotai/Kimi-K2.5 \
   --tp 8 \
@@ -45,7 +45,7 @@ python3 -m sglang.launch_server \
 
 Thinking mode is enabled by default. To disable thinking (instant mode), pass `extra_body.chat_template_kwargs.thinking=false`.
 
-```bash
+```bash Command
 # Thinking mode (default)
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -59,7 +59,7 @@ curl http://localhost:30000/v1/chat/completions \
   }'
 ```
 
-```bash
+```bash Command
 # Instant mode (thinking disabled)
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -77,7 +77,7 @@ curl http://localhost:30000/v1/chat/completions \
 
 Kimi-K2.5 is multimodal. Image inputs are supported via the OpenAI-compatible vision API. For more details, see `openai_api_vision.ipynb`.
 
-```bash
+```bash Command
 # Image input (SGLang)
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \

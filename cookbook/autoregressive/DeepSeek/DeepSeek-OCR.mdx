@@ -68,7 +68,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation on 
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-OCR \
   --tp 1 \
@@ -79,7 +79,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -93,7 +93,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -136,7 +136,7 @@ Max ITL (ms):                            8.28
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-OCR \
   --tp 1 \
@@ -150,7 +150,7 @@ python3 -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 \
@@ -164,7 +164,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf

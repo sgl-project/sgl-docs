@@ -12,7 +12,7 @@ metatags:
 
 Run a benchmark using randomly generated prompts with a local SGLang server.
 
-```bash
+```bash Command
 python -m sglang.bench_serving --backend sglang --port 30000 --dataset-name random --num-prompts 100
 ```
 
@@ -20,7 +20,7 @@ python -m sglang.bench_serving --backend sglang --port 30000 --dataset-name rand
 
 Run a benchmark using the ShareGPT dataset with a specific request rate.
 
-```
+```text Output
 python -m sglang.bench_serving \
   --backend sglang \
   --dataset-name sharegpt \
@@ -34,26 +34,86 @@ python -m sglang.bench_serving \
 ### 2.1 Backend & Server Configuration
 
 These parameters define the target server and the inference engine being used.
-| Parameter | Description |
-|-----------|-------------|
-| `--backend` | **Required.** Specifies the backend engine. Options: `sglang`, `sglang-native`, `sglang-oai`, `sglang-oai-chat`, `vllm`, `vllm-chat`, `lmdeploy`, `lmdeploy-chat`, `trt`, `gserver`, `truss`. |
-| `--base-url` | The API base URL (if not using specific host/port flags). |
-| `--host` | Server hostname. Default: `0.0.0.0`. |
-| `--port` | Server port. If not set, it defaults to the specific backend's standard port. |
-| `--model` | Model name or path. If unset, it queries `/v1/models` for configuration. |
-| `--served-model-name` | The model name used in the API request body. Defaults to the value of `--model`. |
-| `--tokenizer` | Path or name of the tokenizer. Defaults to the model configuration. |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Parameter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--backend`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>**Required.** Specifies the backend engine. Options: `sglang`, `sglang-native`, `sglang-oai`, `sglang-oai-chat`, `vllm`, `vllm-chat`, `lmdeploy`, `lmdeploy-chat`, `trt`, `gserver`, `truss`.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--base-url`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The API base URL (if not using specific host/port flags).</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--host`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Server hostname. Default: `0.0.0.0`.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--port`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Server port. If not set, it defaults to the specific backend's standard port.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--model`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Model name or path. If unset, it queries `/v1/models` for configuration.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--served-model-name`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The model name used in the API request body. Defaults to the value of `--model`.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--tokenizer`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Path or name of the tokenizer. Defaults to the model configuration.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### 2.2 Dataset Configuration
 
 Controls the source of the prompts used for benchmarking.
-| Parameter | Description |
-|-----------|-------------|
-| `--dataset-name` | The type of dataset. Options: `sharegpt`, `custom`, `random`, `random-ids`, `generated-shared-prefix`, `mmmu`, `image`, `mooncake`. |
-| `--dataset-path` | File path to the dataset (e.g., local JSON file for ShareGPT). |
-| `--num-prompts` | Total number of prompts to process. Default: `1000`. |
-| `--seed` | Random seed for reproducibility. |
-| `--tokenize-prompt` | Uses integer IDs instead of strings for inputs. Useful for precise length control. |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Parameter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--dataset-name`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The type of dataset. Options: `sharegpt`, `custom`, `random`, `random-ids`, `generated-shared-prefix`, `mmmu`, `image`, `mooncake`.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--dataset-path`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>File path to the dataset (e.g., local JSON file for ShareGPT).</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--num-prompts`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Total number of prompts to process. Default: `1000`.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--seed`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Random seed for reproducibility.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--tokenize-prompt`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Uses integer IDs instead of strings for inputs. Useful for precise length control.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### 2.3 Input/Output Length Control
 
@@ -80,24 +140,81 @@ Parameters to control the shape of requests (context length and generation lengt
 ### 2.4 Traffic & Concurrency
 
 Controls how fast requests are sent to the server.
-| Parameter | Description |
-|-----------|-------------|
-| `--request-rate` | Requests per second (RPS). If `inf` (default), all requests are sent immediately (burst). Otherwise, arrival times follow a Poisson process. |
-| `--max-concurrency` | The maximum number of active requests allowed at once. Even if `request-rate` is high, the client will hold back requests if this limit is reached. |
-| `--warmup-requests` | Number of requests to run before the actual measurement begins to warm up the server. |
-| `--flush-cache` | Flushes the server cache before starting the benchmark. |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Parameter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--request-rate`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Requests per second (RPS). If `inf` (default), all requests are sent immediately (burst). Otherwise, arrival times follow a Poisson process.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--max-concurrency`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The maximum number of active requests allowed at once. Even if `request-rate` is high, the client will hold back requests if this limit is reached.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--warmup-requests`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Number of requests to run before the actual measurement begins to warm up the server.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--flush-cache`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Flushes the server cache before starting the benchmark.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### 2.5 Output & Logging
 
-| Parameter          | Description                                                          |
-| ------------------ | -------------------------------------------------------------------- |
-| `--output-file`    | Path to save the results in JSONL format.                            |
-| `--output-details` | Includes detailed metrics in the output.                             |
-| `--print-requests` | Prints requests to stdout as they are sent (useful for debugging).   |
-| `--disable-tqdm`   | Hides the progress bar.                                              |
-| `--disable-stream` | Disables streaming mode (waits for full response).                   |
-| `--return-logprob` | Requests logprobs from the server.                                   |
-| `--tag`            | An arbitrary string tag added to the output file for identification. |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Parameter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--output-file`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Path to save the results in JSONL format.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--output-details`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Includes detailed metrics in the output.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--print-requests`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Prints requests to stdout as they are sent (useful for debugging).</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--disable-tqdm`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Hides the progress bar.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--disable-stream`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Disables streaming mode (waits for full response).</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--return-logprob`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Requests logprobs from the server.</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--tag`</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>An arbitrary string tag added to the output file for identification.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### 2.6 Advanced
 

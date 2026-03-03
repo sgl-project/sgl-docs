@@ -63,7 +63,7 @@ For basic API usage and request examples, please refer to:
 
 Qwen3-VL supports both image and video inputs. Here's a basic example with image input:
 
-```python
+```python Example
 import time
 from openai import OpenAI
 
@@ -103,7 +103,7 @@ print(f"Generated text: {response.choices[0].message.content}")
 
 **Example Output:**
 
-```text
+```text Output
 Response costs: 3.37s
 Generated text: Auntie Anne's
 
@@ -123,7 +123,7 @@ CHANGE DUE                  3,000
 
 Qwen3-VL can process multiple images in a single request for comparison or analysis:
 
-```python
+```python Example
 import time
 from openai import OpenAI
 
@@ -169,7 +169,7 @@ print(f"Generated text: {response.choices[0].message.content}")
 
 **Example Output:**
 
-```text
+```text Output
 Response costs: 10.18s
 Generated text: The two images present starkly different portrayals of Hong Kong’s iconic red taxis, contrasting a dynamic street-level moment with a static, large-scale gathering.
 
@@ -186,7 +186,7 @@ In essence, the first image celebrates the individual taxi in its natural habita
 
 Qwen3-VL supports video understanding by processing video URLs:
 
-```python
+```python Example
 import time
 from openai import OpenAI
 
@@ -232,7 +232,7 @@ print(f"Generated text: {response.choices[0].message.content}")
 
 **Example Output:**
 
-```text
+```text Output
 Response costs: 3.89s
 Generated text: A person wearing blue gloves is using a microscope. They are adjusting the focus knob with one hand while holding a pipette with the other, suggesting they are preparing or examining a sample on the slide beneath the objective lens. The microscope's 40x objective lens is positioned over the slide, indicating a high-magnification observation. The person carefully manipulates the slide and the microscope controls, likely to achieve a clear view of the specimen.
 ```
@@ -241,7 +241,7 @@ Generated text: A person wearing blue gloves is using a microscope. They are adj
 
 Qwen3-VL-Thinking supports reasoning mode. Enable the reasoning parser during deployment to separate the thinking and content sections:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-VL-235B-A22B-Thinking \
   --reasoning-parser qwen3 \
@@ -252,7 +252,7 @@ python -m sglang.launch_server \
 
 **Streaming with Thinking Process:**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -301,7 +301,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 To solve this problem, I need to calculate 15% of 240.
 Step 1: Convert 15% to decimal: 15% = 0.15
@@ -318,7 +318,7 @@ The answer is 36. To find 15% of 240, we multiply 240 by 0.15, which equals 36.
 
 Qwen3-VL supports tool calling capabilities. Enable the tool call parser:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-VL-235B-A22B-Thinking \
   --reasoning-parser qwen3 \
@@ -330,7 +330,7 @@ python -m sglang.launch_server \
 
 **Python Example (with Thinking Process):**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -427,7 +427,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 The user is asking about the weather in Beijing. I need to use the get_weather function to retrieve this information.
 I should call the function with location="Beijing".
@@ -445,7 +445,7 @@ I should call the function with location="Beijing".
 
 **Handling Tool Call Results:**
 
-```python
+```python Example
 # After getting the tool call, execute the function
 def get_weather(location, unit="celsius"):
     # Your actual weather API call here
@@ -500,7 +500,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation wit
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-VL-235B-A22B-Instruct \
   --tp 8 \
@@ -510,7 +510,7 @@ python -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang-oai-chat \
   --host 127.0.0.1 \
@@ -527,7 +527,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang-oai-chat
 Traffic request rate:                    inf
@@ -572,7 +572,7 @@ For further TTFT optimization, enable CUDA IPC Transport for multimodal features
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 SGLANG_USE_CUDA_IPC_TRANSPORT=1 python -m sglang.launch_server \
   --model Qwen/Qwen3-VL-235B-A22B-Instruct \
   --tp 8 \
@@ -582,7 +582,7 @@ SGLANG_USE_CUDA_IPC_TRANSPORT=1 python -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang-oai-chat \
   --host 127.0.0.1 \
@@ -601,7 +601,7 @@ python3 -m sglang.bench_serving \
 
   With `SGLANG_USE_CUDA_IPC_TRANSPORT=1`, TTFT improves significantly:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang-oai-chat
 Traffic request rate:                    inf
@@ -644,7 +644,7 @@ Max ITL (ms):                            42.36
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-VL-235B-A22B-Instruct \
   --tp 8 \
@@ -654,7 +654,7 @@ python -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang-oai-chat \
   --host 127.0.0.1 \
@@ -671,7 +671,7 @@ python3 -m sglang.bench_serving \
 
 - **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang-oai-chat
 Traffic request rate:                    inf
@@ -718,7 +718,7 @@ You can evaluate the model's accuracy using the MMMU dataset with `lmms_eval`:
 
 - Benchmark Command:
 
-```shell
+```shell Command
 uv pip install lmms_eval
 
 python3 -m lmms_eval \
@@ -734,8 +734,44 @@ python3 -m lmms_eval \
 
 - **Test Results:**
 
-```
-| Tasks  |Version|Filter|n-shot| Metric |   |Value |   |Stderr|
-|--------|------:|------|-----:|--------|---|-----:|---|------|
-|mmmu_val|      0|none  |     0|mmmu_acc|↑  |0.6567|±  |   N/A|
+```text Output
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "12%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+    <col style={{width: "11%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Tasks</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Version</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Filter</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>n-shot</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Metric</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}></th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Value</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}></th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Stderr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>mmmu_val</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>none</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>mmmu_acc</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>↑</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>0.6567</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>±</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>N/A</td>
+    </tr>
+  </tbody>
+</table>
 ```

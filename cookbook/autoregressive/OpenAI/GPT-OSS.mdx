@@ -57,14 +57,14 @@ For basic API usage and request examples, please refer to:
 
 GPT-OSS supports reasoning mode. Enable the reasoning parser during deployment to separate the thinking and content sections:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model openai/gpt-oss-120b \
   --reasoning-parser gpt-oss \
   --tp 8
 ```
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -113,7 +113,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 The user asks: "Solve this problem step by step: What is 15% of 240?" So we need to provide step-by-step solution. Compute 15% of 240: 0.15 * 240 = 36. Provide steps: convert percent to decimal, multiply, maybe use fraction. Provide answer.
 =============== Content =================
@@ -168,14 +168,14 @@ GPT-OSS supports tool calling capabilities. Enable the tool call parser:
 
 Start sglang server:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model openai/gpt-oss-120b \
   --tool-call-parser gpt-oss \
   --tp 8
 ```
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -257,7 +257,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 🔧 Tool Call: get_weather
    Arguments: {"location": "Beijing", "unit": "celsius"}
 ```
@@ -266,7 +266,7 @@ print()
 
 Start sglang server:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model openai/gpt-oss-120b \
   --reasoning-parser gpt-oss \
@@ -274,7 +274,7 @@ python -m sglang.launch_server \
   --tp 8
 ```
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -356,7 +356,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 User asks: "What's the weather in Beijing?" We need to get current weather. Use function get_weather with location "Beijing". No unit specified; default? Probably use default (maybe Celsius). We can specify unit as "celsius". We'll call function.
 =============== Content =================
@@ -372,7 +372,7 @@ User asks: "What's the weather in Beijing?" We need to get current weather. Use 
 
 **Handling Tool Call Results:**
 
-```python
+```python Example
 # After getting the tool call, execute the function
 def get_weather(location, unit="celsius"):
     # Your actual weather API call here
@@ -425,7 +425,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation on 
 
 - Server Command:
 
-```
+```text Output
 python -m sglang.launch_server \
   --model openai/gpt-oss-120b \
   --tp 8
@@ -433,7 +433,7 @@ python -m sglang.launch_server \
 
 - Test Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --num-prompt 100 \
@@ -442,7 +442,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -485,7 +485,7 @@ Max ITL (ms):                            3.54
 
 - Server Command:
 
-```
+```text Output
 python -m sglang.launch_server \
   --model openai/gpt-oss-120b \
   --tp 8
@@ -493,7 +493,7 @@ python -m sglang.launch_server \
 
 - Test Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --num-prompt 1000 \
@@ -502,7 +502,7 @@ python3 -m sglang.bench_serving \
 
 **Test Results:**
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -547,7 +547,7 @@ Max ITL (ms):                            621.42
 
 - **Benchmark Command:**
 
-```shell
+```shell Command
 python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 ```
 
@@ -555,7 +555,7 @@ python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 
   - GPT-OSS-120b
 
-    ```
+    ```text Output
     Accuracy: 0.880
     Invalid: 0.005
     Latency: 5.262 s
@@ -564,7 +564,7 @@ python3 -m sglang.test.few_shot_gsm8k --num-questions 200 --port 8000
 
   - GPT-OSS-20b
 
-    ```
+    ```text Output
     Accuracy: 0.535
     Invalid: 0.165
     Latency: 4.157 s

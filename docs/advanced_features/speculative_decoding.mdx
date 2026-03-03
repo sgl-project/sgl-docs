@@ -10,11 +10,32 @@ SGLang now provides an EAGLE-based (EAGLE-2/EAGLE-3) speculative decoding option
 Please see below for the huge improvements on throughput for LLaMA-Instruct 3.1 8B tested on MT bench that can be achieved via EAGLE3 decoding.
 For further details please see the [EAGLE3 paper](https://arxiv.org/pdf/2503.01840).
 
-| Method | Throughput (tokens/s) |
-|--------|----------------|
-| SGLang (w/o speculative, 1x H100) | 158.34 tokens/s |
-| SGLang + EAGLE-2 (1x H100) | 244.10 tokens/s |
-| SGLang + EAGLE-3 (1x H100) | 373.25 tokens/s |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Method</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Throughput (tokens/s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>SGLang (w/o speculative, 1x H100)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>158.34 tokens/s</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>SGLang + EAGLE-2 (1x H100)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>244.10 tokens/s</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>SGLang + EAGLE-3 (1x H100)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>373.25 tokens/s</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## EAGLE Decoding
@@ -38,7 +59,7 @@ You can enable EAGLE-2 decoding by setting `--speculative-algorithm EAGLE` and c
 
 
 
-```python
+```python Example
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
@@ -46,7 +67,7 @@ import openai
 ```
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     """
 python3 -m sglang.launch_server --model meta-llama/Llama-2-7b-chat-hf  --speculative-algorithm EAGLE \
@@ -59,7 +80,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
 
 response = client.chat.completions.create(
@@ -75,7 +96,7 @@ print_highlight(f"Response: {response}")
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -86,7 +107,7 @@ You can also enable `torch.compile` for further optimizations and optionally set
 
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     """
 python3 -m sglang.launch_server --model meta-llama/Llama-2-7b-chat-hf  --speculative-algorithm EAGLE \
@@ -100,7 +121,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
 
 response = client.chat.completions.create(
@@ -116,7 +137,7 @@ print_highlight(f"Response: {response}")
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -130,7 +151,7 @@ Thanks for the contribution from [Weilin Zhao](https://github.com/Achazwl) and [
 
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     """
 python3 -m sglang.launch_server --model meta-llama/Meta-Llama-3-8B-Instruct --speculative-algorithm EAGLE \
@@ -144,7 +165,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
 
 response = client.chat.completions.create(
@@ -160,7 +181,7 @@ print_highlight(f"Response: {response}")
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -170,7 +191,7 @@ You can enable EAGLE-3 decoding by setting `--speculative-algorithm EAGLE3` and 
 
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     """
 python3 -m sglang.launch_server --model meta-llama/Llama-3.1-8B-Instruct  --speculative-algorithm EAGLE3 \
@@ -184,7 +205,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
 
 response = client.chat.completions.create(
@@ -200,17 +221,17 @@ print_highlight(f"Response: {response}")
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
 ## Multi Token Prediction
 
-We support [MTP(Multi-Token Prediction)](https://arxiv.org/pdf/2404.19737) in SGLang by using speculative decoding. We use Xiaomi/MiMo-7B-RL model as example here (deepseek mtp usage refer to [deepseek doc](../basic_usage/deepseek.md#multi-token-prediction))
+We support [MTP(Multi-Token Prediction)](https://arxiv.org/pdf/2404.19737) in SGLang by using speculative decoding. We use Xiaomi/MiMo-7B-RL model as example here (deepseek mtp usage refer to [deepseek doc](../basic_usage/deepseek_v3#multi-token-prediction))
 
 
 
-```python
+```python Example
 server_process, port = launch_server_cmd(
     """
     python3 -m sglang.launch_server --model-path XiaomiMiMo/MiMo-7B-RL --host 0.0.0.0 --trust-remote-code \
@@ -223,7 +244,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:{port}/v1/chat/completions"
@@ -238,7 +259,7 @@ print_highlight(response.json())
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 

@@ -5,55 +5,421 @@ you encounter issues or have any questions, please [open an issue](https://githu
 
 ### Low Latency
 
-| Model             | Hardware      | Cards | Deploy Mode   | Dataset   | TPOT | Quantization | Configuration                                                                         |
-|-------------------|---------------|-------|---------------|-----------|------|--------------|---------------------------------------------------------------------------------------|
-| Deepseek-R1       | Atlas 800I A3 | 32    | PD Separation | 6K+1.6K   | 20ms | W8A8 INT8    | [Optimal Configuration](#deepseek-r1-6k-1_6k-20ms-on-a3-32-cards-separation-mode)     |
-| Deepseek-R1       | Atlas 800I A3 | 32    | PD Separation | 3.9K+1K   | 20ms | W8A8 INT8    | [Optimal Configuration](#deepseek-r1-3_9k-1k-20ms-on-a3-32-cards-separation-mode)     |
-| Deepseek-R1       | Atlas 800I A3 | 32    | PD Separation | 3.5K+1.5K | 20ms | W8A8 INT8    | [Optimal Configuration](#deepseek-r1-3_5k-1_5k-20ms-on-a3-32-cards-separation-mode)   |
-| Deepseek-R1       | Atlas 800I A3 | 32    | PD Separation | 3.5K+1K   | 20ms | W8A8 INT8    | [Optimal Configuration](#deepseek-r1-3_5k-1k-20ms-on-a3-32-cards-separation-mode)     |
-| DeepSeek-V3.2-Exp | Atlas 800I A3 | 32    | PD Separation | 64K+3K    | 30ms | W8A8 INT8    | [Optimal Configuration](#deepseek-v32-exp-64k-3k-30ms-on-a3-32-cards-separation-mode) |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Hardware</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Cards</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Deploy Mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Dataset</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>TPOT</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Quantization</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Configuration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>6K+1.6K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>20ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-6k-1_6k-20ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.9K+1K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>20ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_9k-1k-20ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>20ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_5k-1_5k-20ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>20ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_5k-1k-20ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>DeepSeek-V3.2-Exp</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>64K+3K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-v32-exp-64k-3k-30ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+  </tbody>
+</table>
 
 ### High Throughput
 
-| Model       | Hardware      | Cards | Deploy Mode   | Dataset   | TPOT | Quantization | Configuration                                                                       |
-|-------------|---------------|-------|---------------|-----------|------|--------------|-------------------------------------------------------------------------------------|
-| Deepseek-R1 | Atlas 800I A3 | 32    | PD Separation | 3.5K+1.5K | 50ms | W8A8 INT8    | [Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-32-cards-separation-mode) |
-| Deepseek-R1 | Atlas 800I A3 | 8     | PD Mixed      | 2K+2K     | 50ms | W4A8 INT8    | [Optimal Configuration](#deepseek-r1-2k-2k-50ms-on-a3-8-cards-mixed-mode)           |
-| Deepseek-R1 | Atlas 800I A3 | 16    | PD Separation | 2K+2K     | 50ms | W4A8 INT8    | [Optimal Configuration](#deepseek-r1-2k-2k-50ms-on-a3-16-cards-separation-mode)     |
-| Deepseek-R1 | Atlas 800I A3 | 8     | PD Mixed      | 3.5K+1.5K | 50ms | W4A8 INT8    | [Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)       |
-| Deepseek-R1 | Atlas 800I A3 | 16    | PD Separation | 3.5K+1.5K | 50ms | W4A8 INT8    | [Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-16-cards-separation-mode) |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Hardware</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Cards</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Deploy Mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Dataset</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>TPOT</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Quantization</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Configuration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>32</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-32-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W4A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-2k-2k-50ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W4A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-2k-2k-50ms-on-a3-16-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W4A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Deepseek-R1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W4A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#deepseek-r1-3_5k-1_5k-50ms-on-a3-16-cards-separation-mode)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Qwen Series Models
 
 ### Low Latency
 
-| Model           | Hardware      | Cards | Deploy Mode | Dataset | TPOT | Quantization | Configuration                                                                  |
-|-----------------|---------------|-------|-------------|---------|------|--------------|--------------------------------------------------------------------------------|
-| Qwen3-235B-A22B | Atlas 800I A3 | 8     | PD Mixed    | 11K+1K  | 10ms | BF16         | [Optimal Configuration](#qwen3-235b-a22b-11k-1k-10ms-on-a3-8-cards-mixed-mode) |
-| Qwen3-32B       | Atlas 800I A3 | 4     | PD Mixed    | 6K+1.5K | 18ms | BF16         | [Optimal Configuration](#qwen3-32b-6k-1_5k-18ms-on-a3-4-cards-mixed-mode)      |
-| Qwen3-32B       | Atlas 800I A3 | 4     | PD Mixed    | 4K+1.5K | 11ms | BF16         | [Optimal Configuration](#qwen3-32b-4k-1_5k-11ms-on-a3-4-cards-mixed-mode)      |
-| Qwen3-32B       | Atlas 800I A3 | 8     | PD Mixed    | 18K+4K  | 12ms | BF16         | [Optimal Configuration](#qwen3-32b-18k-4k-12ms-on-a3-8-cards-mixed-mode)       |
-| Qwen3-32B       | Atlas 800I A2 | 8     | PD Mixed    | 6K+1.5K | 18ms | W8A8 INT8    | [Optimal Configuration](#qwen3-32b-6k-1_5k-18ms-on-a2-8-cards-mixed-mode)      |
-| Qwen3-32B       | Atlas 800I A2 | 8     | PD Mixed    | 4K+1.5K | 11ms | BF16         | [Optimal Configuration](#qwen3-32b-4k-1_5k-11ms-on-a2-8-cards-mixed-mode)      |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Hardware</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Cards</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Deploy Mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Dataset</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>TPOT</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Quantization</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Configuration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>11K+1K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>10ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>BF16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-11k-1k-10ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>6K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>18ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>BF16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-6k-1_5k-18ms-on-a3-4-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>4K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>11ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>BF16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-4k-1_5k-11ms-on-a3-4-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>18K+4K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>12ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>BF16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-18k-4k-12ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>6K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>18ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-6k-1_5k-18ms-on-a2-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>4K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>11ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>BF16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-4k-1_5k-11ms-on-a2-8-cards-mixed-mode)</td>
+    </tr>
+  </tbody>
+</table>
 
 ### High Throughput
 
-| Model                          | Hardware      | Cards | Deploy Mode   | Dataset   | TPOT  | Quantization | Configuration                                                                                          |
-|--------------------------------|---------------|-------|---------------|-----------|-------|--------------|--------------------------------------------------------------------------------------------------------|
-| Qwen3-235B-A22B                | Atlas 800I A3 | 24    | PD Separation | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-235b-a22b-3_5k-1_5k-50ms-on-a3-24-cards-separation-mode)                |
-| Qwen3-235B-A22B                | Atlas 800I A3 | 8     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-235b-a22b-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)                      |
-| Qwen3-235B-A22B                | Atlas 800I A3 | 8     | PD Mixed      | 2K+2K     | 100ms | W8A8 INT8    | [Optimal Configuration](#qwen3-235b-a22b-2k-2k-100ms-on-a3-8-cards-mixed-mode)                         |
-| Qwen3-235B-A22B                | Atlas 800I A3 | 8     | PD Mixed      | 2K+2K     | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-235b-a22b-2k-2k-50ms-on-a3-8-cards-mixed-mode)                          |
-| Qwen3-235B-A22B                | Atlas 800I A3 | 16    | PD Mixed      | 2K+2K     | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-235b-a22b-2k-2k-50ms-on-a3-16-cards-mixed-mode)                         |
-| Qwen3-32B                      | Atlas 800I A3 | 2     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-32b-3_5k-1_5k-50ms-on-a3-2-cards-mixed-mode)                            |
-| Qwen3-32B                      | Atlas 800I A3 | 2     | PD Mixed      | 2K+2K     | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-32b-2k-2k-50ms-on-a3-2-cards-mixed-mode)                                |
-| Qwen3-30B-A3B                  | Atlas 800I A3 | 1     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-30b-a3b-3_5k-1_5k-50ms-on-a3-1-card-mixed-mode)                         |
-| Qwen3-Coder-480B-A35B-Instruct | Atlas 800I A3 | 24    | PD Separation | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-24-cards-separation-mode) |
-| Qwen3-Coder-480B-A35B-Instruct | Atlas 800I A3 | 16    | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-16-cards-mixed-mode)      |
-| Qwen3-Coder-480B-A35B-Instruct | Atlas 800I A3 | 8     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)       |
-| Qwen3-Next-80B-A3B-Instruct    | Atlas 800I A3 | 2     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-next-80B-a3b-instruct-3_5k-1_5k-50ms-on-a3-2-cards-mixed-mode)          |
-| Qwen3-32B                      | Atlas 800I A2 | 8     | PD Mixed      | 3.5K+1.5K | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-32b-3_5k-1_5k-50ms-on-a2-8-cards-mixed-mode)                            |
-| Qwen3-32B                      | Atlas 800I A2 | 8     | PD Mixed      | 2K+2K     | 50ms  | W8A8 INT8    | [Optimal Configuration](#qwen3-32b-2k-2k-50ms-on-a2-8-cards-mixed-mode)                                |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "13%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+    <col style={{width: "12%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Model</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Hardware</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Cards</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Deploy Mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Dataset</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>TPOT</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Quantization</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>Configuration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>24</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-3_5k-1_5k-50ms-on-a3-24-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>100ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-2k-2k-100ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-2k-2k-50ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-235B-A22B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-235b-a22b-2k-2k-50ms-on-a3-16-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-3_5k-1_5k-50ms-on-a3-2-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-2k-2k-50ms-on-a3-2-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-30B-A3B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>1</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-30b-a3b-3_5k-1_5k-50ms-on-a3-1-card-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-Coder-480B-A35B-Instruct</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>24</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Separation</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-24-cards-separation-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-Coder-480B-A35B-Instruct</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>16</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-16-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-Coder-480B-A35B-Instruct</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-coder-480b-a35b-instruct-3_5k-1_5k-50ms-on-a3-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-Next-80B-A3B-Instruct</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-next-80B-a3b-instruct-3_5k-1_5k-50ms-on-a3-2-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>3.5K+1.5K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-3_5k-1_5k-50ms-on-a2-8-cards-mixed-mode)</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen3-32B</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Atlas 800I A2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>PD Mixed</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>2K+2K</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>50ms</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>W8A8 INT8</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>[Optimal Configuration](#qwen3-32b-2k-2k-50ms-on-a2-8-cards-mixed-mode)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Optimal Configuration
 
@@ -73,7 +439,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -155,7 +521,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -172,7 +538,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 768  --random-input-len 3500 --random-output-len 1500 --num-prompts 3072 --random-range-ratio 1 --request-rate 16
 ```
 
@@ -192,7 +558,7 @@ TPOT: 20ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -272,7 +638,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -289,7 +655,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 32  --random-input-len 6000 --random-output-len 1600 --num-prompts 32 --random-range-ratio 1
 ```
 
@@ -315,7 +681,7 @@ Please Turn to [DeepSeek-R1 6K-1_6K 20ms on A3 32 Cards Separation Mode](#deepse
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 768  --random-input-len 3900 --random-output-len 1000 --num-prompts 768 --random-range-ratio 1 --request-rate 16
 ```
 
@@ -341,7 +707,7 @@ Please Turn to [DeepSeek-R1 6K-1_6K 20ms on A3 32 Cards Separation Mode](#deepse
 
 We tested it based on the `RANDOM` dataset.
 
-```bash
+```bash Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 768  --random-input-len 3500 --random-output-len 1500 --num-prompts 768 --random-range-ratio 1 --request-rate 16
 ```
 
@@ -367,7 +733,7 @@ Please Turn to [DeepSeek-R1 6K-1_6K 20ms on A3 32 Cards Separation Mode](#deepse
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 768  --random-input-len 3500 --random-output-len 1000 --num-prompts 768 --random-range-ratio 1 --request-rate 16
 ```
 
@@ -387,7 +753,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -447,7 +813,7 @@ python3 -m sglang.launch_server --model-path ${MODEL_PATH} \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6699 --max-concurrency 256  --random-input-len 2048 --random-output-len 2048 --num-prompts 1024 --random-range-ratio 1
 ```
 
@@ -467,7 +833,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -556,7 +922,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -572,7 +938,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 400  --random-input-len 2048 --random-output-len 2048 --num-prompts 3200 --random-range-ratio 1 --request-rate 8
 ```
 
@@ -592,7 +958,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -649,7 +1015,7 @@ python3 -m sglang.launch_server --model-path ${MODEL_PATH} \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6699 --max-concurrency 144  --random-input-len 3500 --random-output-len 1500 --num-prompts 576 --random-range-ratio 1
 ```
 
@@ -669,7 +1035,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -757,7 +1123,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -773,7 +1139,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 384  --random-input-len 3500 --random-output-len 1500 --num-prompts 1536 --random-range-ratio 1
 ```
 
@@ -795,7 +1161,7 @@ TPOT: 30ms
 
 Deploy Prefill Instance
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -878,7 +1244,7 @@ python3 -m sglang.launch_server --model-path ${MODEL_PATH} \
 
 Deploy Decode Instance
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -968,7 +1334,7 @@ python3 -m sglang.launch_server --model-path ${MODEL_PATH} \
 --dist-init-addr ${IPs[0]}:10000 --load-balance-method decode_round_robin
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -984,7 +1350,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6688 --max-concurrency 32  --random-input-len 64000 --random-output-len 3000 --num-prompts 64 --random-range-ratio 1
 ```
 
@@ -1004,7 +1370,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1104,7 +1470,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -1120,7 +1486,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang-oai --host 127.0.0.1 --port 7239 --max-concurrency 860 --random-input-len 3500 --random-output-len 1500 --num-prompts 3440 --random-range-ratio 1
 ```
 
@@ -1140,7 +1506,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1193,7 +1559,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 272 --random-input-len 3500 --random-output-len 1500 --num-prompts 1088 --random-range-ratio 1
 ```
 
@@ -1213,7 +1579,7 @@ TPOT: 100ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1265,7 +1631,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 576 --random-input-len 2000 --random-output-len 2000 --num-prompts 576 --random-range-ratio 1
 ```
 
@@ -1285,7 +1651,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1337,7 +1703,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 480 --random-input-len 2048 --random-output-len 2048 --num-prompts 480 --random-range-ratio 1
 ```
 
@@ -1357,7 +1723,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1422,7 +1788,7 @@ done
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 768 --random-input-len 2000 --random-output-len 2000 --num-prompts 768 --random-range-ratio 1
 ```
 
@@ -1442,7 +1808,7 @@ TPOT: 10ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1495,7 +1861,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 1 --random-input-len 11000 --random-output-len 1000 --num-prompts 1 --random-range-ratio 1
 ```
 
@@ -1515,7 +1881,7 @@ TPOT: 18ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1566,7 +1932,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 32 --random-output-len 1500 --random-input-len 6000 --num-prompts 32 --random-range-ratio 1
 ```
 
@@ -1586,7 +1952,7 @@ TPOT: 11ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1636,7 +2002,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --random-range-ratio 1 --max-concurrency 1 --random-output-len 1500 --random-input-len 4096 --num-prompts 4
 ```
 
@@ -1656,7 +2022,7 @@ TPOT: 12ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1705,7 +2071,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7339 --random-range-ratio 1 --max-concurrency 1 --random-output-len 18000 --random-input-len 4000 --num-prompts 1
 ```
 
@@ -1725,7 +2091,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1775,7 +2141,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 78 --random-output-len 1500 --random-input-len 3500 --num-prompts 312 --random-range-ratio 1
 ```
 
@@ -1795,7 +2161,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1845,7 +2211,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 120 --random-output-len 2000 --random-input-len 2000 --num-prompts 480 --random-range-ratio 1
 ```
 
@@ -1865,7 +2231,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -1915,7 +2281,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 156 --random-input-len 3500 --random-output-len 1500 --num-prompts 624 --random-range-ratio 1
 ```
 
@@ -1935,7 +2301,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2023,7 +2389,7 @@ done
 
 ```
 
-```shell
+```shell Command
 export SGLANG_DP_ROUND_ROBIN=1
 python -m sglang_router.launch_router \
     --pd-disaggregation \
@@ -2039,7 +2405,7 @@ python -m sglang_router.launch_router \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 410 --random-input-len 3500 --random-output-len 1500 --num-prompts 1640 --random-range-ratio 1 --request-rate 8
 ```
 
@@ -2059,7 +2425,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2122,7 +2488,7 @@ done
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 288 --random-input-len 3500 --random-output-len 1500 --num-prompts 1152 --random-range-ratio 1 --request-rate 20
 ```
 
@@ -2142,7 +2508,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2190,7 +2556,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 80 --random-input-len 3500 --random-output-len 1500 --num-prompts 320 --random-range-ratio 1
 ```
 
@@ -2210,7 +2576,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 export cann_path=/usr/local/Ascend/ascend-toolkit/latest
 source /usr/local/Ascend/driver/bin/setenv.bash
 source ${cann_path}/../set_env.sh
@@ -2259,7 +2625,7 @@ python -m sglang.launch_server \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 6699 --max-concurrency 80 --random-output-len 1536 --random-input-len 3584 --num-prompts 160 --random-range-ratio 1
 ```
 
@@ -2279,7 +2645,7 @@ TPOT: 18ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2328,7 +2694,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7439 --max-concurrency 32 --random-output-len 1500 --random-input-len 6000 --num-prompts 32 --random-range-ratio 1
 ```
 
@@ -2348,7 +2714,7 @@ TPOT: 11ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2401,7 +2767,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving  --dataset-name random --backend sglang --host 127.0.0.1 --port 7339 --random-range-ratio 1 --max-concurrency 1 --random-output-len 1500 --random-input-len 4096 --num-prompts 4
 ```
 
@@ -2421,7 +2787,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2471,7 +2837,7 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 78 --random-output-len 1500 --random-input-len 3500 --num-prompts 312 --random-range-ratio 1
 ```
 
@@ -2491,7 +2857,7 @@ TPOT: 50ms
 
 #### Model Deployment
 
-```shell
+```shell Command
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
 sysctl -w kernel.numa_balancing=0
@@ -2540,6 +2906,6 @@ python -m sglang.launch_server --model-path $MODEL_PATH \
 
 We tested it based on the `RANDOM` dataset.
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving --dataset-name random --backend sglang --host 127.0.0.1 --port 7239 --max-concurrency 120 --random-output-len 2000 --random-input-len 2000 --num-prompts 120 --random-range-ratio 1
 ```

@@ -19,7 +19,7 @@ Data parallelism replicates the entire model across multiple GPU sets and proces
 
 ## Command Example
 You can enable batch-level DP by setting `mm-enable-dp-encoder`, for example:
-```shell
+```shell Command
 python3 -m sglang.launch_server \
     --model-path Qwen/Qwen2.5-VL-7B-Instruct \
     --tp 2 \

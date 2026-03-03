@@ -35,7 +35,7 @@ We recommend following these steps to set up the environment and prepare the mod
 
 Pull the official pre-built image from Docker Hub to ensure all dependencies are correctly configured.
 
-```bash
+```bash Command
 docker pull flashlabs/chroma:latest
 ```
 
@@ -45,7 +45,7 @@ Download the **Chroma-4B** weights from Hugging Face. You can choose one of the 
 
 **Method 1: Using Python (Recommended)**
 
-```bash
+```bash Command
 huggingface-cli download FlashLabs/Chroma-4B --local-dir Chroma-4B
 ```
 
@@ -53,7 +53,7 @@ huggingface-cli download FlashLabs/Chroma-4B --local-dir Chroma-4B
 
 Make sure you have Git LFS installed before cloning.
 
-```bash
+```bash Command
 # Install Git LFS first
 git lfs install
 
@@ -63,7 +63,7 @@ git clone https://huggingface.co/FlashLabs/Chroma-4B Chroma-4B
 
 ### Step 3: Download Chroma Codes (SGLang version)
 
-```bash
+```bash Command
 git clone https://github.com/FlashLabs-AI-Corp/Chroma-SGLang.git
 
 cd Chroma-SGLang
@@ -71,7 +71,7 @@ cd Chroma-SGLang
 
 ### Step 4: Run the Server
 
-```bash
+```bash Command
 docker run -d \
   --gpus all \
   -p 8000:8000 \
@@ -89,7 +89,7 @@ docker run -d \
 
 or run simply the following one line command
 
-```bash
+```bash Command
 docker-compose up -d
 ```
 
@@ -99,7 +99,7 @@ Once the server is running, you can interact with it using HTTP requests.
 
 ### Python Client
 
-```python
+```python Example
 import requests
 import base64
 
@@ -136,7 +136,7 @@ if result.get("audio"):
 
 ### OpenAI SDK Compatible Example
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -167,7 +167,7 @@ print(response)
 
 ### CLI (cURL)
 
-```bash
+```bash Command
 curl -X POST http://localhost:8000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{

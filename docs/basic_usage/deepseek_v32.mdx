@@ -14,7 +14,7 @@ Note: This document is originally written for the usage of [DeepSeek-V3.2-Exp](h
 
 ### Docker
 
-```bash
+```bash Command
 # H200/B200
 docker pull lmsysorg/sglang:latest
 
@@ -34,7 +34,7 @@ docker pull lmsysorg/sglang:dsv32-a3
 
 ### Build From Source
 
-```bash
+```bash Command
 # Install SGLang
 git clone https://github.com/sgl-project/sglang
 cd sglang
@@ -45,7 +45,7 @@ pip3 install -e "python"
 
 To serve [DeepSeek-V3.2-Exp](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) on 8xH200/B200 GPUs:
 
-```bash
+```bash Command
 # Launch with TP + DP (Recommended)
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp --tp 8 --dp 8 --enable-dp-attention
 
@@ -77,12 +77,12 @@ python3 -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp --tp 8 --n
 SGLang implements Multi-Token Prediction (MTP) for DeepSeek V3.2 based on [EAGLE speculative decoding](https://docs.sglang.io/advanced_features/speculative_decoding.html#EAGLE-Decoding). With this optimization, the decoding speed can be improved significantly on small batch sizes. Please look at [this PR](https://github.com/sgl-project/sglang/pull/11652) for more information.
 
 Example usage with DP Attention:
-```bash
+```bash Command
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp --tp 8 --dp 8 --enable-dp-attention --speculative-algorithm EAGLE --speculative-num-steps 3 --speculative-eagle-topk 1 --speculative-num-draft-tokens 4
 ```
 
 Example usage with Pure TP:
-```bash
+```bash Command
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp --tp 8 --speculative-algorithm EAGLE --speculative-num-steps 3 --speculative-eagle-topk 1 --speculative-num-draft-tokens 4
 ```
 
@@ -102,7 +102,7 @@ To launch `DeepSeek-V3.2-Exp` with function calling and reasoning parser:
 It is recommended to specify the chat-template, ensuring that you are within the sglang's root directory.
 </Note>
 
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Exp \
   --trust-remote-code \
@@ -113,7 +113,7 @@ python3 -m sglang.launch_server \
 ```
 
 To launch `DeepSeek-V3.2` with function calling and reasoning parser:
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2 \
   --trust-remote-code \
@@ -123,7 +123,7 @@ python3 -m sglang.launch_server \
 ```
 
 `DeepSeek-V3.2-Speciale` doesn't support tool calling, so can only be launched with reasoning parser:
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Speciale \
   --trust-remote-code \
@@ -135,7 +135,7 @@ python3 -m sglang.launch_server \
 ## PD Disaggregation
 
 Prefill Command:
-```bash
+```bash Command
 python -m sglang.launch_server \
         --model-path deepseek-ai/DeepSeek-V3.2-Exp \
         --disaggregation-mode prefill \
@@ -151,7 +151,7 @@ python -m sglang.launch_server \
 ```
 
 Decode command:
-```bash
+```bash Command
 python -m sglang.launch_server \
         --model-path deepseek-ai/DeepSeek-V3.2-Exp \
         --disaggregation-mode decode \
@@ -166,7 +166,7 @@ python -m sglang.launch_server \
 ```
 
 Router command:
-```bash
+```bash Command
 python -m sglang_router.launch_router --pd-disaggregation \
   --prefill $PREFILL_ADDR 8998 \
   --decode $DECODE_ADDR \
@@ -181,12 +181,12 @@ If you need more advanced deployment methods or production-ready deployment meth
 
 ### Accuracy Test with `gsm8k`
 A simple accuracy benchmark can be tested with `gsm8k` dataset:
-```bash
+```bash Command
 python3 benchmark/gsm8k/bench_sglang.py --num-shots 8 --num-questions 1319 --parallel 1319
 ```
 
 The result is 0.956, which matches our expectation:
-```bash
+```bash Command
 Accuracy: 0.956
 Invalid: 0.000
 Latency: 25.109 s
@@ -194,7 +194,7 @@ Output throughput: 5226.235 token/s
 ```
 
 To test long-context accuracy, run gsm8k with `--num-shots 20`. The results are very close to the 8 shots results:
-```
+```text Output
 Accuracy: 0.956
 Invalid: 0.000
 Latency: 29.545 s
@@ -205,19 +205,19 @@ Output throughput: 4418.617 token/s
 ### Accuracy Test with `gpqa-diamond`
 
 Accuracy benchmark on long context can be tested on GPQA-diamond dataset with long output tokens and thinking enabled:
-```bash
+```bash Command
 python3 -m sglang.test.run_eval --port 30000 --eval-name gpqa --num-examples 198 --max-tokens 128000 --repeat 8 --thinking-mode deepseek-v3
 ```
 
 The mean accuracy over 8 runs shows 0.797, which matches the number 0.799 in official tech report.
-```bash
+```bash Command
 Repeat: 8, mean: 0.797
 Scores: ['0.808', '0.798', '0.808', '0.798', '0.783', '0.788', '0.803', '0.793']
 ```
 
 For Deepseek V3.2, Deepseek recommends setting the sampling parameters to temperature = 1.0, top_p = 0.95:
 
-```bash
+```bash Command
 python3 -m sglang.test.run_eval --port 30000 --eval-name gpqa --num-examples 198 --max-tokens 128000 --repeat 8 --top-p 0.95 --temperature 1.0 --thinking-mode deepseek-v3
 
 Repeat: 8, mean: 0.840
@@ -229,23 +229,23 @@ which matches the official score, 0.824, as reported in the [Deepseek-V3.2 techn
 
 Prepare the environment by installing NeMo-Skills in the docker or your own virtual environment:
 
-  ```
+  ```text Output
   pip install git+https://github.com/NVIDIA/NeMo-Skills.git --ignore-installed blinker
   ```
 
 Then launch the SGLang server:
-```
+```text Output
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp --tp 8 --dp 8 --enable-dp-attention
 ```
 
 **For `DeepSeek-V3.2` and `DeepSeek-V3.2-Speciale`**:
 
-```
+```text Output
 python3 -m sglang.launch_server   --model-path deepseek-ai/DeepSeek-V3.2   --trust-remote-code   --tp-size 8 --dp-size 8 --enable-dp-attention   --tool-call-parser deepseekv32   --reasoning-parser deepseek-v3
 ```
 
 Run the following script to evaluate AIME 2025:
-```
+```text Output
 #! /bin/bash
 export NEMO_SKILLS_DISABLE_UNCOMMITTED_CHANGES_CHECK=1
 
@@ -274,27 +274,150 @@ Test results (8*B200):
 
 DeepSeek-V3.2-Exp：
 
-| evaluation_mode    | num_entries | avg_tokens | gen_seconds | symbolic_correct      | no_answer |
-|--------------------|-------------|------------|-------------|-----------------------|-----------|
-| pass@1[avg-of-4]   | 30          | 15040      | 1673        | 87.50% ± 1.67%        | 0.00%     |
-| majority@4         | 30          | 15040      | 1673        | 90.00%                | 0.00%     |
-| pass@4             | 30          | 15040      | 1673        | 90.00%                | 0.00%     |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "16%"}} />
+    <col style={{width: "16%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>evaluation_mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>num_entries</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>avg_tokens</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>gen_seconds</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>symbolic_correct</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>no_answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@1[avg-of-4]</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>15040</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1673</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>87.50% ± 1.67%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>majority@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>15040</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1673</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>90.00%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>15040</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1673</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>90.00%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+  </tbody>
+</table>
 
 
 DeepSeek-V3.2:
-| evaluation_mode    | num_entries | avg_tokens | gen_seconds | symbolic_correct      | no_answer |
-|--------------------|-------------|------------|-------------|-----------------------|-----------|
-| pass@1[avg-of-4]   | 30          | 13550      | 1632        | 92.50% ± 1.67%        | 0.00%     |
-| majority@4         | 30          | 13550      | 1632        | 94.71%                | 0.00%     |
-| pass@4             | 30          | 13550      | 1632        | 96.67%                | 0.00%     |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "16%"}} />
+    <col style={{width: "16%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>evaluation_mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>num_entries</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>avg_tokens</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>gen_seconds</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>symbolic_correct</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>no_answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@1[avg-of-4]</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>13550</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1632</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>92.50% ± 1.67%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>majority@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>13550</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1632</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>94.71%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>13550</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>1632</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>96.67%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+  </tbody>
+</table>
 
 
 DeepSeek-V3.2-Speciale:
-| evaluation_mode    | num_entries | avg_tokens | gen_seconds | symbolic_correct      | no_answer |
-|--------------------|-------------|------------|-------------|-----------------------|-----------|
-| pass@1[avg-of-4]   | 30          | 24155      | 3583        | 95.00% ± 1.92%        | 0.00%     |
-| majority@4         | 30          | 24155      | 3583        | 95.83%                | 0.00%     |
-| pass@4             | 30          | 24155      | 3583        | 100.00%               | 0.00%     |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "17%"}} />
+    <col style={{width: "16%"}} />
+    <col style={{width: "16%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>evaluation_mode</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>num_entries</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>avg_tokens</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>gen_seconds</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>symbolic_correct</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>no_answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@1[avg-of-4]</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>24155</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>3583</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>95.00% ± 1.92%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>majority@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>24155</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>3583</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>95.83%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>pass@4</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>30</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>24155</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>3583</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>100.00%</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>0.00%</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -319,7 +442,7 @@ Note that in sequence splitting mode has the following restrictions:
 For more details, please refer to PR https://github.com/sgl-project/sglang/pull/12065.
 
 Example:
-```bash
+```bash Command
 # In-seq splitting mode launched with EP + DP
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp  --tp 8 --ep 8 --dp 2 --enable-dp-attention --enable-nsa-prefill-context-parallel --nsa-prefill-cp-mode in-seq-split --max-running-requests 32
 ```
@@ -333,7 +456,7 @@ In this scenario, compared with the aforementioned method, it additionally suppo
 For more details, please refer to PR https://github.com/sgl-project/sglang/pull/13959.
 
 Example usage:
-```bash
+```bash Command
 # Launch with FusedMoe + CP8
 python -m sglang.launch_server --model deepseek-ai/DeepSeek-V3.2-Exp  --tp 8 --enable-nsa-prefill-context-parallel --nsa-prefill-cp-mode round-robin-split --max-running-requests 32
 ```
@@ -350,7 +473,7 @@ For related development details, please refer to:
 - PP + CP support: [Issue #15358](https://github.com/sgl-project/sglang/issues/15358) and [PR #16380](https://github.com/sgl-project/sglang/pull/16380)
 
 Node 0:
-```bash
+```bash Command
 export SGLANG_PP_LAYER_PARTITION=30,31
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Exp \
@@ -373,7 +496,7 @@ python3 -m sglang.launch_server \
 ```
 
 Node 1:
-```bash
+```bash Command
 export SGLANG_PP_LAYER_PARTITION=30,31
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Exp \
@@ -400,7 +523,7 @@ python3 -m sglang.launch_server \
 If using PD (Prefill-Decode) Disaggregation, the Prefill nodes can be configured with PP + CP as follows.
 
 Prefill Node 0:
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Exp \
   --served-model-name deepseek-v32 \
@@ -425,7 +548,7 @@ python -m sglang.launch_server \
 ```
 
 Prefill Node 1:
-```bash
+```bash Command
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.2-Exp \
   --served-model-name deepseek-v32-prefill \

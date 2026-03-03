@@ -66,7 +66,7 @@ When evaluating pipeline parallelism with fixed chunked prefill sizes from 2K to
 When enabling dynamic chunking, we first scale the optimal fixed chunked prefill size by a factor of 3 as the initial chunk size. Through experimentation, we found that a multiplier of 2-3 provides an appropriate balance—avoiding excessive initial pipeline bubbles while ensuring that subsequent chunks don't become too small as context length increases. With the default dynamic chunking smoothing factor of 0.75, we performed parameter tuning and determined that a value of 0.65 works optimally with the 12K initial chunk size for the DeepSeek-V3.1, while a value of 0.8 works optimally with the 18K initial chunk size for the Qwen3-235B-A22B-FP8.
 
 #### DeepSeek-V3.1 with 128K Input Token Length
-```bash
+```bash Command
 # prefill node 0 (fixed chunked prefill size)
 python3 -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3.1 --trust-remote-code \
@@ -77,7 +77,7 @@ python3 -m sglang.launch_server \
   --max-running-requests 128 --chunked-prefill-size 4096
 ```
 
-```bash
+```bash Command
 # prefill node 0 (with dynamic chunking)
 export SGLANG_DYNAMIC_CHUNKING_SMOOTH_FACTOR=0.65
 python3 -m sglang.launch_server \
@@ -90,7 +90,7 @@ python3 -m sglang.launch_server \
 ```
 
 #### Qwen3-235B-A22B-FP8 with 128K Input Token Length
-```bash
+```bash Command
 # prefill node 0 (fixed chunked prefill size)
 python3 -m sglang.launch_server \
   --model-path Qwen/Qwen3-235B-A22B-FP8 --trust-remote-code \
@@ -101,7 +101,7 @@ python3 -m sglang.launch_server \
   --max-running-requests 128 --chunked-prefill-size 6144
 ```
 
-```bash
+```bash Command
 # prefill node 0 (with dynamic chunking)
 export SGLANG_DYNAMIC_CHUNKING_SMOOTH_FACTOR=0.8
 python3 -m sglang.launch_server \

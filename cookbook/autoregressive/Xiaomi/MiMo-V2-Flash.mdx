@@ -21,7 +21,7 @@ MiMo-V2-Flash is currently available in SGLang via Docker image and pip install.
 
 ### Docker
 
-```bash
+```bash Command
 # Pull the docker image
 docker pull lmsysorg/sglang:dev-pr-15207
 
@@ -35,7 +35,7 @@ docker run -it --gpus all \
 
 ### Pip Installation
 
-```bash
+```bash Command
 # On a machine with SGLang dependencies installed or inside a SGLang nightly container
 # Start an SGLang nightly container
 docker run -it --gpus all \
@@ -64,7 +64,7 @@ import { MiMoV2FlashDeployment } from "/src/snippets/autoregressive/mimo-v2-flas
 
 Once the server is running, test it with a chat completion request in another terminal:
 
-```bash
+```bash Command
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -79,7 +79,7 @@ curl http://localhost:30000/v1/chat/completions \
 
 **Expected response:**
 
-```json
+```json Config
 {
   "id": "...",
   "object": "chat.completion",

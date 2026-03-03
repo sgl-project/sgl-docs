@@ -17,7 +17,7 @@ The checkpoint engine integration allows SGLang to:
 
 First, install the checkpoint engine package:
 
-```bash
+```bash Command
 pip install 'checkpoint-engine[p2p]'
 ```
 
@@ -38,7 +38,7 @@ The checkpoint engine uses a parameter server architecture with support for:
 ### Single Node Setup
 
 **Terminal 1 - Launch SGLang Server:**
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --tp 8 \
@@ -49,7 +49,7 @@ python -m sglang.launch_server \
 **Terminal 2 - Run Checkpoint Engine:**
 
 Using sglang entrypoint:
-```bash
+```bash Command
 python -m sglang.srt.checkpoint_engine.update \
     --update-method broadcast \
     --checkpoint-path /path/to/Qwen/Qwen3-8B/ \
@@ -57,7 +57,7 @@ python -m sglang.srt.checkpoint_engine.update \
 ```
 
 Using torchrun directly:
-```bash
+```bash Command
 torchrun --nproc-per-node 8 \
     examples/checkpoint_engine/update.py \
     --update-method broadcast \
@@ -70,7 +70,7 @@ torchrun --nproc-per-node 8 \
 **Node 0:**
 
 Launch SGLang server:
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --tp 8 \
@@ -82,7 +82,7 @@ python -m sglang.launch_server \
 Run checkpoint engine:
 
 Using sglang entrypoint (recommended):
-```bash
+```bash Command
 python -m sglang.srt.checkpoint_engine.update \
     --update-method broadcast \
     --checkpoint-path /path/to/Qwen/Qwen3-8B/ \
@@ -90,7 +90,7 @@ python -m sglang.srt.checkpoint_engine.update \
 ```
 
 Using torchrun directly:
-```bash
+```bash Command
 torchrun --nproc-per-node 8 \
     --nnodes 2 \
     --node-rank 0 \
@@ -105,7 +105,7 @@ torchrun --nproc-per-node 8 \
 **Node 1:**
 
 Launch SGLang server:
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --tp 8 \
@@ -117,7 +117,7 @@ python -m sglang.launch_server \
 Run checkpoint engine:
 
 Using sglang entrypoint (recommended):
-```bash
+```bash Command
 python -m sglang.srt.checkpoint_engine.update \
     --update-method broadcast \
     --checkpoint-path /path/to/Qwen/Qwen3-8B/ \
@@ -125,7 +125,7 @@ python -m sglang.srt.checkpoint_engine.update \
 ```
 
 Using torchrun directly:
-```bash
+```bash Command
 torchrun --nproc-per-node 8 \
     --nnodes 2 \
     --node-rank 1 \
@@ -142,7 +142,7 @@ torchrun --nproc-per-node 8 \
 **Node 0:**
 
 Launch SGLang server:
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --tp 8 \
@@ -157,7 +157,7 @@ python -m sglang.launch_server \
 Run checkpoint engine:
 
 Using sglang entrypoint (recommended):
-```bash
+```bash Command
 python -m sglang.srt.checkpoint_engine.update \
     --update-method broadcast \
     --checkpoint-path /path/to/Qwen/Qwen3-8B/ \
@@ -165,7 +165,7 @@ python -m sglang.srt.checkpoint_engine.update \
 ```
 
 Using torchrun directly:
-```bash
+```bash Command
 torchrun --nproc-per-node 8 \
     --nnodes 2 \
     --node-rank 0 \
@@ -180,7 +180,7 @@ torchrun --nproc-per-node 8 \
 **Node 1:**
 
 Launch SGLang server:
-```bash
+```bash Command
 python -m sglang.launch_server \
     --model-path Qwen/Qwen3-8B \
     --tp 8 \
@@ -195,7 +195,7 @@ python -m sglang.launch_server \
 Run checkpoint engine:
 
 Using sglang entrypoint (recommended):
-```bash
+```bash Command
 python -m sglang.srt.checkpoint_engine.update \
     --update-method broadcast \
     --checkpoint-path /path/to/Qwen/Qwen3-8B/ \
@@ -203,7 +203,7 @@ python -m sglang.srt.checkpoint_engine.update \
 ```
 
 Using torchrun directly:
-```bash
+```bash Command
 torchrun --nproc-per-node 8 \
     --nnodes 2 \
     --node-rank 1 \

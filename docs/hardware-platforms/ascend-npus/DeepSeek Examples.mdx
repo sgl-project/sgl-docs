@@ -4,7 +4,7 @@
 
 W4A8 Model weights could be found [here](https://modelers.cn/models/Modelers_Park/DeepSeek-R1-0528-w4a8).
 
-```shell
+```shell Command
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
 
@@ -54,7 +54,7 @@ W4A8 Model weights could be found [here](https://modelers.cn/models/Modelers_Par
 
 <Tabs>
   <Tab title="Prefill">
-    ```shell
+    ```shell Command
     export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
     export STREAMS_PER_DEVICE=32
 
@@ -106,7 +106,7 @@ W4A8 Model weights could be found [here](https://modelers.cn/models/Modelers_Par
   </Tab>
   
   <Tab title="Decode">
-    ```shell
+    ```shell Command
     export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
     export STREAMS_PER_DEVICE=32
 
@@ -164,7 +164,7 @@ W4A8 Model weights could be found [here](https://modelers.cn/models/Modelers_Par
   </Tab>
   
   <Tab title="Router">
-    ```shell
+    ```shell Command
     python -m sglang_router.launch_router \
         --pd-disaggregation \
         --policy cache_aware \
@@ -182,7 +182,7 @@ W8A8 Model weights could be found [here](https://modelers.cn/models/State_Cloud/
 
 <Tabs>
   <Tab title="Prefill & Decode">
-    ```shell
+    ```shell Command
     echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
     sysctl -w vm.swappiness=0
     sysctl -w kernel.numa_balancing=0
@@ -266,7 +266,7 @@ W8A8 Model weights could be found [here](https://modelers.cn/models/State_Cloud/
   </Tab>
   
   <Tab title="Router">
-    ```shell
+    ```shell Command
     export SGLANG_DP_ROUND_ROBIN=1
     python -m sglang_router.launch_router \
         --pd-disaggregation \
@@ -283,7 +283,7 @@ W8A8 Model weights could be found [here](https://modelers.cn/models/State_Cloud/
 
 ### Test GSM8K
 
-```python
+```python Example
 from types import SimpleNamespace
 from sglang.test.few_shot_gsm8k import run_eval
 

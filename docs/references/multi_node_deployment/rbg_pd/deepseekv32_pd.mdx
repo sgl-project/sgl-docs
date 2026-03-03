@@ -22,7 +22,7 @@ For RBG installation, please refer to: https://github.com/sgl-project/rbg
 
 rbg-dsv32.yml
 
-```yaml
+```yaml Config
 apiVersion: workloads.x-k8s.io/v1alpha1
 kind: RoleBasedGroup
 metadata:
@@ -532,7 +532,7 @@ spec:
 
 ```
 
-```bash
+```bash Command
 [root@ecs-001]# kubectl get po -n default
 deepseek-rbg-32exp-decode-main-0             1/1     Running   0          74m
 deepseek-rbg-32exp-decode-0-1                1/1     Running   0          74m
@@ -547,7 +547,7 @@ deepseek-rbg-32exp-prefill            ClusterIP   None             <none>       
 
 At this point, select a nodePort:30800 to access:
 
-```bash
+```bash Command
 [root@ecs-001]# curl -X POST "http://{nodePort}:30800/v1/chat/completions" \
 >     -H "Content-Type: application/json" \
 >     -H "Authorization: Bearer None" \

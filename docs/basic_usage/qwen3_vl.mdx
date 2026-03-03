@@ -13,7 +13,7 @@ Below are suggested launch commands tailored for different hardware / precision 
 
 ### FP8 (quantised) mode
 For high memory-efficiency and latency optimized deployments (e.g., on H100, H200) where FP8 checkpoint is supported:
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path Qwen/Qwen3-VL-235B-A22B-Instruct-FP8 \
   --tp 8 \
@@ -25,7 +25,7 @@ python3 -m sglang.launch_server \
 
 ### Non-FP8 (BF16 / full precision) mode
 For deployments on A100/H100 where BF16 is used (or FP8 snapshot not used):
-```bash
+```bash Command
 python3 -m sglang.launch_server \
   --model-path Qwen/Qwen3-VL-235B-A22B-Instruct \
   --tp 8 \
@@ -44,7 +44,7 @@ python3 -m sglang.launch_server \
 
 ### Image input:
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:30000/v1/chat/completions"
@@ -74,7 +74,7 @@ print(response.text)
 
 ### Video Input:
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:30000/v1/chat/completions"
@@ -113,7 +113,7 @@ When launching the model server for **multimodal support**, you can use the foll
 - `SGLANG_USE_CUDA_IPC_TRANSPORT=1`: Shared memory pool based CUDA IPC for multi-modal data transport. For significantly improving e2e latency.
 
 ### Example usage with the above optimizations:
-```bash
+```bash Command
 SGLANG_USE_CUDA_IPC_TRANSPORT=1 \
 SGLANG_VLM_CACHE_SIZE_MB=0 \
 python -m sglang.launch_server \

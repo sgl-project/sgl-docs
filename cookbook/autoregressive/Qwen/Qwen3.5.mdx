@@ -29,7 +29,7 @@ Qwen3.5 features a Gated Delta Networks combined with sparse Mixture-of-Experts 
 
 SGLang from the main branch is required for Qwen3.5. You can install from source or use a Docker image:
 
-```bash
+```bash Command
 # Install from source
 uv pip install 'git+https://github.com/sgl-project/sglang.git#subdirectory=python'
 
@@ -62,17 +62,38 @@ This section provides deployment configurations optimized for different hardware
 - **Multimodal Attention Backend**: Use `--mm-attention-backend fa3` on H100/H200 for better vision performance, or `--mm-attention-backend fa4` on B200.
 - For processing large images or videos, you may need to lower `--mem-fraction-static` to leave room for image feature tensors.
 
-| Hardware | TP  |
-| -------- | --- |
-| H100     | 16  |
-| H200     | 8   |
-| B200     | 8   |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>Hardware</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>TP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>H100</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>16</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>H200</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>8</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>B200</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>8</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 4. Model Invocation
 
 Deploy Qwen3.5-397B-A17B with the following command (H200, all features enabled):
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3.5-397B-A17B \
   --tp 8 \
@@ -97,7 +118,7 @@ For basic API usage and request examples, please refer to:
 
 Qwen3.5 supports image and video inputs as a unified vision-language model. Here is an example with an image:
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -154,7 +175,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 The user wants a detailed description of the provided image.
 
@@ -244,7 +265,7 @@ To disable thinking and use Instruct mode, pass `chat_template_kwargs` at reques
 
 Thinking mode is enabled by default. The model will reason step-by-step before answering, and the thinking process is returned via `reasoning_content`:
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -292,7 +313,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 Thinking Process:
 
@@ -421,7 +442,7 @@ $$3600 \rightarrow 36.00$$
 
 To disable thinking and get a direct response, pass `{"enable_thinking": false}` via `chat_template_kwargs`:
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -452,7 +473,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 To find 15% of 240, you can follow these steps:
 
 ### Step-by-Step Deduction
@@ -484,7 +505,7 @@ Qwen3.5 supports tool calling capabilities. Enable the tool call parser during d
 
 **Python Example (with Thinking Process):**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -565,7 +586,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 The user is asking about the weather in Beijing. I have access to a get_weather function that can provide current weather information for a location. Let me check the parameters:
 
@@ -594,13 +615,13 @@ Tool Call: None
 
 - Benchmark Command
 
-```bash
+```bash Command
 python3 benchmark/gsm8k/bench_sglang.py --port 30000
 ```
 
 - Test Result
 
-```
+```text Output
 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 200/200 [00:31<00:00,  6.43it/s]
 Accuracy: 0.975
 Invalid: 0.005
@@ -612,13 +633,13 @@ Output throughput: 998.166 token/s
 
 - Benchmark Command
 
-```bash
+```bash Command
 python3 benchmark/mmmu/bench_sglang.py --concurrency 128 --port 30000 --max-new-tokens 512
 ```
 
 - Test Result
 
-```
+```text Output
 {'Accounting': {'acc': 1.0, 'num': 3},
  'Agriculture': {'acc': 1.0, 'num': 4},
  'Art': {'acc': 1.0, 'num': 9},
@@ -664,7 +685,7 @@ Overall accuracy: 0.978
 
 Server Launch Command:
 
-```bash
+```bash Command
 SGLANG_USE_CUDA_IPC_TRANSPORT=1 python -m sglang.launch_server \
   --model Qwen/Qwen3.5-397B-A17B \
   --tp 8 \
@@ -681,7 +702,7 @@ SGLANG_USE_CUDA_IPC_TRANSPORT=1 python -m sglang.launch_server \
 
 #### 5.3.1 Latency Benchmark
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3.5-397B-A17B \
@@ -693,7 +714,7 @@ python3 -m sglang.bench_serving \
   --request-rate inf
 ```
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -736,7 +757,7 @@ Max ITL (ms):                            58.03
 
 #### 5.3.2 Throughput Benchmark
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3.5-397B-A17B \
@@ -748,7 +769,7 @@ python3 -m sglang.bench_serving \
   --request-rate inf
 ```
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -795,7 +816,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation wit
 
 #### 5.3.1 Latency Benchmark
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang-oai-chat \
   --host 127.0.0.1 \
@@ -811,13 +832,13 @@ python3 -m sglang.bench_serving \
   --request-rate inf
 ```
 
-```
+```text Output
 TODO
 ```
 
 #### 5.3.2 Throughput Benchmark
 
-```bash
+```bash Command
 python3 -m sglang.bench_serving \
   --backend sglang-oai-chat \
   --host 127.0.0.1 \
@@ -833,6 +854,6 @@ python3 -m sglang.bench_serving \
   --request-rate inf
 ```
 
-```
+```text Output
 TODO
 ```

@@ -67,7 +67,7 @@ For basic API usage and request examples, please refer to:
 
 Qwen3-235B-A22B supports reasoning mode. Enable the reasoning parser during deployment to separate the thinking and content sections:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-235B-A22B-Thinking-2507 \
   --reasoning-parser qwen3 \
@@ -78,7 +78,7 @@ python -m sglang.launch_server \
 
 **Streaming with Thinking Process:**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -127,7 +127,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 
 Okay, so I need to figure out what 15% of 240 is. Hmm, percentages can sometimes trip me up, but I think I remember some basics. Let me start by recalling that "percent" means "per hundred," so 15% is the same as 15 per 100, or 15/100. So, maybe I can convert 15% into a decimal first? Yeah, I think that's a common method.
@@ -156,7 +156,7 @@ Thus, 15% of 240 is **36**.
 
 Qwen3 supports tool calling capabilities. Enable the tool call parser:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-235B-A22B-Thinking-2507 \
   --reasoning-parser qwen3 \
@@ -168,7 +168,7 @@ python -m sglang.launch_server \
 
 **Python Example (with Thinking Process):**
 
-```python
+```python Example
 from openai import OpenAI
 
 client = OpenAI(
@@ -265,7 +265,7 @@ print()
 
 **Output Example:**
 
-```
+```text Output
 =============== Thinking =================
 
 Okay, the user is asking for the weather in Beijing. Let me check the tools available. There's a function called get_weather that takes location and unit parameters. The location is required, so I need to specify Beijing as the location. The unit is optional and can be either celsius or fahrenheit. Since the user didn't specify the unit, maybe I should default to a common one. In China, they usually use celsius, so I'll set unit to celsius. I'll call the get_weather function with location: Beijing and unit: celsius. That should get the current weather for them.
@@ -286,7 +286,7 @@ Okay, the user is asking for the weather in Beijing. Let me check the tools avai
 
 **Handling Tool Call Results:**
 
-```python
+```python Example
 # After getting the tool call, execute the function
 def get_weather(location, unit="celsius"):
     # Your actual weather API call here
@@ -341,7 +341,7 @@ We use SGLang's built-in benchmarking tool to conduct performance evaluation on 
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --tp 8
@@ -351,7 +351,7 @@ python -m sglang.launch_server \
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -364,7 +364,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -407,7 +407,7 @@ Max ITL (ms):                            13.45
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -420,7 +420,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -463,7 +463,7 @@ Max ITL (ms):                            457.52
 
 - Benchmark Command:
 
-```shell
+```shell Command
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -476,7 +476,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -519,7 +519,7 @@ Max ITL (ms):                            577.70
 
 - Model Deployment Command:
 
-```shell
+```shell Command
 python -m sglang.launch_server \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
   --tp 8
@@ -529,7 +529,7 @@ python -m sglang.launch_server \
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -542,7 +542,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -585,7 +585,7 @@ Max ITL (ms):                            15.79
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -598,7 +598,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -641,7 +641,7 @@ Max ITL (ms):                            104.94
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -654,7 +654,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -699,7 +699,7 @@ Max ITL (ms):                            408.30
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -712,7 +712,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -755,7 +755,7 @@ Max ITL (ms):                            14.48
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -768,7 +768,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -811,7 +811,7 @@ Max ITL (ms):                            574.64
 
 - Benchmark Command:
 
-```
+```text Output
 python3 -m sglang.bench_serving \
   --backend sglang \
   --model Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -824,7 +824,7 @@ python3 -m sglang.bench_serving \
 
 - Test Results:
 
-```
+```text Output
 ============ Serving Benchmark Result ============
 Backend:                                 sglang
 Traffic request rate:                    inf
@@ -869,14 +869,14 @@ Max ITL (ms):                            352.79
 
 - **Benchmark Command:**
 
-```shell
+```shell Command
 python3 -m sglang.test.few_shot_gsm8k --num-questions 200
 ```
 
 - **Results**:
 
   - Qwen/Qwen3-235B-A22B-Instruct-2507
-    ```
+    ```text Output
     Accuracy: 0.945
     Invalid: 0.000
     Latency: 11.980 s

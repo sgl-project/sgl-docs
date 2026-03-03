@@ -10,7 +10,7 @@ This is based on https://pytorch.org/tutorials/recipes/torch_compile_caching_tut
 
 
 1. Generate the cache by setting TORCHINDUCTOR_CACHE_DIR and running the model once.
-```
+```text Output
 TORCHINDUCTOR_CACHE_DIR=/root/inductor_root_cache python3 -m sglang.launch_server --model meta-llama/Llama-3.1-8B-Instruct --enable-torch-compile
 ```
 2. Copy the cache folder to other machines and launch the server with `TORCHINDUCTOR_CACHE_DIR`.

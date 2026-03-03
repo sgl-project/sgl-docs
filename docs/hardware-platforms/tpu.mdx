@@ -50,28 +50,116 @@ SGLang-JAX provides comprehensive TPU-optimized features for production LLM serv
 
 ### Supported Features
 
-| **Feature** | **Support Status** | **Description** |
-|---|---|---|
-| High-Throughput Continuous Batching | ✅ | Dynamic request batching for maximum TPU utilization |
-| Radix Tree KV Cache | ✅ | Memory-efficient prefix sharing between requests |
-| FlashAttention Backend | ✅ | TPU-optimized attention kernel for long sequences |
-| Tensor Parallelism | ✅ | Distribute models across multiple TPU cores |
-| Paged Attention | ✅ | Flexible KV cache management with paging |
-| Speculative Decoding (EAGLE/EAGLE3) | ✅ | 20-40% throughput improvement for compatible models |
-| Chunked Prefill | ✅ | Mixed prefill-decode batching |
-| OpenAI-Compatible API | ✅ | Drop-in replacement for OpenAI API |
-| Data Parallel Attention | 🚧 | In development — Attention computation with data parallelism |
-| Quantization | 🚧 | In development — Model quantization for reduced memory usage |
-| Multi-LoRA | 🚧 | In development — Serve multiple LoRA adapters simultaneously |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "34%"}} />
+    <col style={{width: "33%"}} />
+    <col style={{width: "33%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Feature**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>**Support Status**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Description**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>High-Throughput Continuous Batching</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Dynamic request batching for maximum TPU utilization</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Radix Tree KV Cache</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Memory-efficient prefix sharing between requests</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>FlashAttention Backend</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>TPU-optimized attention kernel for long sequences</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Tensor Parallelism</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Distribute models across multiple TPU cores</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Paged Attention</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Flexible KV cache management with paging</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Speculative Decoding (EAGLE/EAGLE3)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>20-40% throughput improvement for compatible models</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Chunked Prefill</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Mixed prefill-decode batching</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>OpenAI-Compatible API</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Drop-in replacement for OpenAI API</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Data Parallel Attention</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>🚧</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>In development — Attention computation with data parallelism</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Quantization</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>🚧</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>In development — Model quantization for reduced memory usage</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Multi-LoRA</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>🚧</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>In development — Serve multiple LoRA adapters simultaneously</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ### Attention Backend Comparison
 
-| **Backend** | **Paged Attention** | **Spec Decoding** | **MLA** | **Sliding Window** |
-|---|---|---|---|---|
-| FlashAttention (fa) | ✅ | ✅ | ❌ | ✅ |
-| Native | ❌ | ❌ | ❌ | ❌ |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+    <col style={{width: "20%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Backend**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>**Paged Attention**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Spec Decoding**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>**MLA**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Sliding Window**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>FlashAttention (fa)</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>❌</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>✅</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Native</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>❌</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>❌</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>❌</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>❌</td>
+    </tr>
+  </tbody>
+</table>
 
 <Note>
   FlashAttention backend is recommended for production workloads due to superior memory efficiency and performance.
@@ -83,17 +171,56 @@ SGLang-JAX provides comprehensive TPU-optimized features for production LLM serv
 
 The following models have been tested and optimized for TPU deployment:
 
-| **Model Family** | **Performance Status** |
-|---|---|
-| Qwen 3 | ⭐ Recommended for production |
-| Qwen 3 MoE | ⭐ Best performance |
-| Qwen 2 | Needs improvement |
-| Qwen 2 MoE | Needs improvement |
-| Qwen 1.5 | Needs improvement |
-| Llama/LLaMA | Needs improvement |
-| Grok-2 | Needs improvement |
-| Gemma 2 | Verified on TPU |
-| Bailing MoE | Needs improvement |
+<table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
+  <colgroup>
+    <col style={{width: "50%"}} />
+    <col style={{width: "50%"}} />
+  </colgroup>
+  <thead>
+    <tr style={{borderBottom: "2px solid #d55816"}}>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.02)"}}>**Model Family**</th>
+      <th style={{textAlign: "left", padding: "10px 12px", fontWeight: 700, whiteSpace: "nowrap", backgroundColor: "rgba(255,255,255,0.05)"}}>**Performance Status**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen 3</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>⭐ Recommended for production</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen 3 MoE</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>⭐ Best performance</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen 2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen 2 MoE</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Qwen 1.5</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Llama/LLaMA</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Grok-2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Gemma 2</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Verified on TPU</td>
+    </tr>
+    <tr>
+      <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>Bailing MoE</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Needs improvement</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -101,12 +228,12 @@ The following models have been tested and optimized for TPU deployment:
 
 <Tabs>
   <Tab title="PyPI (Recommended)">
-    ```bash
+    ```bash Command
     pip install sglang-jax
     ```
   </Tab>
   <Tab title="From Source">
-    ```bash
+    ```bash Command
     git clone https://github.com/sgl-project/sglang-jax
     cd sglang-jax
     uv venv --python 3.12 && source .venv/bin/activate
@@ -129,7 +256,7 @@ The following models have been tested and optimized for TPU deployment:
         Create a SkyPilot YAML file: `sglang-jax.sky.yaml`
       </Step>
       <Step title="Launch your TPU cluster">
-        ```bash
+        ```bash Command
         # Standard deployment
         sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp
 
@@ -147,7 +274,7 @@ The following models have been tested and optimized for TPU deployment:
 
 <Tabs>
   <Tab title="Basic: Qwen-7B">
-    ```bash
+    ```bash Command
     JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen-7B-Chat \
         --trust-remote-code \
@@ -192,7 +319,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="High-Performance: Qwen3-8B">
     For production workloads with optimal throughput:
 
-    ```bash
+    ```bash Command
     python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen3-8B \
         --trust-remote-code \
@@ -209,7 +336,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Speculative Decoding (EAGLE3)">
     Speculative decoding can improve throughput by 20-40% for compatible models:
 
-    ```bash
+    ```bash Command
     python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen3-32B \
         --trust-remote-code \
@@ -237,7 +364,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Multi-Node Distributed">
     For large models requiring multiple TPU VMs:
 
-    ```bash
+    ```bash Command
     # Node 0 (coordinator)
     python3 -m sgl_jax.launch_server \
         --model-path MODEL_PATH \
@@ -267,7 +394,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Throughput Testing">
     Basic throughput benchmark:
 
-    ```bash
+    ```bash Command
     python3 -m sgl_jax.bench_serving \
         --backend sgl-jax \
         --dataset-name random \
@@ -282,7 +409,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Latency Testing">
     Measure single-batch latency:
 
-    ```bash
+    ```bash Command
     python3 -m sgl_jax.bench_one_batch_server \
         --base-url http://127.0.0.1:30000 \
         --model-path Qwen/Qwen-7B-Chat \
@@ -294,7 +421,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Comprehensive Benchmark Script">
     For systematic performance evaluation across different configurations:
 
-    ```bash
+    ```bash Command
     #!/bin/bash
     set -e
 
@@ -328,7 +455,7 @@ The following models have been tested and optimized for TPU deployment:
 
     For detailed help on all benchmark parameters:
 
-    ```bash
+    ```bash Command
     python3 -m sgl_jax.bench_serving --help
     ```
 
@@ -371,7 +498,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="TPU-Specific Optimizations" icon="microchip">
     **JIT Compilation Cache:**
 
-    ```bash
+    ```bash Command
     export JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache
     ```
 
@@ -447,7 +574,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Chunked Prefill" icon="layer-group">
     Enable mixed prefill-decode batching for better TPU utilization:
 
-    ```bash
+    ```bash Command
     --chunked-prefill-size=2048 --enable-mixed-chunk
     ```
 
@@ -461,7 +588,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Environment Verification" icon="circle-check">
     Verify your TPU setup before deploying:
 
-    ```bash
+    ```bash Command
     python -c "from sgl_jax import check_env; check_env.check_env()"
     ```
 

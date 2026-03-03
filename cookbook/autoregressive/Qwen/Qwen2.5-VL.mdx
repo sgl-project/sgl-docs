@@ -57,7 +57,7 @@ For basic API usage and request examples, please refer to:
 
 Qwen2.5-VL supports image inputs. Here's a basic example with image input:
 
-```python
+```python Example
 import time
 from openai import OpenAI
 
@@ -97,7 +97,7 @@ print(f"Generated text: {response.choices[0].message.content}")
 
 **Example Output:**
 
-```text
+```text Output
 Response costs: 2.31s
 Generated text: Auntie Anne's
 
@@ -120,7 +120,7 @@ CHANGE DUE
 
 Qwen2.5-VL can process multiple images in a single request for comparison or analysis:
 
-```python
+```python Example
 import time
 from openai import OpenAI
 
@@ -166,7 +166,7 @@ print(f"Generated text: {response.choices[0].message.content}")
 
 **Example Output:**
 
-```text
+```text Output
 Response costs: 13.79s
 Generated text: The first image shows a single red taxi driving on a street with a few other taxis in the background. The second image shows a large number of taxis parked in a lot, with some appearing to be in various states of repair. The first image has a single taxi with a visible license plate, while the second image has multiple taxis with different license plates. The first image has a clear view of the street and surrounding area, while the second image is taken from an elevated perspective, showing a wider view of the parking lot and the surrounding area.
 ```

@@ -25,7 +25,7 @@ Specify the `--grammar-backend`, `--reasoning-parser` option.
 
 
 
-```python
+```python Example
 import openai
 import os
 
@@ -52,7 +52,7 @@ you can directly define a JSON schema or use [Pydantic](https://docs.pydantic.de
 
 
 
-```python
+```python Example
 from pydantic import BaseModel, Field
 
 
@@ -92,7 +92,7 @@ print_highlight(
 
 
 
-```python
+```python Example
 import json
 
 json_schema = json.dumps(
@@ -131,7 +131,7 @@ print_highlight(
 
 
 
-```python
+```python Example
 ebnf_grammar = """
 root ::= city | description
 city ::= "London" | "Paris" | "Berlin" | "Rome"
@@ -163,7 +163,7 @@ print_highlight(
 
 
 
-```python
+```python Example
 response = client.chat.completions.create(
     model="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
     messages=[
@@ -183,7 +183,7 @@ print_highlight(
 
 
 
-```python
+```python Example
 tool_get_current_weather = {
     "type": "function",
     "function": {
@@ -312,7 +312,7 @@ print_highlight(
 
 
 
-```python
+```python Example
 import requests
 from pydantic import BaseModel, Field
 from transformers import AutoTokenizer
@@ -360,7 +360,7 @@ print_highlight(f"reasoing_content: {reasoing_content}\n\ncontent: {content}")
 
 
 
-```python
+```python Example
 json_schema = json.dumps(
     {
         "type": "object",
@@ -396,7 +396,7 @@ print_highlight(response.json())
 
 
 
-```python
+```python Example
 response = requests.post(
     f"http://localhost:{port}/generate",
     json={
@@ -426,7 +426,7 @@ print(response.json())
 
 
 
-```python
+```python Example
 response = requests.post(
     f"http://localhost:{port}/generate",
     json={
@@ -446,7 +446,7 @@ print(response.json())
 
 
 
-```python
+```python Example
 text = tokenizer.apply_chat_template(
     messages, tokenize=False, add_generation_prompt=True, return_dict=False
 )
@@ -483,7 +483,7 @@ print_highlight(response.json())
 ```
 
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 
@@ -491,7 +491,7 @@ terminate_process(server_process)
 
 
 
-```python
+```python Example
 import sglang as sgl
 
 llm = sgl.Engine(
@@ -508,7 +508,7 @@ llm = sgl.Engine(
 
 
 
-```python
+```python Example
 import json
 from pydantic import BaseModel, Field
 
@@ -543,7 +543,7 @@ for prompt, output in zip(prompts, outputs):
 
 
 
-```python
+```python Example
 prompts = [
     "Give me the information of the capital of China in the JSON format.",
     "Give me the information of the capital of France in the JSON format.",
@@ -574,7 +574,7 @@ for prompt, output in zip(prompts, outputs):
 
 
 
-```python
+```python Example
 prompts = [
     "Give me the information of the capital of France.",
     "Give me the information of the capital of Germany.",
@@ -603,7 +603,7 @@ for prompt, output in zip(prompts, outputs):
 
 
 
-```python
+```python Example
 prompts = [
     "Please provide information about London as a major global city:",
     "Please provide information about Paris as a major global city:",
@@ -618,7 +618,7 @@ for prompt, output in zip(prompts, outputs):
 ```
 
 
-```python
+```python Example
 text = tokenizer.apply_chat_template(
     messages, tokenize=False, add_generation_prompt=True, return_dict=False
 )
@@ -658,6 +658,6 @@ for prompt, output in zip(prompts, outputs):
 ```
 
 
-```python
+```python Example
 llm.shutdown()
 ```

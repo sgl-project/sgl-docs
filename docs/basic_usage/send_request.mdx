@@ -5,16 +5,16 @@ metatags:
 ---
 This notebook provides a quick-start guide to use SGLang in chat completions after installation. Once your server is running, API documentation is available at `http://localhost:30000/docs` (Swagger UI), `http://localhost:30000/redoc` (ReDoc), or `http://localhost:30000/openapi.json` (OpenAPI spec, useful for AI agents). Replace `30000` with your port if using a different one.
 
-- For Vision Language Models, see [OpenAI APIs - Vision](openai_api_vision).
-- For Embedding Models, see [OpenAI APIs - Embedding](openai_api_embeddings) and [Encode (embedding model)](native_api#encode-embedding-model).
-- For Reward Models, see [Classify (reward model)](native_api#classify-reward-model).
+- For Vision Language Models, see [OpenAI APIs - Vision](./openai_api_vision).
+- For Embedding Models, see [OpenAI APIs - Embedding](./openai_api_embeddings) and [Encode (embedding model)](./native_api#encode-embedding-model).
+- For Reward Models, see [Classify (reward model)](./native_api#classify-reward-model).
 
 
 ## Launch A Server
 
 
 
-```python
+```python Example
 from sglang.test.doc_patch import launch_server_cmd
 from sglang.utils import wait_for_server, print_highlight, terminate_process
 
@@ -36,7 +36,7 @@ wait_for_server(f"http://localhost:{port}")
 
 
 
-```python
+```python Example
 import subprocess, json
 
 curl_command = f"""
@@ -53,7 +53,7 @@ print_highlight(response)
 
 
 
-```python
+```python Example
 import requests
 
 url = f"http://localhost:{port}/v1/chat/completions"
@@ -71,7 +71,7 @@ print_highlight(response.json())
 
 
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
@@ -91,7 +91,7 @@ print_highlight(response)
 
 
 
-```python
+```python Example
 import openai
 
 client = openai.Client(base_url=f"http://127.0.0.1:{port}/v1", api_key="None")
@@ -115,11 +115,11 @@ for chunk in response:
 
 ## Using Native Generation APIs
 
-You can also use the native `/generate` endpoint with requests, which provides more flexibility. An API reference is available at [Sampling Parameters](sampling_params).
+You can also use the native `/generate` endpoint with requests, which provides more flexibility. An API reference is available at [Sampling Parameters](./sampling_params).
 
 
 
-```python
+```python Example
 import requests
 
 response = requests.post(
@@ -139,7 +139,7 @@ print_highlight(response.json())
 
 
 
-```python
+```python Example
 import requests, json
 
 response = requests.post(
@@ -167,7 +167,7 @@ for chunk in response.iter_lines(decode_unicode=False):
         prev = len(output)
 ```
 
-```python
+```python Example
 terminate_process(server_process)
 ```
 

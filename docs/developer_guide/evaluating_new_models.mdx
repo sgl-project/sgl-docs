@@ -17,7 +17,7 @@ SGLang provides built-in scripts to evaluate common benchmarks.
 
 **MMLU**
 
-```bash
+```bash Command
 python -m sglang.test.run_eval \
   --eval-name mmlu \
   --port 30000 \
@@ -27,7 +27,7 @@ python -m sglang.test.run_eval \
 
 **GSM8K**
 
-```bash
+```bash Command
 python -m sglang.test.few_shot_gsm8k \
   --host http://127.0.0.1 \
   --port 30000 \
@@ -37,7 +37,7 @@ python -m sglang.test.few_shot_gsm8k \
 
 **HellaSwag**
 
-```bash
+```bash Command
 python benchmark/hellaswag/bench_sglang.py \
   --host http://127.0.0.1 \
   --port 30000 \
@@ -47,7 +47,7 @@ python benchmark/hellaswag/bench_sglang.py \
 
 **GPQA**
 
-```bash
+```bash Command
 python -m sglang.test.run_eval \
   --eval-name gpqa \
   --port 30000 \
@@ -62,7 +62,7 @@ For reasoning models, add `--thinking-mode <mode>` (e.g., `qwen3`, `deepseek-r1`
 
 **HumanEval**
 
-```bash
+```bash Command
 pip install human_eval
 
 python -m sglang.test.run_eval \
@@ -75,7 +75,7 @@ python -m sglang.test.run_eval \
 
 **MMMU**
 
-```bash
+```bash Command
 python benchmark/mmmu/bench_sglang.py \
   --port 30000 \
   --concurrency 64
@@ -97,7 +97,7 @@ Performance benchmarks measure **Latency** (Time To First Token - TTFT) and **Th
 
 This simulates a scenario with low concurrency (e.g., single user) to measure latency.
 
-```bash
+```bash Command
 python -m sglang.bench_serving \
   --backend sglang \
   --host 0.0.0.0 \
@@ -111,7 +111,7 @@ python -m sglang.bench_serving \
 
 This simulates a high-traffic scenario to measure maximum system throughput.
 
-```bash
+```bash Command
 python -m sglang.bench_serving \
   --backend sglang \
   --host 0.0.0.0 \
@@ -125,7 +125,7 @@ python -m sglang.bench_serving \
 
 You can also benchmark the performance of processing a single batch offline.
 
-```bash
+```bash Command
 python -m sglang.bench_one_batch_server \
   --model <model-path> \
   --batch-size 8 \

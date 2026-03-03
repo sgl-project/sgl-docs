@@ -43,7 +43,7 @@ wait_for_server(f"http://localhost:{port}")
 ```
 
 ## Generate (text generation model)
-Generate completions. This is similar to the `/v1/completions` in OpenAI API. Detailed parameters can be found in the [sampling parameters](sampling_params).
+Generate completions. This is similar to the `/v1/completions` in OpenAI API. Detailed parameters can be found in the [sampling parameters](./sampling_params).
 
 
 
@@ -192,7 +192,7 @@ terminate_process(server_process)
 
 ## Encode (embedding model)
 
-Encode text into embeddings. Note that this API is only available for [embedding models](openai_api_embeddings) and will raise an error for generation models.
+Encode text into embeddings. Note that this API is only available for [embedding models](./openai_api_embeddings) and will raise an error for generation models.
 Therefore, we launch a new server to server an embedding model.
 
 

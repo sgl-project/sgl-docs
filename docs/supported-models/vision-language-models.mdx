@@ -232,7 +232,7 @@ SGLang supports video input for Vision-Language Models (VLMs), enabling temporal
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}><strong>NVIDIA Nemotron Nano 2.0 VL</strong></td>
       <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}><code>nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16</code></td>
-      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>The processor samples at 2 FPS, at a max of 128 frames, as per model training. The model uses <a href="../../python/sglang/srt/multimodal/evs/README.md">EVS</a>, a pruning method that removes redundant tokens from video embeddings. By default <code>video_pruning_rate=0.7</code>. Change this by providing: <code>--json-model-override-args '&#123;"video_pruning_rate": 0.0&#125;'</code> to disable EVS, for example.</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>The processor samples at 2 FPS, at a max of 128 frames, as per model training. The model uses <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/multimodal/evs/README.md">EVS</a>, a pruning method that removes redundant tokens from video embeddings. By default <code>video_pruning_rate=0.7</code>. Change this by providing: <code>--json-model-override-args '&#123;"video_pruning_rate": 0.0&#125;'</code> to disable EVS, for example.</td>
     </tr>
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}><strong>JetVLM</strong></td>

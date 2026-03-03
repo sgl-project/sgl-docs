@@ -4,11 +4,11 @@ metatags:
     description: "Complete reference for SGLang sampling parameters: temperature, top_p, top_k, frequency penalty, stop tokens, and more."
 ---
 This doc describes the sampling parameters of the SGLang Runtime. It is the low-level endpoint of the runtime.
-If you want a high-level endpoint that can automatically handle chat templates, consider using the [OpenAI Compatible API](openai_api_completions).
+If you want a high-level endpoint that can automatically handle chat templates, consider using the [OpenAI Compatible API](./openai_api_completions).
 
 ## `/generate` Endpoint
 
-The `/generate` endpoint accepts the following parameters in JSON format. For detailed usage, see the [native API doc](native_api). The object is defined at `io_struct.py::GenerateReqInput`. You can also read the source code to find more arguments and docs.
+The `/generate` endpoint accepts the following parameters in JSON format. For detailed usage, see the [native API doc](./native_api). The object is defined at `io_struct.py::GenerateReqInput`. You can also read the source code to find more arguments and docs.
 
 <table style={{width: "100%", borderCollapse: "collapse", tableLayout: "fixed"}}>
   <colgroup>
@@ -379,7 +379,7 @@ for chunk in response.iter_lines(decode_unicode=False):
 print("")
 ```
 
-Detailed example in [openai compatible api](openai_api_completions).
+Detailed example in [openai compatible api](./openai_api_completions).
 
 ### Multimodal
 
@@ -420,7 +420,7 @@ The `image_data` can be a file name, a URL, or a base64 encoded string. See also
 
 Streaming is supported in a similar manner as [above](#streaming).
 
-Detailed example in [OpenAI API Vision](openai_api_vision).
+Detailed example in [OpenAI API Vision](./openai_api_vision).
 
 ### Structured Outputs (JSON, Regex, EBNF)
 

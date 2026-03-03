@@ -4,7 +4,8 @@
 
 W4A8 Model weights could be found [here](https://modelers.cn/models/Modelers_Park/DeepSeek-R1-0528-w4a8).
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
 
@@ -47,6 +48,7 @@ python3 -m sglang.launch_server \
     --speculative-num-draft-tokens 4 \
     --dtype bfloat16
 ```
+</CodeGroup>
 
 ### Running DeepSeek with PD disaggregation mode on 2 x Atlas 800I A3
 
@@ -283,7 +285,8 @@ W8A8 Model weights could be found [here](https://modelers.cn/models/State_Cloud/
 
 ### Test GSM8K
 
-```python Example
+<CodeGroup>
+```python Test GSM8K
 from types import SimpleNamespace
 from sglang.test.few_shot_gsm8k import run_eval
 
@@ -303,4 +306,5 @@ def gsm8k():
 if __name__ == "__main__":
     gsm8k()
 ```
+</CodeGroup>
 

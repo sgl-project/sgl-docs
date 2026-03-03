@@ -8,7 +8,8 @@ They are executed with `--is-embedding` and some may require `--trust-remote-cod
 
 ## Example launch Command
 
-```shell
+<CodeGroup>
+```shell Command
 python3 -m sglang.launch_server \
   --model-path Qwen/Qwen2.5-Math-RM-72B \  # example HF/local path
   --is-embedding \
@@ -16,6 +17,7 @@ python3 -m sglang.launch_server \
   --tp-size=4 \                          # set for tensor parallelism
   --port 30000 \
 ```
+</CodeGroup>
 
 ## Supported models
 

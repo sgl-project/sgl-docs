@@ -7,12 +7,14 @@ SGLang provides Ollama API compatibility, allowing you to use the Ollama CLI and
 
 ## Prerequisites
 
+<CodeGroup>
 ```bash Command
 # Install the Ollama Python library (for Python client usage)
 pip install ollama
 ```
+</CodeGroup>
 
-> **Note**: You don't need the Ollama server installed - SGLang acts as the backend. You only need the `ollama` CLI or Python library as the client.
+<Note>You don't need the Ollama server installed - SGLang acts as the backend. You only need the `ollama` CLI or Python library as the client.</Note>
 
 ## Endpoints
 
@@ -62,17 +64,20 @@ pip install ollama
 
 ### 1. Launch SGLang Server
 
+<CodeGroup>
 ```bash Command
 python -m sglang.launch_server \
     --model Qwen/Qwen2.5-1.5B-Instruct \
     --port 30001 \
     --host 0.0.0.0
 ```
+</CodeGroup>
 
-> **Note**: The model name used with `ollama run` must match exactly what you passed to `--model`.
+<Note>The model name used with `ollama run` must match exactly what you passed to `--model`.</Note>
 
 ### 2. Use Ollama CLI
 
+<CodeGroup>
 ```bash Command
 # List available models
 OLLAMA_HOST=http://localhost:30001 ollama list
@@ -80,9 +85,11 @@ OLLAMA_HOST=http://localhost:30001 ollama list
 # Interactive chat
 OLLAMA_HOST=http://localhost:30001 ollama run "Qwen/Qwen2.5-1.5B-Instruct"
 ```
+</CodeGroup>
 
 If connecting to a remote server behind a firewall:
 
+<CodeGroup>
 ```bash Command
 # SSH tunnel
 ssh -L 30001:localhost:30001 user@gpu-server -N &
@@ -90,6 +97,7 @@ ssh -L 30001:localhost:30001 user@gpu-server -N &
 # Then use Ollama CLI as above
 OLLAMA_HOST=http://localhost:30001 ollama list
 ```
+</CodeGroup>
 
 ### 3. Use Ollama Python Library
 

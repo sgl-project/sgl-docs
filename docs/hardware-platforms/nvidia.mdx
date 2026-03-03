@@ -11,9 +11,11 @@ Before starting, ensure the following:
 - CUDA Toolkit and cuDNN are installed.
 - Verify that the Jetson AGX Orin is in high-performance mode:
 
+<CodeGroup>
 ```bash Command
 sudo nvpmodel -m 0
 ```
+</CodeGroup>
 
 ## Installing and Running SGLang with Jetson Containers
 
@@ -56,6 +58,7 @@ sudo nvpmodel -m 0
 
 Launch the server:
 
+<CodeGroup>
 ```bash Command
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
@@ -65,6 +68,7 @@ python -m sglang.launch_server \
   --mem-fraction-static 0.8 \
   --context-length 8192
 ```
+</CodeGroup>
 
 The quantization and limited context length (`--dtype half` `--context-length 8192`) are due to the limited computational resources in [Nvidia jetson kit](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/). A detailed explanation can be found in [Server Arguments](https://docs.sglang.io/advanced_features/server_arguments.html).
 
@@ -74,6 +78,7 @@ After launching the engine, refer to [Chat completions](https://docs.sglang.io/b
 
 TorchAO is suggested to NVIDIA Jetson Orin.
 
+<CodeGroup>
 ```bash Command
 python -m sglang.launch_server \
   --model-path meta-llama/Meta-Llama-3.1-8B-Instruct \
@@ -84,6 +89,7 @@ python -m sglang.launch_server \
   --context-length 8192 \
   --torchao-config int4wo-128
 ```
+</CodeGroup>
 
 This enables TorchAO's int4 weight-only quantization with a 128-group size. The usage of `--torchao-config int4wo-128` is also for memory efficiency.
 

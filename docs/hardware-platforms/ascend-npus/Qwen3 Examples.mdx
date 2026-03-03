@@ -4,7 +4,8 @@
 
 Model weights could be found [here](https://huggingface.co/Qwen/Qwen3-32B)
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 export SGLANG_SET_CPU_AFFINITY=1
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
@@ -19,6 +20,7 @@ python -m sglang.launch_server \
    --model-path Qwen/Qwen3-32B \
    --mem-fraction-static 0.8
 ```
+</CodeGroup>
 
 ### Running Qwen3-32B on 1 x Atlas 800I A3 with Qwen3-32B-Eagle3
 
@@ -26,7 +28,8 @@ Model weights could be found [here](https://huggingface.co/Qwen/Qwen3-32B)
 
 Speculative model weights could be found [here](https://huggingface.co/Zhihu-ai/Zhi-Create-Qwen3-32B-Eagle3)
 
-```shell Command
+<CodeGroup>
+```shell Launch Server with Eagle3
 export SGLANG_SET_CPU_AFFINITY=1
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
@@ -47,12 +50,14 @@ python -m sglang.launch_server \
    --speculative-eagle-topk 1 \
    --speculative-num-draft-tokens 2
 ```
+</CodeGroup>
 
 ### Running Qwen3-30B-A3B MOE on 1 x Atlas 800I A3
 
 Model weights could be found [here](https://huggingface.co/Qwen/Qwen3-30B-A3B)
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 export SGLANG_SET_CPU_AFFINITY=1
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
@@ -69,12 +74,14 @@ python -m sglang.launch_server \
    --model-path Qwen/Qwen3-30B-A3B \
    --mem-fraction-static 0.8
 ```
+</CodeGroup>
 
 ### Running Qwen3-235B-A22B-Instruct-2507 MOE on 1 x Atlas 800I A3
 
 Model weights could be found [here](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507)
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 export SGLANG_SET_CPU_AFFINITY=1
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
@@ -91,12 +98,14 @@ python -m sglang.launch_server \
    --watchdog-timeout 9000 \
    --mem-fraction-static 0.8
 ```
+</CodeGroup>
 
 ### Running Qwen3-VL-8B-Instruct on 1 x Atlas 800I A3
 
 Model weights could be found [here](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 export SGLANG_SET_CPU_AFFINITY=1
 export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
 export STREAMS_PER_DEVICE=32
@@ -112,3 +121,4 @@ python -m sglang.launch_server \
    --model-path Qwen/Qwen3-VL-8B-Instruct \
    --mem-fraction-static 0.8
 ```
+</CodeGroup>

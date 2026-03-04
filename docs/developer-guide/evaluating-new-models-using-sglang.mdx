@@ -18,7 +18,7 @@ SGLang provides built-in scripts to evaluate common benchmarks.
 **MMLU**
 
 <CodeGroup>
-```bash
+```bash MMLU evaluation
 python -m sglang.test.run_eval \
   --eval-name mmlu \
   --port 30000 \
@@ -30,7 +30,7 @@ python -m sglang.test.run_eval \
 **GSM8K**
 
 <CodeGroup>
-```bash
+```bash GSM8K evaluation
 python -m sglang.test.few_shot_gsm8k \
   --host 127.0.0.1 \
   --port 30000 \
@@ -42,7 +42,7 @@ python -m sglang.test.few_shot_gsm8k \
 **HellaSwag**
 
 <CodeGroup>
-```bash
+```bash HellaSwag evaluation
 python benchmark/hellaswag/bench_sglang.py \
   --host 127.0.0.1 \
   --port 30000 \
@@ -54,7 +54,7 @@ python benchmark/hellaswag/bench_sglang.py \
 **GPQA**
 
 <CodeGroup>
-```bash
+```bash GPQA evaluation
 python -m sglang.test.run_eval \
   --eval-name gpqa \
   --port 30000 \
@@ -71,7 +71,7 @@ For reasoning models, add `--thinking-mode <mode>` (e.g., `qwen3`, `deepseek-v3`
 **HumanEval**
 
 <CodeGroup>
-```bash
+```bash HumanEval setup and run
 pip install human_eval
 
 python -m sglang.test.run_eval \
@@ -86,7 +86,7 @@ python -m sglang.test.run_eval \
 **MMMU**
 
 <CodeGroup>
-```bash
+```bash MMMU evaluation
 python benchmark/mmmu/bench_sglang.py \
   --port 30000 \
   --concurrency 64
@@ -110,7 +110,7 @@ Performance benchmarks measure **Latency** (Time To First Token - TTFT) and **Th
 This simulates a scenario with low concurrency (e.g., single user) to measure latency.
 
 <CodeGroup>
-```bash
+```bash Latency-sensitive benchmark
 python -m sglang.bench_serving \
   --backend sglang \
   --host 0.0.0.0 \
@@ -126,7 +126,7 @@ python -m sglang.bench_serving \
 This simulates a high-traffic scenario to measure maximum system throughput.
 
 <CodeGroup>
-```bash
+```bash Throughput-sensitive benchmark
 python -m sglang.bench_serving \
   --backend sglang \
   --host 0.0.0.0 \
@@ -142,7 +142,7 @@ python -m sglang.bench_serving \
 You can also benchmark the performance of processing a single batch offline.
 
 <CodeGroup>
-```bash
+```bash Single-batch benchmark
 python -m sglang.bench_one_batch_server \
   --model <model-path> \
   --batch-size 8 \

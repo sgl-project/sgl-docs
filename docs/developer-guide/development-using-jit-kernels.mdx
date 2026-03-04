@@ -45,7 +45,7 @@ The following C++ utilities are available:
 Similar to PyTorch, we provide an `irange` function to represent an integer range.
 
 <CodeGroup>
-```C++
+```C++ Integer Range
 #include <sgl_kernel/utils.h>
 
 void test() {
@@ -67,7 +67,7 @@ If the check fails, these arguments are output to aid debugging.
 `RuntimeDeviceCheck` verifies the status of the last kernel launch.
 
 <CodeGroup>
-```C++
+```C++ Runtime Checking
 #include <sgl_kernel/utils.h>
 #include <sgl_kernel/utils.cuh>
 
@@ -86,7 +86,7 @@ void test() {
 `TensorMatcher` provides a readable way to validate and extract tensor shape information.
 
 <CodeGroup>
-```cpp
+```cpp Tensor Checking
 #include <sgl_kernel/tensor.h>
 
 void test(const tvm::ffi::TensorView k_cache, const tvm::ffi::TensorView v_cache) {
@@ -127,7 +127,7 @@ Use `.unwrap()` to retrieve the matched value after verification.
 Kernels can also be launched directly using `LaunchKernel`.
 
 <CodeGroup>
-```cpp
+```cpp Kernel Launching
 #include <sgl_kernel/utils.cuh>
 
 #include <dlpack/dlpack.h>
@@ -157,7 +157,7 @@ We use a simple add_constant kernel as a running example, which adds a constant 
 Conceptually, the Python interface looks like this:
 
 <CodeGroup>
-```python
+```python Add new kernels
 def add_constant(src: torch.Tensor, c: int):
     return src + c
 ```
@@ -168,7 +168,7 @@ def add_constant(src: torch.Tensor, c: int):
 Write your CUDA kernel in [jit_kernel/csrc/add_constant.cuh](https://github.com/sgl-project/sglang/blob/main/python/sglang/jit_kernel/csrc/add_constant.cuh). For demonstration purposes, we pass the constant value as a template parameter.
 
 <CodeGroup>
-```cpp
+```cpp STEP 1: Write the C++ kernel
 #include <sgl_kernel/tensor.h>   // For TensorMatcher, SymbolicSize, SymbolicDevice
 #include <sgl_kernel/utils.cuh>  // For LaunchKernel
 #include <sgl_kernel/utils.h>    // For div_ceil, RuntimeCheck
@@ -233,7 +233,7 @@ Next, expose the kernel through a Python wrapper.
 Create a new file at [jit_kernel/add_constant.py](https://github.com/sgl-project/sglang/blob/main/python/sglang/jit_kernel/add_constant.py) and expose the needed interfaces.
 
 <CodeGroup>
-```python
+```python STEP 2: Create Python Interfaces
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
@@ -270,7 +270,7 @@ def add_constant(src: torch.Tensor, constant: int) -> torch.Tensor:
 Finally, import and use the kernel like a regular Python function:
 
 <CodeGroup>
-```python
+```python STEP 3: Use your kernel
 from sglang.jit_kernel.add_constant import add_constant
 ```
 </CodeGroup>

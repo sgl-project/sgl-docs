@@ -34,13 +34,13 @@ If `--base-url` is provided, requests are sent to it. Otherwise, `--host` and `-
 Run a basic benchmark against an sglang server exposing `/generate`:
 
 <CodeGroup>
-```bash
+```bash Launch server (sglang)
 python3 -m sglang.launch_server --model-path meta-llama/Llama-3.1-8B-Instruct
 ```
 </CodeGroup>
 
 <CodeGroup>
-```bash
+```bash Run benchmark (sglang backend)
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -52,7 +52,7 @@ python3 -m sglang.bench_serving \
 Or, using an OpenAI-compatible endpoint (completions):
 
 <CodeGroup>
-```bash
+```bash Run benchmark (OpenAI-compatible backend)
 python3 -m sglang.bench_serving \
   --backend vllm \
   --base-url http://127.0.0.1:8000 \
@@ -101,13 +101,13 @@ Image dataset flags (for `image`):
 1. To benchmark image dataset with 3 images per request, 500 prompts, 512 input length, and 512 output length, you can run:
 
 <CodeGroup>
-```bash
+```bash Launch image model server
 python -m sglang.launch_server --model-path Qwen/Qwen2.5-VL-3B-Instruct --disable-radix-cache
 ```
 </CodeGroup>
 
 <CodeGroup>
-```bash
+```bash Benchmark image dataset
 python -m sglang.bench_serving \
     --backend sglang-oai-chat \
     --dataset-name image \
@@ -122,13 +122,13 @@ python -m sglang.bench_serving \
 2. To benchmark random dataset with 3000 prompts, 1024 input length, and 1024 output length, you can run:
 
 <CodeGroup>
-```bash
+```bash Launch random dataset server
 python -m sglang.launch_server --model-path Qwen/Qwen2.5-3B-Instruct
 ```
 </CodeGroup>
 
 <CodeGroup>
-```bash
+```bash Benchmark random dataset
 python3 -m sglang.bench_serving \
     --backend sglang \
     --dataset-name random \
@@ -169,7 +169,7 @@ python3 -m sglang.bench_serving \
 If your target endpoint requires OpenAI-style auth, set:
 
 <CodeGroup>
-```bash
+```bash Set OpenAI API key
 export OPENAI_API_KEY=sk-...yourkey...
 ```
 </CodeGroup>
@@ -214,7 +214,7 @@ With `--output-details`, an extended object also includes arrays:
 1) sglang native `/generate` (streaming):
 
 <CodeGroup>
-```bash
+```bash End-to-end: sglang native generate
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -231,7 +231,7 @@ python3 -m sglang.bench_serving \
 2) OpenAI-compatible Completions (e.g., vLLM):
 
 <CodeGroup>
-```bash
+```bash End-to-end: OpenAI completions
 python3 -m sglang.bench_serving \
   --backend vllm \
   --base-url http://127.0.0.1:8000 \
@@ -245,7 +245,7 @@ python3 -m sglang.bench_serving \
 3) OpenAI-compatible Chat Completions (streaming):
 
 <CodeGroup>
-```bash
+```bash End-to-end: OpenAI chat completions
 python3 -m sglang.bench_serving \
   --backend vllm-chat \
   --base-url http://127.0.0.1:8000 \
@@ -259,7 +259,7 @@ python3 -m sglang.bench_serving \
 4) Images (VLM) with chat template:
 
 <CodeGroup>
-```bash
+```bash End-to-end: image dataset with chat template
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -276,7 +276,7 @@ python3 -m sglang.bench_serving \
 4a) Images with custom resolution:
 
 <CodeGroup>
-```bash
+```bash End-to-end: image dataset custom resolution
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -293,7 +293,7 @@ python3 -m sglang.bench_serving \
 4b) 1080p images with PNG format and blank content:
 
 <CodeGroup>
-```bash
+```bash End-to-end: PNG image benchmark
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -312,7 +312,7 @@ python3 -m sglang.bench_serving \
 5) Generated shared prefix (long system prompts + short questions):
 
 <CodeGroup>
-```bash
+```bash End-to-end: generated shared prefix
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -327,7 +327,7 @@ python3 -m sglang.bench_serving \
 6) Tokenized prompts (ids) for strict length control (sglang only):
 
 <CodeGroup>
-```bash
+```bash End-to-end: tokenized prompts
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -341,7 +341,7 @@ python3 -m sglang.bench_serving \
 7) Profiling and cache flush (sglang):
 
 <CodeGroup>
-```bash
+```bash End-to-end: profiling and cache flush
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \
@@ -354,7 +354,7 @@ python3 -m sglang.bench_serving \
 8) TensorRT-LLM streaming endpoint:
 
 <CodeGroup>
-```bash
+```bash End-to-end: TensorRT-LLM endpoint
 python3 -m sglang.bench_serving \
   --backend trt \
   --base-url http://127.0.0.1:8000 \
@@ -368,7 +368,7 @@ python3 -m sglang.bench_serving \
 9) Evaluating large-scale KVCache sharing with mooncake trace (sglang only):
 
 <CodeGroup>
-```bash
+```bash End-to-end: mooncake workload
 python3 -m sglang.bench_serving \
   --backend sglang \
   --host 127.0.0.1 --port 30000 \

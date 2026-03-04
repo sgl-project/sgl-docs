@@ -1,18 +1,13 @@
 {
-  "generatedAt": "2026-03-04T16:41:01.364006Z",
+  "generatedAt": "2026-03-04T17:26:37.906268Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
     "sgl-project/sglang",
-    "radixattention",
-    "radix attention",
-    "hicache",
     "sgl-kernel",
     "sglang-jax",
-    "pdmux",
-    "specbundle",
-    "spec bundle",
-    "diffusion language model"
+    "sgl diffusion",
+    "sglang diffusion"
   ],
   "maxCards": 6,
   "totalBlogFilesScanned": 76,

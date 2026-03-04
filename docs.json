@@ -270,7 +270,8 @@
             "pages": [
               "docs/sglang-diffusion/performance-optimization",
               "docs/sglang-diffusion/attention-backends",
-              "docs/sglang-diffusion/performance/profiling"
+              "docs/sglang-diffusion/performance/profiling",
+              "docs/sglang-diffusion/ci-performance"
             ]
           },
           {
@@ -286,8 +287,7 @@
             "pages": [
               "docs/sglang-diffusion/environment-variables",
               "docs/sglang-diffusion/support-new-models",
-              "docs/sglang-diffusion/contributing",
-              "docs/sglang-diffusion/ci-performance"
+              "docs/sglang-diffusion/contributing"              
             ]
           }
         ]

@@ -11,6 +11,10 @@
     {
       "source": "/docs/supported-models/diffusion-language-models",
       "destination": "/docs/sglang-diffusion/index"
+    },
+    {
+      "source": "/docs/sglang-diffusion/index",
+      "destination": "/sglang-diffusion/intro"
     }
   ],
   "colors": {
@@ -130,7 +134,6 @@
                 "group": "Ascend NPUs",
                 "pages": [
                   "docs/hardware-platforms/ascend-npus/Best Practice on Ascend NPU",
-                  "docs/hardware-platforms/ascend-npus/Contribution Guide",
                   "docs/hardware-platforms/ascend-npus/DeepSeek Examples",
                   "docs/hardware-platforms/ascend-npus/GLM-5",
                   "docs/hardware-platforms/ascend-npus/MindSpore Models",
@@ -221,6 +224,72 @@
               },
               "docs/references/post_training_integration",
               "docs/references/learn_more"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Supported Models",
+        "pages": [
+          "docs/supported-models",
+          {
+            "group": "Text generation",
+            "pages": [
+              "docs/supported-models/large-language-models",
+              "docs/supported-models/vision-language-models",
+              "docs/supported-models/diffusion-language-models"
+            ]
+          },
+          {
+            "group": "Retrieval and ranking",
+            "pages": [
+              "docs/supported-models/embedding-models",
+              "docs/supported-models/rerank-models",
+              "docs/supported-models/classification-models"
+            ]
+          },
+            {
+              "group": "Specialized models",
+              "pages": [
+                "docs/supported-models/reward-models"
+              ]
+            }
+          ]
+      },
+      {
+        "tab": "SGLang Diffusion",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "sglang-diffusion/intro",
+              "docs/sglang-diffusion/installation",
+              "docs/sglang-diffusion/compatibility-matrix"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "docs/sglang-diffusion/api/cli",
+              "docs/sglang-diffusion/api/openai-api"
+            ]
+          },
+          {
+            "group": "Performance Optimization",
+            "pages": [
+              "docs/sglang-diffusion/performance/index",
+              "docs/sglang-diffusion/performance/attention-backends",
+              "docs/sglang-diffusion/performance/caching-strategies",
+              "docs/sglang-diffusion/performance/profiling"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "docs/references/environment_variables",
+              "docs/sglang-diffusion/support-new-models",
+              "docs/sglang-diffusion/contributing",
+              "docs/sglang-diffusion/ci-performance"
             ]
           }
         ]

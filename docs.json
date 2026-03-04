@@ -175,6 +175,15 @@
                 "pages": [
                   "docs/supported-models/reward-models"
                 ]
+              },
+              {
+                "group": "Extending SGLang",
+                "pages": [
+                  "docs/supported-models/new-model-support",
+                  "docs/supported-models/transformers-fallback",
+                  "docs/supported-models/modelscope",
+                  "docs/supported-models/mindspore-models"
+                ]
               }
             ]
           },

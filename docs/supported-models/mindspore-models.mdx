@@ -1,45 +1,51 @@
-## Introduction
+---
+title: "MindSpore Models"
+---
 
-MindSpore is a high-performance AI framework optimized for Ascend NPUs. This doc guides users to run MindSpore models in SGLang.
+MindSpore is a high-performance AI framework optimized for [Ascend NPUs](/docs/hardware-platforms/ascend-npus/SGLang%20installation%20with%20NPUs%20support). This doc guides users to run MindSpore models in SGLang.
 
 ## Requirements
 
-MindSpore currently only supports Ascend NPU devices. Users need to first install Ascend CANN software packages.
-The CANN software packages can be downloaded from the [Ascend Official Website](https://www.hiascend.com). The recommended version is 8.3.RC2.
+MindSpore currently only supports Ascend NPU devices. Users need to first install Ascend CANN software packages. The CANN software packages can be downloaded from the [Ascend Official Website](https://www.hiascend.com). The recommended version is 8.3.RC2.
 
 ## Supported Models
 
 Currently, the following models are supported:
 
-- **Qwen3**: Dense and MoE models
-- **DeepSeek V3/R1**
-- *More models coming soon...*
+<CardGroup cols={3}>
+  <Card title="Qwen3" icon="cube">
+    Dense and MoE models
+  </Card>
+  <Card title="DeepSeek V3/R1" icon="cube">
+    DeepSeek V3 and R1 models
+  </Card>
+  <Card title="More Coming Soon" icon="clock">
+    Additional models are on the way
+  </Card>
+</CardGroup>
 
 ## Installation
 
-<Note>
-Currently, MindSpore models are provided by an independent package `sgl-mindspore`. Support for MindSpore is built upon current SGLang support for Ascend NPU platform. Please first [install SGLang for Ascend NPU](https://github.com/sgl-project/sglang/blob/main/docs/hardware-platforms/ascend-npus/SGLang%20installation%20with%20NPUs%20support.md) and then install `sgl-mindspore`:
-</Note>
+<Note>Currently, MindSpore models are provided by an independent package `sgl-mindspore`. Support for MindSpore is built upon current SGLang support for Ascend NPU platform. Please first [install SGLang for Ascend NPU](/docs/hardware-platforms/ascend-npus/SGLang%20installation%20with%20NPUs%20support) and then install `sgl-mindspore`.</Note>
 
 <CodeGroup>
-```shell Install
+```bash Install
 git clone https://github.com/mindspore-lab/sgl-mindspore.git
 cd sgl-mindspore
 pip install -e .
 ```
 </CodeGroup>
 
-
 ## Run Model
 
 Current SGLang-MindSpore supports Qwen3 and DeepSeek V3/R1 models. This doc uses Qwen3-8B as an example.
 
-### Offline infer
+### Offline Infer
 
 Use the following script for offline infer:
 
 <CodeGroup>
-```python Offline Inference
+```python Offline Infer
 import sglang as sgl
 
 # Initialize the engine with MindSpore backend
@@ -69,13 +75,10 @@ for prompt, output in zip(prompts, outputs):
 ```
 </CodeGroup>
 
-### Start server
-
-Launch a server with MindSpore backend:
+### Start Server
 
 <CodeGroup>
-```bash Launch Server
-# Basic server startup
+```bash Single Node
 python3 -m sglang.launch_server \
     --model-path /path/to/your/model \
     --host 0.0.0.0 \
@@ -85,13 +88,7 @@ python3 -m sglang.launch_server \
     --tp-size 1 \
     --dp-size 1
 ```
-</CodeGroup>
-
-For distributed server with multiple nodes:
-
-<CodeGroup>
-```bash Multi-node Distributed
-# Multi-node distributed server
+```bash Multi-Node Distributed
 python3 -m sglang.launch_server \
     --model-path /path/to/your/model \
     --host 0.0.0.0 \
@@ -108,9 +105,9 @@ python3 -m sglang.launch_server \
 
 ## Troubleshooting
 
-#### Debug Mode
+### Debug Mode
 
-Enable sglang debug logging by log-level argument.
+Enable sglang debug logging by log-level argument:
 
 <CodeGroup>
 ```bash Debug Mode
@@ -124,46 +121,47 @@ python3 -m sglang.launch_server \
 ```
 </CodeGroup>
 
-Enable mindspore info and debug logging by setting environments.
+Enable MindSpore info and debug logging by setting environments:
 
 <CodeGroup>
-```bash Set Log Level
-export GLOG_v=1  # INFO
-export GLOG_v=0  # DEBUG
+```bash INFO
+export GLOG_v=1
+```
+```bash DEBUG
+export GLOG_v=0
 ```
 </CodeGroup>
 
-#### Explicitly select devices
+### Explicitly Select Devices
 
-Use the following environment variable to explicitly select the devices to use.
+Use the following environment variable to explicitly select the devices to use:
 
 <CodeGroup>
-```shell Select Devices
-export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7  # to set device
+```bash Select Devices
+export ASCEND_RT_VISIBLE_DEVICES=4,5,6,7
 ```
 </CodeGroup>
 
-#### Some communication environment issues
+### Some Communication Environment Issues
 
-In case of some environment with special communication environment, users need set some environment variables.
+In case of some environment with special communication environment, users need to set some environment variables:
 
 <CodeGroup>
-```shell Disable LCCL
+```bash Disable LCCL
 export MS_ENABLE_LCCL=off # current not support LCCL communication mode in SGLang-MindSpore
 ```
 </CodeGroup>
 
-#### Some dependencies of protobuf
+### Some Dependencies of Protobuf
 
-In case of some environment with special protobuf version, users need set some environment variables to avoid binary version mismatch.
+In case of some environment with special protobuf version, users need to set some environment variables to avoid binary version mismatch:
 
 <CodeGroup>
-```shell Fix Protobuf
-export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python  # to avoid protobuf binary version mismatch
+```bash Fix Protobuf
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 ```
 </CodeGroup>
 
 ## Support
-For MindSpore-specific issues:
 
-- Refer to the [MindSpore documentation](https://www.mindspore.cn/)
+For MindSpore-specific issues, refer to the [MindSpore documentation](https://www.mindspore.cn/).

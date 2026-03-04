@@ -4,7 +4,8 @@
 
 The dependencies required for the NPU runtime environment have been integrated into a Docker image and uploaded to the quay.io platform. You can directly pull it.
 
-```bash Command
+<CodeGroup>
+```bash Pull and Start Container
 #Atlas 800 A3
 docker pull swr.cn-southwest-2.myhuaweicloud.com/base_image/dockerhub/lmsysorg/sglang:cann8.5.0-a3-qwen3.5
 #Atlas 800 A2
@@ -39,6 +40,7 @@ docker run -itd --shm-size=16g --privileged=true --name ${NAME} \
 --entrypoint=bash \
 swr.cn-southwest-2.myhuaweicloud.com/base_image/dockerhub/lmsysorg/sglang:${TAG}
 ```
+</CodeGroup>
 
 ## Deployment
 
@@ -48,7 +50,8 @@ swr.cn-southwest-2.myhuaweicloud.com/base_image/dockerhub/lmsysorg/sglang:${TAG}
 
 Run the following script to execute online inference.
 
-```shell Command
+<CodeGroup>
+```shell Launch Server
 # high performance cpu
 echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 sysctl -w vm.swappiness=0
@@ -92,6 +95,7 @@ python3 -m sglang.launch_server \
         --mm-attention-backend ascend_attn \
         --dtype bfloat16
 ```
+</CodeGroup>
 
 ### Prefill-Decode Disaggregation
 

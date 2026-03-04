@@ -98,6 +98,7 @@ A list of LLMs have been optimized on Intel GPU, and more are on the way:
 
 Example command to launch SGLang serving:
 
+<CodeGroup>
 ```bash Command
 python -m sglang.launch_server       \
     --model <MODEL_ID_OR_PATH>       \
@@ -109,11 +110,13 @@ python -m sglang.launch_server       \
     --attention-backend intel_xpu    \   # using intel optimized XPU attention backend
     --page-size                      \   # intel_xpu attention backend supports [32, 64, 128]
 ```
+</CodeGroup>
 
 ## Benchmarking with Requests
 
 You can benchmark the performance via the `bench_serving` script. Run the command in another terminal.
 
+<CodeGroup>
 ```bash Command
 python -m sglang.bench_serving   \
     --dataset-name random        \
@@ -123,12 +126,15 @@ python -m sglang.bench_serving   \
     --request-rate inf           \
     --random-range-ratio 1.0
 ```
+</CodeGroup>
 
 The detail explanations of the parameters can be looked up by the command:
 
+<CodeGroup>
 ```bash Command
 python -m sglang.bench_serving -h
 ```
+</CodeGroup>
 
 Additionally, the requests can be formed with [OpenAI Completions API](../basic_usage/openai_api_completions) and sent via the command line (e.g. using `curl`) or via your own script.
 

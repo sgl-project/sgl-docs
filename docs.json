@@ -255,7 +255,7 @@
             "pages": [
               "sglang-diffusion/intro",
               "docs/sglang-diffusion/installation",
-              "docs/sglang-diffusion/compatibility-matrix"
+              "docs/sglang-diffusion/supported-models"
             ]
           },
           {
@@ -268,16 +268,23 @@
           {
             "group": "Performance Optimization",
             "pages": [
-              "docs/sglang-diffusion/performance/index",
-              "docs/sglang-diffusion/performance/attention-backends",
-              "docs/sglang-diffusion/performance/caching-strategies",
+              "docs/sglang-diffusion/performance-optimization",
+              "docs/sglang-diffusion/attention-backends",
               "docs/sglang-diffusion/performance/profiling"
+            ]
+          },
+          {
+            "group": "Caching Strategies",
+            "pages": [
+              "docs/sglang-diffusion/caching-acceleration",
+              "docs/sglang-diffusion/cache-dit",
+              "docs/sglang-diffusion/tea-cache"
             ]
           },
           {
             "group": "Reference",
             "pages": [
-              "docs/references/environment_variables",
+              "docs/sglang-diffusion/environment-variables",
               "docs/sglang-diffusion/support-new-models",
               "docs/sglang-diffusion/contributing",
               "docs/sglang-diffusion/ci-performance"

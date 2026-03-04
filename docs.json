@@ -7,16 +7,7 @@
       "google-site-verification": "bX3ofyYQhraIpAYf4DpyZQXZO_G4xLR_RqeBAKnJA7g"
     }
   },
-  "redirects": [
-    {
-      "source": "/docs/supported-models/diffusion-language-models",
-      "destination": "/docs/sglang-diffusion/index"
-    },
-    {
-      "source": "/docs/sglang-diffusion/index",
-      "destination": "/sglang-diffusion/intro"
-    }
-  ],
+  "redirects": [],
   "colors": {
     "primary": "#d55816",
     "light": "#d55816",
@@ -127,6 +118,46 @@
             ]
           },
           {
+            "group": "SGLang Diffusion",
+            "pages": [
+              "sglang-diffusion/intro",
+              "docs/sglang-diffusion/installation",
+              "docs/sglang-diffusion/supported-models",
+              {
+                "group": "Usage",
+                "pages": [
+                  "docs/sglang-diffusion/api/cli",
+                  "docs/sglang-diffusion/api/openai-api"
+                ]
+              },
+              {
+                "group": "Performance Optimization",
+                "pages": [
+                  "docs/sglang-diffusion/performance-optimization",
+                  "docs/sglang-diffusion/attention-backends",
+                  "docs/sglang-diffusion/performance/profiling",
+                  "docs/sglang-diffusion/ci-performance"
+                ]
+              },
+              {
+                "group": "Caching Strategies",
+                "pages": [
+                  "docs/sglang-diffusion/caching-acceleration",
+                  "docs/sglang-diffusion/cache-dit",
+                  "docs/sglang-diffusion/tea-cache"
+                ]
+              },
+              {
+                "group": "Reference",
+                "pages": [
+                  "docs/sglang-diffusion/environment-variables",
+                  "docs/sglang-diffusion/support-new-models",
+                  "docs/sglang-diffusion/contributing"
+                ]
+              }
+            ]
+          },
+          {
             "group": "Hardware Platforms",
             "pages": [
               "docs/hardware-platforms/amd-gpus",
@@ -224,51 +255,6 @@
               },
               "docs/references/post_training_integration",
               "docs/references/learn_more"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "SGLang Diffusion",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "sglang-diffusion/intro",
-              "docs/sglang-diffusion/installation",
-              "docs/sglang-diffusion/supported-models"
-            ]
-          },
-          {
-            "group": "Usage",
-            "pages": [
-              "docs/sglang-diffusion/api/cli",
-              "docs/sglang-diffusion/api/openai-api"
-            ]
-          },
-          {
-            "group": "Performance Optimization",
-            "pages": [
-              "docs/sglang-diffusion/performance-optimization",
-              "docs/sglang-diffusion/attention-backends",
-              "docs/sglang-diffusion/performance/profiling",
-              "docs/sglang-diffusion/ci-performance"
-            ]
-          },
-          {
-            "group": "Caching Strategies",
-            "pages": [
-              "docs/sglang-diffusion/caching-acceleration",
-              "docs/sglang-diffusion/cache-dit",
-              "docs/sglang-diffusion/tea-cache"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": [
-              "docs/sglang-diffusion/environment-variables",
-              "docs/sglang-diffusion/support-new-models",
-              "docs/sglang-diffusion/contributing"              
             ]
           }
         ]

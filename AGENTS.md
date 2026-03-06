@@ -108,7 +108,7 @@ Review the Mintlify [components](https://www.mintlify.com/docs/components) to se
 
 ### Required files
 
-* `docs.json` - Site configuration (navigation, theme, integrations, etc.). See [global settings](https://mintlify.com/docs/settings/global) for all options.
+* `docs.json` - Site configuration (navigation, theme, integrations, etc.). See [global settings](https://www.mintlify.com/docs/organize/settings) for all options.
 * `*.mdx` files - Documentation pages with YAML frontmatter
 
 ### Example file structure
@@ -199,7 +199,7 @@ The `navigation` property in `docs.json` controls site structure. Choose one pri
 
 **What to customize where:**
 
-* **Brand colors, fonts, logo** → `docs.json`. See [global settings](https://mintlify.com/docs/settings/global)
+* **Brand colors, fonts, logo** → `docs.json`. See [global settings](https://www.mintlify.com/docs/organize/settings)
 * **Component styling, layout tweaks** → `custom.css` at project root
 * **Dark mode** → Enabled by default. Only disable with `"appearance": "light"` in `docs.json` if brand requires it
 

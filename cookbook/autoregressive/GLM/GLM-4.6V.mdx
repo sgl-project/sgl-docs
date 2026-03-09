@@ -54,7 +54,7 @@ sudo apt install ffmpeg
 - Want to use the latest development features
 - Participate in SGLang project development
 
-For general installation instructions, you can also refer to the [official SGLang installation guide](https://docs.sglang.ai/get_started/install.html).
+For general installation instructions, you can also refer to the [official SGLang installation guide](../../../docs/get-started/installation).
 
 ## 3. Model Deployment
 
@@ -70,7 +70,7 @@ import { GLM46VDeployment } from "/src/snippets/autoregressive/glm-46v-deploymen
 - **TTFT Optimization** : Set `SGLANG_USE_CUDA_IPC_TRANSPORT=1` to use CUDA IPC for transferring multimodal features, which significantly improves TTFT. This consumes additional memory and may require adjusting `--mem-fraction-static` and/or `--max-running-requests`. (additional memory is proportional to image size * number of images in current running requests.)
 - **TP=8 Configuration**: When using Tensor Parallelism (TP) of 8, the vision attention's 12 heads cannot be evenly divided. You can resolve this by adding `--mm-enable-dp-encoder` (which the generator above handles automatically).
 - **Fast Model Loading**: For large models (like the 106B version), you can speed up model loading by using `--model-loader-extra-config='{"enable_multithread_load": "true","num_threads": 64}'`.
-- For more detailed configuration tips, please refer to [GLM-4.5V/GLM-4.6V Usage](https://docs.sglang.io/basic_usage/glmv.html).
+- For more detailed configuration tips, please refer to [GLM-4.5V/GLM-4.6V Usage](../../../docs/basic_usage/glmv).
 
 ## 4. Example APIs
 

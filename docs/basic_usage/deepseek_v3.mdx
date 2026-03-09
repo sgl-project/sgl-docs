@@ -97,14 +97,14 @@ Detailed commands for reference:
 
 - [8 x H200](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#using-docker-recommended)
 - [4 x B200, 8 x B200](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-one-b200-node)
-- [8 x MI300X](https://github.com/sgl-project/sglang/blob/main/docs/platforms/amd_gpu.md#running-deepseek-v3)
+- [8 x MI300X](../hardware-platforms/amd-gpus#running-deepseek-v3)
 - [2 x 8 x H200](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-two-h208-nodes)
 - [4 x 8 x A100](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-four-a1008-nodes)
 - [8 x A100 (AWQ)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-8-a100a800-with-awq-quantization)
 - [16 x A100 (INT8)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-16-a100a800-with-int8-quantization)
 - [32 x L40S (INT8)](https://github.com/sgl-project/sglang/tree/main/benchmark/deepseek_v3#example-serving-with-32-l40s-with-int8-quantization)
 - [Xeon 6980P CPU](../hardware-platforms/cpu-server#example-running-deepseek-v31-terminus)
-- [4 x Atlas 800I A3 (int8)](https://github.com/sgl-project/sglang/blob/main/docs/hardware-platforms/ascend-npus/DeepSeek%20Examples.md#running-deepseek-with-pd-disaggregation-on-4-x-atlas-800i-a3)
+- [4 x Atlas 800I A3 (int8)](../hardware-platforms/ascend-npus/DeepSeek Examples#running-deepseek-with-pd-disaggregation-on-4-x-atlas-800i-a3)
 
 ### Download Weights
 If you encounter errors when starting the server, ensure the weights have finished downloading. It's recommended to download them beforehand or restart multiple times until all weights are downloaded. Please refer to [DeepSeek V3](https://huggingface.co/deepseek-ai/DeepSeek-V3-Base#61-inference-with-deepseek-infer-demo-example-only) official guide to download the weights.
@@ -203,7 +203,7 @@ python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --tru
 ```
 
 ### Multi-token Prediction
-**Description**: SGLang implements DeepSeek V3 Multi-Token Prediction (MTP) based on [EAGLE speculative decoding](https://docs.sglang.io/advanced_features/speculative_decoding.html#EAGLE-Decoding). With this optimization, the decoding speed can be improved by **1.8x** for batch size 1 and **1.5x** for batch size 32 respectively on H200 TP8 setting.
+**Description**: SGLang implements DeepSeek V3 Multi-Token Prediction (MTP) based on [EAGLE speculative decoding](../advanced_features/speculative_decoding#EAGLE-Decoding). With this optimization, the decoding speed can be improved by **1.8x** for batch size 1 and **1.5x** for batch size 32 respectively on H200 TP8 setting.
 
 **Usage**:
 Add `--speculative-algorithm EAGLE`. Other flags, like `--speculative-num-steps`, `--speculative-eagle-topk` and `--speculative-num-draft-tokens` are optional. For example:
@@ -230,7 +230,7 @@ To enable the experimental overlap scheduler for EAGLE speculative decoding, set
 
 ### Reasoning Content for DeepSeek R1 & V3.1
 
-See [Reasoning Parser](https://docs.sglang.io/advanced_features/separate_reasoning.html) and [Thinking Parameter for DeepSeek V3.1](https://docs.sglang.io/basic_usage/openai_api_completions.html#Example:-DeepSeek-V3-Models).
+See [Reasoning Parser](../advanced_features/separate_reasoning) and [Thinking Parameter for DeepSeek V3.1](./openai_api_completions#Example:-DeepSeek-V3-Models).
 
 
 ### Function calling for DeepSeek Models

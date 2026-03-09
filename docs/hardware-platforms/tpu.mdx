@@ -358,7 +358,7 @@ The following models have been tested and optimized for TPU deployment:
     ```
 
     <Note>
-      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration guidance.
+      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](../advanced_features/speculative_decoding) for detailed configuration guidance.
     </Note>
   </Tab>
   <Tab title="Multi-Node Distributed">
@@ -459,7 +459,7 @@ The following models have been tested and optimized for TPU deployment:
     python3 -m sgl_jax.bench_serving --help
     ```
 
-    See the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for advanced benchmarking techniques and profiling with JAX Profiler.
+    See the [Benchmark and Profiling Guide](../developer-guide/benchmark-and-profiling) for advanced benchmarking techniques and profiling with JAX Profiler.
   </Tab>
 </Tabs>
 
@@ -569,7 +569,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Speculative Decoding" icon="bolt">
     SGLang-JAX supports EAGLE and EAGLE3 speculative decoding algorithms for Qwen3 and LLaMA model families. Speculative decoding can improve throughput by 20-40% without affecting output quality.
 
-    See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration and supported model combinations.
+    See the [Speculative Decoding documentation](../advanced_features/speculative_decoding) for detailed configuration and supported model combinations.
   </Accordion>
   <Accordion title="Chunked Prefill" icon="layer-group">
     Enable mixed prefill-decode batching for better TPU utilization:
@@ -638,7 +638,7 @@ For contributors who need TPU access for testing:
 
 - Refer to the [TPU Resources Guide](https://cloud.google.com/tpu/docs/managing-tpus-tpu-vm) for information on accessing TPU hardware
 - Use SkyPilot with spot instances for cost-effective testing
-- Follow the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for performance validation
+- Follow the [Benchmark and Profiling Guide](../developer-guide/benchmark-and-profiling) for performance validation
 
 ---
 
@@ -654,10 +654,10 @@ For contributors who need TPU access for testing:
   <Card title="Qwen Models Quick Start" icon="rocket" href="https://github.com/sgl-project/sglang-jax/tree/main/docs">
     Get up and running quickly with the Qwen model family.
   </Card>
-  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html">
+  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="../developer-guide/benchmark-and-profiling">
     Advanced benchmarking techniques and JAX Profiler usage.
   </Card>
-  <Card title="Speculative Decoding" icon="forward" href="https://docs.sglang.ai/backend/speculative_decoding.html">
+  <Card title="Speculative Decoding" icon="forward" href="../advanced_features/speculative_decoding">
     EAGLE and EAGLE3 speculative decoding configuration.
   </Card>
   <Card title="JAX Documentation" icon="code" href="https://jax.readthedocs.io">

@@ -429,6 +429,24 @@
                 "pages": [
                   "cookbook/diffusion/Z-Image/Z-Image-Turbo"
                 ]
+              },
+              {
+                "group": "MOVA",
+                "pages": [
+                  "cookbook/diffusion/MOVA/MOVA"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "SGLang Omni",
+            "pages": [
+              "cookbook/omni/intro",
+              {
+                "group": "FishAudio",
+                "pages": [
+                  "cookbook/omni/FishAudio/S2-Pro"
+                ]
               }
             ]
           },

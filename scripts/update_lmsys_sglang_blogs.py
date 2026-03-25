@@ -243,7 +243,7 @@ def replace_generated_block(index_text: str, generated_cards: str) -> str:
         flags=re.DOTALL,
     )
     replacement = f"{START_MARKER}\n{generated_cards}\n{END_MARKER}"
-    updated_text, replacements = pattern.subn(replacement, index_text, count=1)
+    updated_text, replacements = pattern.subn(lambda _match: replacement, index_text, count=1)
     if replacements != 1:
         raise RuntimeError(
             f"Could not find exactly one marker block in {INDEX_PATH.name}. "

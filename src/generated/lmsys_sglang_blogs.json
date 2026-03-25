@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-23T12:11:47.296458Z",
+  "generatedAt": "2026-03-25T12:11:27.512818Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 77,
+  "totalBlogFilesScanned": 78,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-03-17-rocm-miles-rl-amd",
+      "title": "ROCm Support for Miles: Large-Scale RL Post-Training on AMD Instinct\u2122 GPUs",
+      "url": "https://lmsys.org/blog/2026-03-17-rocm-miles-rl-amd/",
+      "image": "https://lmsys.org/images/blog/rocm_miles_rl/fig_1.png",
+      "date": "March 17, 2026"
+    },
     {
       "slug": "2026-03-11-run-nvidia-nemotron-3-super",
       "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3 Super for building High-Efficiency Multi-Agent Systems",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-02-11-Qwen-latency/",
       "image": "https://lmsys.org/images/blog/qwen_amd_latency/preview.png",
       "date": "February 11, 2026"
-    },
-    {
-      "slug": "2026-01-26-int4-qat",
-      "title": "Squeezing 1TB Model Rollout into a Single H200: INT4 QAT RL End-to-End Practice",
-      "url": "https://lmsys.org/blog/2026-01-26-int4-qat/",
-      "image": "https://raw.githubusercontent.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/refs/heads/main/rlhf/slime/int4/figs/fake-quantize-STE.png",
-      "date": "January 26, 2026"
     }
   ]
 }

@@ -645,7 +645,7 @@ SGLang supports various environment variables that can be used to configure its 
   <tbody>
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>` SGLANG_TOOL_STRICT_LEVEL`</td>
-      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Controls the strictness level of tool call parsing and validation.<br/>**Level 0**: Off - No strict validation<br/>**Level 1**: Function strict - Enables structural tag constraints for all tools (even if none have `strict=True` set)<br/>**Level 2**: Parameter strict - Enforces strict parameter validation for all tools, treating them as if they all have `strict=True` set</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>Controls strictness for tool-call parsing and validation: **Level 0** off (no strict validation); **Level 1** function strict (enables structural tag constraints for all tools, even if none have `strict=True`); **Level 2** parameter strict (enforces strict parameter validation for all tools as if all had `strict=True`).</td>
       <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>` 0`</td>
     </tr>
   </tbody>

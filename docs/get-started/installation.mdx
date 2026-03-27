@@ -1,10 +1,16 @@
 ---
 title: Installation
+description: Install SGLang with pip/uv, source, Docker, Kubernetes, and cloud deployment options.
+keywords:
+  - installation
+  - sglang
+  - pip
+  - docker
 ---
 
 You can install SGLang using one of the methods below.
 This page primarily applies to common NVIDIA GPU platforms.
-For other or newer platforms, please refer to the dedicated pages for [AMD GPUs](../hardware-platforms/amd-gpus), [Intel Xeon CPUs](../hardware-platforms/cpu-server), [TPU](../hardware-platforms/tpu), [NVIDIA DGX Spark](https://lmsys.org/blog/2025-11-03-gpt-oss-on-nvidia-dgx-spark/), [NVIDIA Jetson](../hardware-platforms/nvidia), [Ascend NPUs](../hardware-platforms/ascend-npus/SGLang installation with NPUs support), and [Intel XPU](../hardware-platforms/xpu).
+For other or newer platforms, please refer to the dedicated pages for [AMD GPUs](../hardware-platforms/amd-gpus), [Intel Xeon CPUs](../hardware-platforms/cpu-server), [Google TPU](../hardware-platforms/tpu), [NVIDIA DGX Spark](https://lmsys.org/blog/2025-11-03-gpt-oss-on-nvidia-dgx-spark/), [NVIDIA Jetson](../hardware-platforms/nvidia), [Ascend NPUs](../hardware-platforms/ascend-npus/SGLang installation with NPUs support), and [Intel XPU](../hardware-platforms/xpu).
 
 ## Documentation index
 
@@ -12,29 +18,18 @@ For other or newer platforms, please refer to the dedicated pages for [AMD GPUs]
 Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://cookbook.sglang.io/llms.txt). Use this file to discover all available pages before exploring further.
 </Info>
 
+<a id="install-methods"></a>
 ## Install methods
 
 <Tabs>
   <Tab title="pip or uv">
     Use <Tooltip tip="A fast Python package manager.">uv</Tooltip> for faster installation.
 
-    <Steps>
-      <Step title="Upgrade pip">
-        ```bash Command
-        pip install --upgrade pip
-        ```
-      </Step>
-      <Step title="Install uv">
-        ```bash Command
-        pip install uv
-        ```
-      </Step>
-      <Step title="Install SGLang">
-        ```bash Command
-        uv pip install "sglang"
-        ```
-      </Step>
-    </Steps>
+    ```bash Command
+    pip install --upgrade pip
+    pip install uv
+    uv pip install "sglang"
+    ```
 
     **Quick fixes to common problems**
 
@@ -43,7 +38,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
     In some cases (for example, GB200), the command above might install a wrong torch version (for example, the CPU version) due to dependency resolution. Reinstall the correct [PyTorch](https://pytorch.org/get-started/locally/) with the following:
 
     ```bash Command
-    uv pip install "torch==2.9.1" "torchvision" --extra-index-url https://download.pytorch.org/whl/cu129 --force-reinstall
+    uv pip install "torch" "torchvision" --extra-index-url https://download.pytorch.org/whl/cu129 --force-reinstall
     ```
 
     **CUDA 13 without Docker**
@@ -79,7 +74,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
     <Steps>
       <Step title="Clone the repo">
         ```bash Command
-        git clone -b v0.5.6.post2 https://github.com/sgl-project/sglang.git
+        git clone https://github.com/sgl-project/sglang.git
         ```
       </Step>
       <Step title="Enter the repo">

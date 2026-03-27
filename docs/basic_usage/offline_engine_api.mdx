@@ -17,9 +17,6 @@ This document focuses on the offline batch inference, demonstrating four differe
 
 Additionally, you can easily build a custom server on top of the SGLang offline engine. A detailed example working in a python script can be found in [custom_server](https://github.com/sgl-project/sglang/blob/main/examples/runtime/engine/custom_server.py).
 
-
-
-
 ## Nest Asyncio
 Note that if you want to use **Offline Engine** in ipython or some other nested loop code, you need to add the following code:
 ```python Example
@@ -29,19 +26,15 @@ nest_asyncio.apply()
 
 ```
 
-
 ## Advanced Usage
 
 The engine supports [vlm inference](https://github.com/sgl-project/sglang/blob/main/examples/runtime/engine/offline_batch_inference_vlm.py) as well as [extracting hidden states](https://github.com/sgl-project/sglang/tree/main/examples/runtime/hidden_states). 
 
 Please see [the examples](https://github.com/sgl-project/sglang/tree/main/examples/runtime/engine) for further use cases.
 
-
 ## Offline Batch Inference
 
 SGLang offline engine supports batch inference with efficient scheduling.
-
-
 
 ```python Example
 # launch the offline engine
@@ -55,8 +48,6 @@ llm = sgl.Engine(model_path="qwen/qwen2.5-0.5b-instruct")
 ```
 
 ### Non-streaming Synchronous Generation
-
-
 
 ```python Example
 prompts = [
@@ -75,8 +66,6 @@ for prompt, output in zip(prompts, outputs):
 ```
 
 ### Streaming Synchronous Generation
-
-
 
 ```python Example
 prompts = [
@@ -101,8 +90,6 @@ for prompt in prompts:
 
 ### Non-streaming Asynchronous Generation
 
-
-
 ```python Example
 prompts = [
     "Write a short, neutral self-introduction for a fictional character. Hello, my name is",
@@ -114,7 +101,6 @@ sampling_params = {"temperature": 0.8, "top_p": 0.95}
 
 print("\n=== Testing asynchronous batch generation ===")
 
-
 async def main():
     outputs = await llm.async_generate(prompts, sampling_params)
 
@@ -122,13 +108,10 @@ async def main():
         print(f"\nPrompt: {prompt}")
         print(f"Generated text: {output['text']}")
 
-
 asyncio.run(main())
 ```
 
 ### Streaming Asynchronous Generation
-
-
 
 ```python Example
 prompts = [
@@ -141,7 +124,6 @@ sampling_params = {"temperature": 0.8, "top_p": 0.95}
 
 print("\n=== Testing asynchronous streaming generation (no repeats) ===")
 
-
 async def main():
     for prompt in prompts:
         print(f"\nPrompt: {prompt}")
@@ -153,10 +135,8 @@ async def main():
 
         print()  # New line after each prompt
 
-
 asyncio.run(main())
 ```
-
 
 ```python Example
 llm.shutdown()

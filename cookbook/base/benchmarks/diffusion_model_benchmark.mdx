@@ -125,7 +125,7 @@ python3 -m sglang.multimodal_gen.benchmarks.bench_serving \
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--task`</td>
       <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>`t2v`, `i2v`, `ti2v`, `t2i`, `ti2i`</td>
-      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Defines the generation task:<br />• `t2v`: Text-to-Video<br />• `i2v`: Image-to-Video<br />• `ti2v`: Text+Image-to-Video<br />• `t2i`: Text-to-image<br />• `ti2i`: Text+Image-to-Image</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.02)"}}>Defines the generation task: `t2v` (Text-to-Video), `i2v` (Image-to-Video), `ti2v` (Text+Image-to-Video), `t2i` (Text-to-image), `ti2i` (Text+Image-to-Image).</td>
     </tr>
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--dataset`</td>
@@ -194,7 +194,7 @@ python3 -m sglang.multimodal_gen.benchmarks.bench_serving \
   <tbody>
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--request-rate`</td>
-      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The number of requests initiated per second.<br />• If set to `inf`, all requests are sent immediately (burst).<br />• If set to a number, request arrival times follow a Poisson process.</td>
+      <td style={{padding: "9px 12px", backgroundColor: "rgba(255,255,255,0.05)"}}>The number of requests initiated per second. If set to `inf`, all requests are sent immediately (burst). If set to a number, request arrival times follow a Poisson process.</td>
     </tr>
     <tr>
       <td style={{padding: "9px 12px", fontWeight: 500, backgroundColor: "rgba(255,255,255,0.02)"}}>`--max-concurrency`</td>

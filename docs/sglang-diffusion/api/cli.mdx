@@ -83,7 +83,7 @@ For full API usage including image/video generation and LoRA management, see the
 | `--lora-path LORA_PATH` | Path to a LoRA adapter (local or HuggingFace ID). If omitted, LoRA is not applied |
 | `--lora-nickname NAME` | Nickname for the LoRA adapter (default: `default`) |
 | `--num-gpus NUM` | Number of GPUs to use |
-| `--tp-size SIZE` | Tensor parallelism size (encoder only; keep â‰¤ 1 when text encoder offload is enabled) |
+| `--tp-size SIZE` | Tensor parallelism size (encoder only; keep at most 1 when text encoder offload is enabled) |
 | `--sp-degree SIZE` | Sequence parallelism size (typically should match the number of GPUs) |
 | `--ulysses-degree SIZE` | DeepSpeed-Ulysses-style SP degree in USP |
 | `--ring-degree SIZE` | Ring attention-style SP degree in USP |
@@ -141,12 +141,12 @@ $$
 \text{output frames} = (N - 1) \times 2^{\text{exp}} + 1
 $$
 
-For example, 5 original frames with `exp=1` â†’ 4 gaps Ã— 1 new frame + 5 originals = **9 frames**; with `exp=2` â†’ **17 frames**.
+For example, 5 original frames with `exp=1` -> 4 gaps x 1 new frame + 5 originals = **9 frames**; with `exp=2` -> **17 frames**.
 
 | Argument | Description |
 |:--|:--|
 | `--enable-frame-interpolation` | Enable frame interpolation. Model weights are downloaded automatically on first use |
-| `--frame-interpolation-exp EXP` | Interpolation exponent -- `1` = 2Ã— temporal resolution, `2` = 4Ã—, etc. (default: `1`) |
+| `--frame-interpolation-exp EXP` | Interpolation exponent -- `1` = 2x temporal resolution, `2` = 4x, etc. (default: `1`) |
 | `--frame-interpolation-scale SCALE` | RIFE inference scale; use `0.5` for high-resolution inputs to save memory (default: `1.0`) |
 | `--frame-interpolation-model-path PATH` | Local directory or HuggingFace repo ID containing RIFE `flownet.pkl` weights (default: `elfgum/RIFE-4.22.lite`, downloaded automatically) |
 
@@ -250,7 +250,7 @@ You can override any pipeline component (e.g. `vae`, `transformer`, `text_encode
 
 ### Example: FLUX.2-dev with Tiny AutoEncoder
 
-Replace the default VAE with a distilled tiny autoencoder for ~3Ã— faster decoding:
+Replace the default VAE with a distilled tiny autoencoder for ~3x faster decoding:
 
 ```bash
 sglang serve \
@@ -337,7 +337,7 @@ Users on the diffusers backend can leverage Cache-DiT acceleration by loading cu
 
 The server supports automatically uploading generated artifacts to S3-compatible cloud storage (AWS S3, MinIO, Alibaba Cloud OSS, Tencent Cloud COS).
 
-The workflow is: **Generate â†’ Upload â†’ Delete local file**. The API response returns the public URL of the uploaded object.
+The workflow is: **Generate -> Upload -> Delete local file**. The API response returns the public URL of the uploaded object.
 
 <Steps>
   <Step title="Install boto3">

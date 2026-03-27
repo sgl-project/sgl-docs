@@ -1,6 +1,12 @@
 ---
 title: Welcome to SGLang
-mode: center
+description: High-performance serving framework for large language and multimodal models.
+keywords:
+  - sglang
+  - llm serving
+  - multimodal
+  - inference runtime
+mode: wide
 ---
 
 <a
@@ -28,7 +34,7 @@ mode: center
 A high-performance serving framework for large language models
 and multimodal models.
 
-<Columns cols={2}>
+<Columns cols={2} className="gap-5">
   <Card title="Performance & Runtime" icon="arrow-trend-up">
     Designed for low-latency, high-throughput inference with RadixAttention, prefix caching, and multi-GPU parallelism.
   </Card>
@@ -39,8 +45,8 @@ and multimodal models.
 </Card>
 
 <Card title="Extensive Hardware Support" icon="microchip">
-  Native support for NVIDIA, AMD, Intel Xeon, Google TPU, and Ascend NPU
-  accelerators.
+  Native support across <a href="./docs/hardware-platforms/amd-gpus">Hardware Platforms</a>
+  including NVIDIA, AMD, Intel Xeon, Google TPU, and Ascend NPU accelerators.
 </Card>
 
   <Card title="Community & Training" icon="users">
@@ -52,10 +58,10 @@ and multimodal models.
 
 ## Get Started
 
-SGLang is an inference framework meant for production level serving.<br></br>
+SGLang is an inference framework meant for production level serving.
 It is designed to deliver low-latency and high-throughput inference across a wide range of setups, from a single GPU to large distributed clusters.
 
-<Columns cols={2}>
+<Columns cols={2} className="gap-5">
 <Card title="Install SGLang" icon="angles-down" href="./docs/get-started/installation">
   Native support for NVIDIA, AMD, Intel Xeon, Google TPU, and Ascend NPU
   accelerators.
@@ -76,7 +82,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-      gap: "1rem",
+      gap: "0.8rem",
       alignItems: "stretch",
     }}
   >
@@ -113,7 +119,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -126,7 +132,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}
@@ -168,7 +174,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -181,7 +187,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}
@@ -223,7 +229,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -236,7 +242,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}
@@ -278,7 +284,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -291,7 +297,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}
@@ -333,7 +339,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -346,7 +352,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}
@@ -388,7 +394,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
           }}
         />
       </div>
-      <div style={{ padding: "0.9rem 1rem 1rem" }}>
+      <div style={{ padding: "0.75rem 0.9rem 0.85rem" }}>
         <p
           style={{
             margin: 0,
@@ -401,7 +407,7 @@ It is designed to deliver low-latency and high-throughput inference across a wid
         </p>
         <p
           style={{
-            margin: "0.55rem 0 0",
+            margin: "0.4rem 0 0",
             fontSize: "0.85rem",
             opacity: 0.75,
           }}

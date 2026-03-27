@@ -20,6 +20,75 @@
   height: 10px;
 }
 
+/* Balanced density pass for docs content */
+:root {
+  --density-section-gap: 1.75rem;
+  --density-heading-gap: 0.65rem;
+  --density-body-gap: 0.6rem;
+}
+
+:where(main) :where(h1, h2, h3, h4) {
+  margin-bottom: var(--density-heading-gap);
+  line-height: 1.2;
+}
+
+:where(main) h2 {
+  margin-top: calc(var(--density-section-gap) + 0.15rem);
+}
+
+:where(main) h3,
+:where(main) h4 {
+  margin-top: calc(var(--density-section-gap) - 0.2rem);
+}
+
+:where(main) :where(p, li) {
+  line-height: 1.45;
+}
+
+:where(main) p {
+  margin: var(--density-body-gap) 0;
+}
+
+:where(main) ul,
+:where(main) ol {
+  margin: 0.65rem 0;
+  padding-left: 1.15rem;
+}
+
+:where(main) li + li {
+  margin-top: 0.2rem;
+}
+
+/* Keep compact rhythm for common utility gaps */
+:where(main) [class*="gap-5"] {
+  gap: 1.1rem !important;
+}
+
+:where(main) [class*="gap-6"] {
+  gap: 1.2rem !important;
+}
+
+:where(main) hr {
+  margin: 1.2rem 0;
+}
+
+/* Preserve readability for technical blocks */
+:where(main) :where(pre, .code-block, .code-group, table, blockquote) {
+  margin: 0.95rem 0;
+}
+
+:where(main) :where(pre code) {
+  line-height: 1.45;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 0.45rem;
+}
+
 /* Global table styling to match vision-language-models.mdx reference */
 table {
   width: 100%;
@@ -33,7 +102,7 @@ table thead tr {
 
 table thead th {
   text-align: left;
-  padding: 10px 12px;
+  padding: 8px 10px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -55,7 +124,12 @@ table tbody tr:nth-child(even) td {
 }
 
 table tbody td {
-  padding: 9px 12px;
+  padding: 7px 10px;
+  line-height: 1.3;
+}
+
+table tbody td br {
+  line-height: 1;
 }
 
 table tbody td:first-child {

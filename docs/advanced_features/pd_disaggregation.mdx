@@ -22,7 +22,7 @@ Currently, we support Mooncake and NIXL as the transfer engine.
 
 ## Profiling in PD Disaggregation Mode
 
-When you need to profile prefill or decode workers in PD disaggregation mode, please refer to the [Profile In PD Disaggregation Mode](../developer-guide/benchmark-and-profiling#profile-in-pd-disaggregation-mode) section in the Benchmark and Profiling guide. Due to torch profiler limitations, prefill and decode workers must be profiled separately using dedicated command-line options.
+When you need to profile prefill or decode workers in PD disaggregation mode, please refer to the [Profile In PD Disaggregation Mode](../developer_guide/benchmark_and_profiling#profile-in-pd-disaggregation-mode) section in the Benchmark and Profiling guide. Due to torch profiler limitations, prefill and decode workers must be profiled separately using dedicated command-line options.
 
 ## Router Integration
 
@@ -32,7 +32,7 @@ For deploying PD disaggregation at scale with load balancing and fault tolerance
 ## Mooncake
 ### Requirements
 
-```bash Command
+```bash
 uv pip install mooncake-transfer-engine
 ```
 
@@ -40,7 +40,7 @@ uv pip install mooncake-transfer-engine
 
 ### Llama Single Node
 
-```bash Command
+```bash
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-3.1-8B-Instruct \
   --disaggregation-mode prefill \
@@ -57,7 +57,7 @@ python -m sglang_router.launch_router --pd-disaggregation --prefill http://127.0
 
 ### DeepSeek Multi-Node
 
-```bash Command
+```bash
 # prefill 0
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3-0324 \
@@ -132,7 +132,7 @@ PD Disaggregation with Mooncake supports the following environment variables for
 #### NVLink Transport Configuration
 To enable NVLink transport for KV cache transfers with the mooncake backend (recommended for NVL72 deployments), set the following environment variables. Note that auxiliary data transfer will still use TCP as a temporary workaround.
 
-```bash Command
+```bash
 export SGLANG_MOONCAKE_CUSTOM_MEM_POOL=True
 export MC_FORCE_MNNVL=True
 ```
@@ -214,13 +214,13 @@ If a greater mean TTFT is acceptable, you can `export SGLANG_DISAGGREGATION_WAIT
 
 Install via pip.
 
-```bash Command
+```bash
 pip install nixl
 ```
 
 Or build from source - may be required if you already have UCX installed.
 
-```bash Command
+```bash
 git clone https://github.com/ai-dynamo/nixl.git
 cd nixl
 pip install . --config-settings=setup-args="-Ducx_path=/path/to/ucx"
@@ -231,7 +231,7 @@ pip install . --config-settings=setup-args="-Ducx_path=/path/to/ucx"
 
 ### Llama Single Node
 
-```bash Command
+```bash
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-3.1-8B-Instruct \
   --disaggregation-mode prefill \
@@ -248,7 +248,7 @@ python -m sglang_router.launch_router --pd-disaggregation --prefill http://127.0
 
 ### DeepSeek Multi-Node
 
-```bash Command
+```bash
 # prefill 0
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3-0324 \
@@ -328,7 +328,7 @@ Example: `export SGLANG_DISAGGREGATION_NIXL_BACKEND=LIBFABRIC`
 **Available backends:** UCX (default), LIBFABRIC, or any installed NIXL plugin.
 
 Example usage:
-```bash Command
+```bash
 export SGLANG_DISAGGREGATION_NIXL_BACKEND=LIBFABRIC
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-3.1-8B-Instruct \
@@ -343,23 +343,23 @@ python -m sglang.launch_server \
 
 Use ascend backend with [memfabric_hybrid](https://gitcode.com/Ascend/memfabric_hybrid) and ASCEND_MF_STORE_URL being set
 
-```bash Command
+```bash
 pip install memfabric-hybrid==1.0.0
 export ASCEND_MF_STORE_URL="tcp://xxx.xx.xxx.xxx:xxxx"
 ```
 Use mooncake backend, more details can be found in mooncake section.
-```bash Command
+```bash
 export ENABLE_ASCEND_TRANSFER_WITH_MOONCAKE=true
 ```
 ASCEND_NPU_PHY_ID need to be set in container env
-```bash Command
+```bash
 export ASCEND_NPU_PHY_ID=xxx
 ```
 
 
 ### Llama Single Node
 
-```bash Command
+```bash
 python -m sglang.launch_server \
   --model-path meta-llama/Llama-3.1-8B-Instruct \
   --disaggregation-mode prefill \
@@ -376,7 +376,7 @@ python -m sglang_router.launch_router --pd-disaggregation --prefill http://127.0
 
 ### DeepSeek Multi-Node
 
-```bash Command
+```bash
 # prefill 0
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-V3-0324 \

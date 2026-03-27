@@ -339,28 +339,28 @@ The server supports automatically uploading generated artifacts to S3-compatible
 
 The workflow is: **Generate -> Upload -> Delete local file**. The API response returns the public URL of the uploaded object.
 
-<Steps>
-  <Step title="Install boto3">
-    ```bash
-    pip install boto3
-    ```
-  </Step>
-  <Step title="Set environment variables">
-    ```bash
-    export SGLANG_CLOUD_STORAGE_TYPE=s3
-    export SGLANG_S3_BUCKET_NAME=my-bucket
-    export SGLANG_S3_ACCESS_KEY_ID=your-access-key
-    export SGLANG_S3_SECRET_ACCESS_KEY=your-secret-key
+1. **Install boto3**
 
-    # Optional: custom endpoint for MinIO/OSS/COS
-    export SGLANG_S3_ENDPOINT_URL=https://minio.example.com
-    ```
-  </Step>
-  <Step title="Launch the server">
-    ```bash
-    sglang serve --model-path MODEL_PATH
-    ```
-  </Step>
-</Steps>
+```bash
+pip install boto3
+```
+
+2. **Set environment variables**
+
+```bash
+export SGLANG_CLOUD_STORAGE_TYPE=s3
+export SGLANG_S3_BUCKET_NAME=my-bucket
+export SGLANG_S3_ACCESS_KEY_ID=your-access-key
+export SGLANG_S3_SECRET_ACCESS_KEY=your-secret-key
+
+# Optional: custom endpoint for MinIO/OSS/COS
+export SGLANG_S3_ENDPOINT_URL=https://minio.example.com
+```
+
+3. **Launch the server**
+
+```bash
+sglang serve --model-path MODEL_PATH
+```
 
 See the [environment variables reference](../environment-variables) for all storage-related variables.

@@ -49,8 +49,7 @@ Again, please go through the entire documentation to confirm your system is usin
   <Tab title="Docker (Recommended)">
     The docker images are available on Docker Hub at [lmsysorg/sglang](https://hub.docker.com/r/lmsysorg/sglang/tags), built from [rocm.Dockerfile](https://github.com/sgl-project/sglang/tree/main/docker).
 
-    <Steps>
-      <Step title="Build the docker image">
+    1. **Build the docker image**
         If you use pre-built images, you can skip this step and replace `sglang_image` with the pre-built image names in the steps below.
 
         <CodeGroup>
@@ -58,9 +57,8 @@ Again, please go through the entire documentation to confirm your system is usin
         docker build -t sglang_image -f rocm.Dockerfile .
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Create a convenient alias">
+    2. **Create a convenient alias**
         <CodeGroup>
         ```bash Create Alias
         alias drun='docker run -it --rm --network=host --privileged --device=/dev/kfd --device=/dev/dri \
@@ -75,9 +73,8 @@ Again, please go through the entire documentation to confirm your system is usin
 
         * `--network host` and `--privileged` are required by RDMA. If you don't need RDMA, you can remove them.
         * You may need to set `NCCL_IB_GID_INDEX` if you are using RoCE, for example: `export NCCL_IB_GID_INDEX=3`.
-      </Step>
 
-      <Step title="Launch the server">
+    3. **Launch the server**
         <Note>
         Replace `<secret>` below with your [huggingface hub token](https://huggingface.co/docs/hub/en/security-tokens).
         </Note>
@@ -94,13 +91,12 @@ Again, please go through the entire documentation to confirm your system is usin
             --port 30000
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Verify the installation">
+    4. **Verify the installation**
         You can run a benchmark in another terminal or refer to [other docs](../basic_usage/openai_api_completions) to send requests to the engine.
 
         <CodeGroup>
-        ```bash Run Benchmark
+                    ```bash Run Benchmark
         drun sglang_image \
             python3 -m sglang.bench_serving \
             --backend sglang \
@@ -110,49 +106,42 @@ Again, please go through the entire documentation to confirm your system is usin
             --random-output 128
         ```
         </CodeGroup>
-      </Step>
-    </Steps>
 
     With your AMD system properly configured and SGLang installed, you can now fully leverage AMD hardware to power SGLang's machine learning capabilities.
   </Tab>
   
   <Tab title="From Source">
-    <Steps>
-      <Step title="Clone the repository">
+    1. **Clone the repository**
         Clone the SGLang repository using the last release branch.
 
         <CodeGroup>
-        ```bash Clone Repository
+        ```bash
         git clone -b v0.5.6.post2 https://github.com/sgl-project/sglang.git
         cd sglang
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Compile sgl-kernel">
+    2. **Compile sgl-kernel**
         Upgrade pip and compile the sgl-kernel for ROCm support.
 
         <CodeGroup>
-        ```bash Compile Kernel
+        ```bash
         pip install --upgrade pip
         cd sgl-kernel
         python setup_rocm.py install
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Install sglang package">
+    3. **Install sglang package**
         Install the SGLang Python package with HIP and diffusion support.
 
         <CodeGroup>
-        ```bash Install Package
+        ```bash
         cd ..
         rm -rf python/pyproject.toml && mv python/pyproject_other.toml python/pyproject.toml
         pip install -e "python[all_hip]"
         ```
         </CodeGroup>
-      </Step>
-    </Steps>
   </Tab>
 </Tabs>
 

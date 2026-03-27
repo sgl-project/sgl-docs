@@ -62,7 +62,7 @@ You can install SGLang using any of the methods below. Please go through `System
     
     You can obtain the dependency of a specified version of CANN through an image.
 
-    ```bash Command
+    ```bash
     # for Atlas 800I A3 and Ubuntu OS
     docker pull quay.io/ascend/cann:8.5.0-a3-ubuntu22.04-py3.11
     # for Atlas 800I A2 and Ubuntu OS
@@ -78,7 +78,7 @@ You can install SGLang using any of the methods below. Please go through `System
             <Accordion title="Python Version">
                 Only `python==3.11` is supported currently. If you don't want to break system pre-installed python, try installing with [conda](https://github.com/conda/conda).
 
-                ```bash Command
+                ```bash
                 conda create --name sglang_npu python=3.11
                 conda activate sglang_npu
                 ```
@@ -89,12 +89,12 @@ You can install SGLang using any of the methods below. Please go through `System
             <Accordion title="MemFabric-Hybrid">
                 If you want to use PD disaggregation mode, you need to install MemFabric-Hybrid. MemFabric-Hybrid is a drop-in replacement of Mooncake Transfer Engine that enables KV cache transfer on Ascend NPU clusters.
 
-                ```bash Command
+                ```bash
                 pip install memfabric-hybrid==1.0.5
                 ```
             </Accordion>
             <Accordion title="Pytorch and Pytorch Framework Adaptor on Ascend">
-                ```bash Command
+                ```bash
                 PYTORCH_VERSION=2.8.0
                 TORCHVISION_VERSION=0.23.0
                 TORCH_NPU_VERSION=2.8.0
@@ -107,13 +107,13 @@ You can install SGLang using any of the methods below. Please go through `System
             <Accordion title="Triton on Ascend">
                 We provide our own implementation of Triton for Ascend.
 
-                ```bash Command
+                ```bash
                 BISHENG_NAME="Ascend-BiSheng-toolkit_aarch64_20251121.run"
                 BISHENG_URL="https://sglang-ascend.obs.cn-east-3.myhuaweicloud.com/sglang/triton_ascend/${BISHENG_NAME}"
                 wget -O "${BISHENG_NAME}" "${BISHENG_URL}" && chmod a+x "${BISHENG_NAME}" && "./${BISHENG_NAME}" --install && rm "${BISHENG_NAME}"
                 ```
 
-                ```bash Command
+                ```bash
                 pip install triton-ascend
                 ```
 
@@ -127,7 +127,7 @@ You can install SGLang using any of the methods below. Please go through `System
                 We provide a DeepEP-compatible Library as a drop-in replacement of deepseek-ai's DeepEP library, check the [installation guide](https://github.com/sgl-project/sgl-kernel-npu/blob/main/python/deep_ep/README).
             </Accordion>
             <Accordion title="Installing SGLang from source">                
-                ```bash Command
+                ```bash
                 # Use the last release branch
                 git clone https://github.com/sgl-project/sglang.git
                 cd sglang
@@ -144,35 +144,34 @@ You can install SGLang using any of the methods below. Please go through `System
 
         You can download the SGLang image or build an image based on Dockerfile to obtain the Ascend NPU image.
 
-        <Steps>
-            <Step title="Download SGLang image">
-                ```bash Command
-                dockerhub: docker.io/lmsysorg/sglang:$tag
-                # Main-based tag, change main to specific version like v0.5.6,
-                # you can get image for specific version
-                Atlas 800I A3 : {main}-cann8.5.0-a3
-                Atlas 800I A2: {main}-cann8.5.0-910b
-                ```
-            </Step>
-            <Step title="Build an image based on Dockerfile">
-                ```bash Command
-                # Clone the SGLang repository
-                git clone https://github.com/sgl-project/sglang.git
-                cd sglang/docker
+        1. **Download SGLang image**
 
-                # Build the docker image
-                # If there are network errors, please modify the Dockerfile to use offline dependencies or use a proxy
-                docker build -t <image_name> -f npu.Dockerfile .
-                ```
-            </Step>
-        </Steps>
+        ```bash
+        dockerhub: docker.io/lmsysorg/sglang:$tag
+        # Main-based tag, change main to specific version like v0.5.6,
+        # you can get image for specific version
+        Atlas 800I A3 : {main}-cann8.5.0-a3
+        Atlas 800I A2: {main}-cann8.5.0-910b
+        ```
+
+        2. **Build an image based on Dockerfile**
+
+        ```bash
+        # Clone the SGLang repository
+        git clone https://github.com/sgl-project/sglang.git
+        cd sglang/docker
+
+        # Build the docker image
+        # If there are network errors, please modify the Dockerfile to use offline dependencies or use a proxy
+        docker build -t <image_name> -f npu.Dockerfile .
+        ```
 
         ### Create Docker
 
         <Info>`--privileged` and `--network=host` are required by RDMA, which is typically needed by Ascend NPU clusters.</Info>
         <Note>The following docker command is based on Atlas 800I A3 machines. If you are using Atlas 800I A2, make sure only `davinci[0-7]` are mapped into container.</Note>
 
-        ```bash Command
+        ```bash
         alias drun='docker run -it --rm --privileged --network=host --ipc=host --shm-size=16g \
             --device=/dev/davinci0 --device=/dev/davinci1 --device=/dev/davinci2 --device=/dev/davinci3 \
             --device=/dev/davinci4 --device=/dev/davinci5 --device=/dev/davinci6 --device=/dev/davinci7 \
@@ -199,7 +198,7 @@ You can install SGLang using any of the methods below. Please go through `System
     <Accordion title="CPU performance power scheme" defaultOpen="true">
         The default power scheme on Ascend hardware is `ondemand` which could affect performance, changing it to `performance` is recommended.
 
-        ```bash Command
+        ```bash
         echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 
         # Make sure changes are applied successfully
@@ -207,14 +206,14 @@ You can install SGLang using any of the methods below. Please go through `System
         ```
     </Accordion>
     <Accordion title="Disable NUMA balancing" defaultOpen="true">
-        ```bash Command
+        ```bash
         sudo sysctl -w kernel.numa_balancing=0
         # Check
         cat /proc/sys/kernel/numa_balancing # shows 0
         ```
     </Accordion>
     <Accordion title="Prevent swapping out system memory" defaultOpen="true">
-        ```bash Command
+        ```bash
         sudo sysctl -w vm.swappiness=10
 
         # Check
@@ -230,7 +229,7 @@ You can install SGLang using any of the methods below. Please go through `System
 
         ### PD Mixed Scene
 
-        ```bash Command
+        ```bash
         # Enabling CPU Affinity
         export SGLANG_SET_CPU_AFFINITY=1
         python3 -m sglang.launch_server --model-path meta-llama/Llama-3.1-8B-Instruct --attention-backend ascend
@@ -238,69 +237,69 @@ You can install SGLang using any of the methods below. Please go through `System
 
         ### PD Separation Scene
 
-        <Steps>
-            <Step title="Launch Prefill Server">
-            ```bash Command
-            # Enabling CPU Affinity
-            export SGLANG_SET_CPU_AFFINITY=1
+        1. **Launch Prefill Server**
 
-            # PIP: recommended to config first Prefill Server IP
-            # PORT: one free port
-            # all sglang servers need to be config the same PIP and PORT,
-            export ASCEND_MF_STORE_URL="tcp://PIP:PORT"
-            # if you are Atlas 800I A2 hardware and use rdma for kv cache transfer, add this parameter
-            export ASCEND_MF_TRANSFER_PROTOCOL="device_rdma"
-            python3 -m sglang.launch_server \
-                --model-path meta-llama/Llama-3.1-8B-Instruct \
-                --disaggregation-mode prefill \
-                --disaggregation-transfer-backend ascend \
-                --disaggregation-bootstrap-port 8995 \
-                --attention-backend ascend \
-                --device npu \
-                --base-gpu-id 0 \
-                --tp-size 1 \
-                --host 127.0.0.1 \
-                --port 8000
-            ```
-            </Step>
-            <Step title="Launch Decode Server">
-            ```bash Command
-            # PIP: recommended to config first Prefill Server IP
-            # PORT: one free port
-            # all sglang servers need to be config the same PIP and PORT,
-            export ASCEND_MF_STORE_URL="tcp://PIP:PORT"
-            # if you are Atlas 800I A2 hardware and use rdma for kv cache transfer, add this parameter
-            export ASCEND_MF_TRANSFER_PROTOCOL="device_rdma"
-            python3 -m sglang.launch_server \
-                --model-path meta-llama/Llama-3.1-8B-Instruct \
-                --disaggregation-mode decode \
-                --disaggregation-transfer-backend ascend \
-                --attention-backend ascend \
-                --device npu \
-                --base-gpu-id 1 \
-                --tp-size 1 \
-                --host 127.0.0.1 \
-                --port 8001
-            ```
-            </Step>
-            <Step title="Launch Router">
-            ```bash Command
-            python3 -m sglang_router.launch_router \
-                --pd-disaggregation \
-                --policy cache_aware \
-                --prefill http://127.0.0.1:8000 8995 \
-                --decode http://127.0.0.1:8001 \
-                --host 127.0.0.1 \
-                --port 6688
-            ```
-            </Step>
-        </Steps>
+        ```bash
+        # Enabling CPU Affinity
+        export SGLANG_SET_CPU_AFFINITY=1
+
+        # PIP: recommended to config first Prefill Server IP
+        # PORT: one free port
+        # all sglang servers need to be config the same PIP and PORT,
+        export ASCEND_MF_STORE_URL="tcp://PIP:PORT"
+        # if you are Atlas 800I A2 hardware and use rdma for kv cache transfer, add this parameter
+        export ASCEND_MF_TRANSFER_PROTOCOL="device_rdma"
+        python3 -m sglang.launch_server \
+            --model-path meta-llama/Llama-3.1-8B-Instruct \
+            --disaggregation-mode prefill \
+            --disaggregation-transfer-backend ascend \
+            --disaggregation-bootstrap-port 8995 \
+            --attention-backend ascend \
+            --device npu \
+            --base-gpu-id 0 \
+            --tp-size 1 \
+            --host 127.0.0.1 \
+            --port 8000
+        ```
+
+        2. **Launch Decode Server**
+
+        ```bash
+        # PIP: recommended to config first Prefill Server IP
+        # PORT: one free port
+        # all sglang servers need to be config the same PIP and PORT,
+        export ASCEND_MF_STORE_URL="tcp://PIP:PORT"
+        # if you are Atlas 800I A2 hardware and use rdma for kv cache transfer, add this parameter
+        export ASCEND_MF_TRANSFER_PROTOCOL="device_rdma"
+        python3 -m sglang.launch_server \
+            --model-path meta-llama/Llama-3.1-8B-Instruct \
+            --disaggregation-mode decode \
+            --disaggregation-transfer-backend ascend \
+            --attention-backend ascend \
+            --device npu \
+            --base-gpu-id 1 \
+            --tp-size 1 \
+            --host 127.0.0.1 \
+            --port 8001
+        ```
+
+        3. **Launch Router**
+
+        ```bash
+        python3 -m sglang_router.launch_router \
+            --pd-disaggregation \
+            --policy cache_aware \
+            --prefill http://127.0.0.1:8000 8995 \
+            --decode http://127.0.0.1:8001 \
+            --host 127.0.0.1 \
+            --port 6688
+        ```
     </Tab>
     <Tab title="For Multimodal Language Models">
 
         ### PD Mixed Scene
 
-        ```bash Command
+        ```bash
         python3 -m sglang.launch_server \
             --model-path Qwen3-VL-30B-A3B-Instruct \
             --host 127.0.0.1 \

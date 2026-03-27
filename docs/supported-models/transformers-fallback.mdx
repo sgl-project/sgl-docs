@@ -55,16 +55,16 @@ class MyModel(PreTrainedModel):
 
 Here is what happens in the background:
 
-<Steps>
-  <Step title="Load the config">
-    The config is loaded.
-  </Step>
-  <Step title="Load the model class">
-    `MyModel` python class is loaded from the `auto_map`, and we check that the model `_supports_attention_backend`.
-  </Step>
-  <Step title="Use the TransformersModel backend">
-    The `TransformersModel` backend is used. See `/srt/models/transformers`, which leverages `self.config._attn_implementation = "sglang"`, thus the need to use `ALL_ATTENTION_FUNCTIONS`.
-  </Step>
-</Steps>
+1. **Load the config**
+
+The config is loaded.
+
+2. **Load the model class**
+
+`MyModel` python class is loaded from the `auto_map`, and we check that the model `_supports_attention_backend`.
+
+3. **Use the TransformersModel backend**
+
+The `TransformersModel` backend is used. See `/srt/models/transformers`, which leverages `self.config._attn_implementation = "sglang"`, thus the need to use `ALL_ATTENTION_FUNCTIONS`.
 
 That's it!

@@ -25,9 +25,21 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
   <Tab title="pip or uv">
     Use <Tooltip tip="A fast Python package manager.">uv</Tooltip> for faster installation.
 
-    ```bash Command
+    1. **Upgrade pip**
+
+    ```bash
     pip install --upgrade pip
+    ```
+
+    2. **Install uv**
+
+    ```bash
     pip install uv
+    ```
+
+    3. **Install SGLang**
+
+    ```bash
     uv pip install "sglang"
     ```
 
@@ -37,7 +49,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     In some cases (for example, GB200), the command above might install a wrong torch version (for example, the CPU version) due to dependency resolution. Reinstall the correct [PyTorch](https://pytorch.org/get-started/locally/) with the following:
 
-    ```bash Command
+    ```bash
     uv pip install "torch" "torchvision" --extra-index-url https://download.pytorch.org/whl/cu129 --force-reinstall
     ```
 
@@ -47,13 +59,13 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     **x86_64**
 
-    ```bash Command
+    ```bash
     uv pip install "https://github.com/sgl-project/whl/releases/download/vX.Y.Z/sgl_kernel-X.Y.Z+cu130-cp310-abi3-manylinux2014_x86_64.whl"
     ```
 
     **aarch64**
 
-    ```bash Command
+    ```bash
     uv pip install "https://github.com/sgl-project/whl/releases/download/vX.Y.Z/sgl_kernel-X.Y.Z+cu130-cp310-abi3-manylinux2014_aarch64.whl"
     ```
 
@@ -63,7 +75,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     1. Set `CUDA_HOME` to your CUDA install root:
 
-    ```bash Command
+    ```bash
     export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
     ```
 
@@ -71,24 +83,24 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
   </Tab>
 
   <Tab title="From source">
-    <Steps>
-      <Step title="Clone the repo">
-        ```bash Command
-        git clone https://github.com/sgl-project/sglang.git
-        ```
-      </Step>
-      <Step title="Enter the repo">
-        ```bash Command
-        cd sglang
-        ```
-      </Step>
-      <Step title="Install the Python package">
-        ```bash Command
-        pip install --upgrade pip
-        pip install -e "python"
-        ```
-      </Step>
-    </Steps>
+1. **Clone the repo**
+
+```bash
+git clone https://github.com/sgl-project/sglang.git
+```
+
+2. **Enter the repo**
+
+```bash
+cd sglang
+```
+
+3. **Install the Python package**
+
+```bash
+pip install --upgrade pip
+pip install -e "python"
+```
 
     **Quick fixes to common problems**
 
@@ -101,7 +113,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     **Standard image**
 
-    ```bash Command
+    ```bash
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -114,7 +126,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     **Runtime image for production**
 
-    ```bash Command
+    ```bash
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -139,7 +151,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     For models that fit into GPUs on one node, create the deployment and service with llama-31-8b as example.
 
-    ```bash Command
+    ```bash
     kubectl apply -f docker/k8s-sglang-service.yaml
     ```
 
@@ -147,7 +159,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     For larger models (for example, `DeepSeek-R1`), modify the model path and arguments, then create the statefulset and service.
 
-    ```bash Command
+    ```bash
     kubectl apply -f docker/k8s-sglang-distributed-sts.yaml
     ```
   </Tab>
@@ -160,7 +172,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
     1. Copy the [compose.yml](https://github.com/sgl-project/sglang/blob/main/docker/compose.yaml) to your local machine.
     2. Start the service:
 
-    ```bash Command
+    ```bash
     docker compose up -d
     ```
   </Tab>
@@ -191,7 +203,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
         --port 30000
     ```
 
-    ```bash Command
+    ```bash
     # Deploy on any cloud or Kubernetes cluster. Use --cloud <cloud> to select a specific cloud provider.
     HF_TOKEN=<secret> sky launch -c sglang --env HF_TOKEN sglang.yaml
 
@@ -213,7 +225,7 @@ Fetch the complete documentation index at [cookbook.sglang.io/llms.txt](https://
 
     **Dockerfile build script: `build-and-push.sh`**
 
-    ```bash Command
+    ```bash
     #!/bin/bash
     AWS_ACCOUNT="<YOUR_AWS_ACCOUNT>"
     AWS_REGION="<YOUR_AWS_REGION>"

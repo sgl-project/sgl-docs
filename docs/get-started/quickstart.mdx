@@ -33,48 +33,47 @@ For other platforms, see the dedicated guides for [AMD GPUs](../hardware-platfor
   <Tab title="pip / uv (Recommended)">
     We recommend using **uv** for faster installation:
 
-    <Steps>
-      <Step title="Upgrade pip">
-        ```bash Command
-        pip install --upgrade pip
-        ```
-      </Step>
-      <Step title="Install uv">
-        ```bash Command
-        pip install uv
-        ```
-      </Step>
-      <Step title="Install SGLang">
-        ```bash Command
-        uv pip install sglang
-        ```
-      </Step>
-    </Steps>
+1. **Upgrade pip**
+
+```bash
+pip install --upgrade pip
+```
+
+2. **Install uv**
+
+```bash
+pip install uv
+```
+
+3. **Install SGLang**
+
+```bash
+uv pip install sglang
+```
   </Tab>
   <Tab title="From Source">
-    <Steps>
-      <Step title="Clone the release branch">
-        ```bash Command
-        # Use the last release branch
-        git clone -b v0.5.6.post2 https://github.com/sgl-project/sglang.git
-        cd sglang
-        ```
-      </Step>
-      <Step title="Install the Python packages">
-        ```bash Command
-        # Install the python packages
-        pip install --upgrade pip
-        pip install -e "python"
-        ```
-      </Step>
-    </Steps>
+1. **Clone the release branch**
+
+```bash
+# Use the last release branch
+git clone -b v0.5.6.post2 https://github.com/sgl-project/sglang.git
+cd sglang
+```
+
+2. **Install the Python packages**
+
+```bash
+# Install the python packages
+pip install --upgrade pip
+pip install -e "python"
+```
   </Tab>
   <Tab title="Docker">
     The Docker images are available on Docker Hub at [lmsysorg/sglang](https://hub.docker.com/r/lmsysorg/sglang/tags).
 
     Replace `<secret>` with your [Hugging Face token](https://huggingface.co/docs/hub/en/security-tokens):
 
-    ```bash Command
+    ```bash
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -87,7 +86,7 @@ For other platforms, see the dedicated guides for [AMD GPUs](../hardware-platfor
 
     For production deployments, use the smaller **runtime** variant (~40% size reduction):
 
-    ```bash Command
+    ```bash
     docker run --gpus all \
         --shm-size 32g \
         -p 30000:30000 \
@@ -102,7 +101,7 @@ For other platforms, see the dedicated guides for [AMD GPUs](../hardware-platfor
 
 <Tip>
 If you encounter `OSError: CUDA_HOME environment variable is not set`, set it with:
-```bash Command
+```bash
 export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
 ```
 </Tip>
@@ -113,7 +112,7 @@ export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
 
 Start the SGLang server with a model. Here we use `qwen/qwen2.5-0.5b-instruct` as a lightweight example:
 
-```bash Command
+```bash
 python3 -m sglang.launch_server --model-path qwen/qwen2.5-0.5b-instruct --host 0.0.0.0 --port 30000
 ```
 
@@ -138,7 +137,7 @@ SGLang is fully **OpenAI API-compatible**, so you can use the same tools and lib
 
 ### Using cURL
 
-```bash Command
+```bash
 curl http://localhost:30000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -153,7 +152,7 @@ curl http://localhost:30000/v1/chat/completions \
 
 Install the OpenAI Python library if you haven't:
 
-```bash Command
+```bash
 pip install openai
 ```
 
@@ -301,24 +300,24 @@ llm.shutdown()
 <AccordionGroup>
   <Accordion title="CUDA_HOME not set">
     Set the `CUDA_HOME` environment variable to your CUDA install root:
-    ```bash Command
+    ```bash
     export CUDA_HOME=/usr/local/cuda-<your-cuda-version>
     ```
   </Accordion>
   <Accordion title="FlashInfer issues on sm75+ devices">
     Switch to alternative backends by adding these flags when launching the server:
-    ```bash Command
+    ```bash
     --attention-backend triton --sampling-backend pytorch
     ```
   </Accordion>
   <Accordion title="Reinstalling FlashInfer">
-    ```bash Command
+    ```bash
     pip3 install --upgrade flashinfer-python --force-reinstall --no-deps
     rm -rf ~/.cache/flashinfer
     ```
   </Accordion>
   <Accordion title="ptxas error on B300/GB300 (sm_103a)">
-    ```bash Command
+    ```bash
     export TRITON_PTXAS_PATH=/usr/local/cuda/bin/ptxas
     ```
   </Accordion>

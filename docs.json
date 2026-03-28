@@ -45,13 +45,13 @@
             "pages": [
               "index",
               "docs/get-started/quickstart",
-              "docs/get-started/installation"
+              "docs/get-started/installation",
+              "docs/basic_usage/send_request"
             ]
           },
           {
             "group": "Basic Usage",
             "pages": [
-              "docs/basic_usage/send_request",
               {
                 "group": "OpenAI-Compatible APIs",
                 "pages": [
@@ -145,14 +145,6 @@
                   "docs/sglang-diffusion/caching-acceleration",
                   "docs/sglang-diffusion/cache-dit",
                   "docs/sglang-diffusion/tea-cache"
-                ]
-              },
-              {
-                "group": "Reference",
-                "pages": [
-                  "docs/sglang-diffusion/environment-variables",
-                  "docs/sglang-diffusion/support-new-models",
-                  "docs/sglang-diffusion/contributing"
                 ]
               }
             ]
@@ -252,6 +244,15 @@
                 ]
               },
 
+              {
+                "group": "Diffusion",
+                "pages": [
+                  "docs/sglang-diffusion/environment-variables",
+                  "docs/sglang-diffusion/support-new-models",
+                  "docs/sglang-diffusion/contributing"
+                ]
+              },
+
               "docs/references/custom_chat_template",
 
               {
@@ -261,6 +262,13 @@
                   "docs/references/frontend/choices_methods"
                 ]
               },
+              {
+            "group": "Cookbook",
+            "pages": [
+              "cookbook/base/reference/server_arguments"
+            ]
+          },
+
               "docs/references/post_training_integration",
               "docs/references/learn_more"
 
@@ -475,12 +483,6 @@
             "pages": [
               "cookbook/base/benchmarks/autoregressive_model_benchmark",
               "cookbook/base/benchmarks/diffusion_model_benchmark"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": [
-              "cookbook/base/reference/server_arguments"
             ]
           }
         ]

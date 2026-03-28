@@ -221,12 +221,22 @@
           {
             "group": "Developer Guide",
             "pages": [
-              "docs/developer_guide/contribution_guide",
-              "docs/developer_guide/development_guide_using_docker",
-              "docs/developer_guide/JIT_kernels",
-              "docs/developer_guide/benchmark_and_profiling",
-              "docs/developer_guide/bench_serving",
-              "docs/developer_guide/evaluating_new_models"
+              "docs/developer-guide/contribution-guide",
+              {
+                "group": "Development",
+                "pages": [
+                  "docs/developer-guide/development-guide-using-docker",
+                  "docs/developer-guide/development-using-jit-kernels"
+                ]
+              },
+              {
+                "group": "Benchmarking",
+                "pages": [
+                  "docs/developer-guide/benchmark-and-profiling",
+                  "docs/developer-guide/bench-serving-guide"
+                ]
+              },
+              "docs/developer-guide/evaluating-new-models-using-sglang"
             ]
           },
           {

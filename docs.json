@@ -230,22 +230,30 @@
             ]
           },
           {
-            "group": "References",
+            "group": "User Guide",
             "pages": [
-              "docs/references/faq",
-              "docs/references/environment_variables",
-              "docs/references/production_metrics",
-              "docs/references/production_request_trace",
+
               {
+                "group": "References",
+                "pages": [
+                  "docs/references/faq",
+                  "docs/references/environment_variables",
+                  "docs/references/production_metrics",
+                  "docs/references/production_request_trace",
+
+                  {
                 "group": "Multi-Node Deployment",
                 "pages": [
+                  
                   "docs/references/multi_node_deployment/multi_node",
                   "docs/references/multi_node_deployment/deploy_on_k8s",
                   "docs/references/multi_node_deployment/lws_pd/lws_pd_deploy",
                   "docs/references/multi_node_deployment/rbg_pd/deepseekv32_pd"
                 ]
               },
+
               "docs/references/custom_chat_template",
+
               {
                 "group": "Frontend Language",
                 "pages": [
@@ -255,6 +263,11 @@
               },
               "docs/references/post_training_integration",
               "docs/references/learn_more"
+
+
+                ]
+              }
+  
             ]
           }
         ]

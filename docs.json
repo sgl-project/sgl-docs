@@ -241,9 +241,14 @@
                 ]
               },
               "docs/hardware-platforms/cpu-server",
-              "docs/hardware-platforms/nvidia",
               "docs/hardware-platforms/tpu",
-              "docs/hardware-platforms/xpu"
+              "docs/hardware-platforms/xpu",
+              {
+                "group": "Edge & Embedded",
+                "pages": [
+                  "docs/hardware-platforms/nvidia-jetson-orin"
+                ]
+              }
             ]
           },
           {

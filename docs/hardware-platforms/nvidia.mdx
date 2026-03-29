@@ -12,54 +12,52 @@ Before starting, ensure the following:
 - Verify that the Jetson AGX Orin is in high-performance mode:
 
 <CodeGroup>
-```bash Command
+```bash
 sudo nvpmodel -m 0
 ```
 </CodeGroup>
 
 ## Installing and Running SGLang with Jetson Containers
 
-<Steps>
-  <Step title="Clone the jetson-containers repository">
-    ```bash Command
-    git clone https://github.com/dusty-nv/jetson-containers.git
-    ```
-  </Step>
+1. **Clone the jetson-containers repository**
 
-  <Step title="Run the installation script">
-    ```bash Command
-    bash jetson-containers/install.sh
-    ```
-  </Step>
+```bash
+git clone https://github.com/dusty-nv/jetson-containers.git
+```
 
-  <Step title="Build the container image">
-    ```bash Command
-    jetson-containers build sglang
-    ```
-  </Step>
+2. **Run the installation script**
 
-  <Step title="Run the container">
-    <Tabs>
-      <Tab title="Using jetson-containers">
-        ```bash Command
-        jetson-containers run $(autotag sglang)
-        ```
-      </Tab>
-      <Tab title="Using Docker manually">
-        ```bash Command
-        docker run --runtime nvidia -it --rm --network=host IMAGE_NAME
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
-</Steps>
+```bash
+bash jetson-containers/install.sh
+```
+
+3. **Build the container image**
+
+```bash
+jetson-containers build sglang
+```
+
+4. **Run the container**
+
+<Tabs>
+  <Tab title="Using jetson-containers">
+    ```bash
+    jetson-containers run $(autotag sglang)
+    ```
+  </Tab>
+  <Tab title="Using Docker manually">
+    ```bash
+    docker run --runtime nvidia -it --rm --network=host IMAGE_NAME
+    ```
+  </Tab>
+</Tabs>
 
 ## Running Inference
 
 Launch the server:
 
 <CodeGroup>
-```bash Command
+```bash
 python -m sglang.launch_server \
   --model-path deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --device cuda \
@@ -70,16 +68,16 @@ python -m sglang.launch_server \
 ```
 </CodeGroup>
 
-The quantization and limited context length (`--dtype half` `--context-length 8192`) are due to the limited computational resources in [Nvidia jetson kit](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/). A detailed explanation can be found in [Server Arguments](https://docs.sglang.io/advanced_features/server_arguments.html).
+The quantization and limited context length (`--dtype half` `--context-length 8192`) are due to the limited computational resources in [Nvidia jetson kit](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/). A detailed explanation can be found in [Server Arguments](../advanced_features/server_arguments).
 
-After launching the engine, refer to [Chat completions](https://docs.sglang.io/basic_usage/openai_api_completions.html#Usage) to test the usability.
+After launching the engine, refer to [Chat completions](../basic_usage/openai_api_completions#Usage) to test the usability.
 
 ## Running Quantization with TorchAO
 
 TorchAO is suggested to NVIDIA Jetson Orin.
 
 <CodeGroup>
-```bash Command
+```bash
 python -m sglang.launch_server \
   --model-path meta-llama/Meta-Llama-3.1-8B-Instruct \
   --device cuda \
@@ -95,7 +93,7 @@ This enables TorchAO's int4 weight-only quantization with a 128-group size. The 
 
 ## Structured Output with XGrammar
 
-Please refer to [SGLang doc structured output](https://docs.sglang.io/advanced_features/structured_outputs.html).
+Please refer to [SGLang doc structured output](../advanced_features/structured_outputs).
 
 Thanks to the support from [Nurgaliyev Shakhizat](https://github.com/shahizat), [Dustin Franklin](https://github.com/dusty-nv) and [Johnny Núñez Cano](https://github.com/johnnynunez).
 

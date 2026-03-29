@@ -6,12 +6,12 @@ description: Run one-off generation tasks and launch the HTTP server from the co
 
 The `sglang` CLI provides two main subcommands for diffusion inference:
 
-- **`sglang generate`** — run a one-off generation without a persistent server
-- **`sglang serve`** — launch the OpenAI-compatible HTTP server
+- **`sglang generate`** -- run a one-off generation without a persistent server
+- **`sglang serve`** -- launch the OpenAI-compatible HTTP server
 
 ## Prerequisites
 
-A working SGLang Diffusion installation with the `sglang` CLI available in your `$PATH`. See the [installation guide](/docs/sglang-diffusion/installation) for setup instructions.
+A working SGLang Diffusion installation with the `sglang` CLI available in your `$PATH`. See the [installation guide](../installation) for setup instructions.
 
 ## Generate
 
@@ -64,10 +64,10 @@ SERVER_ARGS=(
 sglang serve "${SERVER_ARGS[@]}"
 ```
 
-- `--model-path` — which model to load (e.g. `Wan-AI/Wan2.1-T2V-1.3B-Diffusers`)
-- `--port` — HTTP port to listen on (default: `30010`)
+- `--model-path` -- which model to load (e.g. `Wan-AI/Wan2.1-T2V-1.3B-Diffusers`)
+- `--port` -- HTTP port to listen on (default: `30010`)
 
-For full API usage including image/video generation and LoRA management, see the [OpenAI API documentation](/docs/sglang-diffusion/api/openai-api).
+For full API usage including image/video generation and LoRA management, see the [OpenAI API documentation](./openai-api).
 
 ---
 
@@ -83,7 +83,7 @@ For full API usage including image/video generation and LoRA management, see the
 | `--lora-path LORA_PATH` | Path to a LoRA adapter (local or HuggingFace ID). If omitted, LoRA is not applied |
 | `--lora-nickname NAME` | Nickname for the LoRA adapter (default: `default`) |
 | `--num-gpus NUM` | Number of GPUs to use |
-| `--tp-size SIZE` | Tensor parallelism size (encoder only; keep ≤ 1 when text encoder offload is enabled) |
+| `--tp-size SIZE` | Tensor parallelism size (encoder only; keep at most 1 when text encoder offload is enabled) |
 | `--sp-degree SIZE` | Sequence parallelism size (typically should match the number of GPUs) |
 | `--ulysses-degree SIZE` | DeepSpeed-Ulysses-style SP degree in USP |
 | `--ring-degree SIZE` | Ring attention-style SP degree in USP |
@@ -141,16 +141,16 @@ $$
 \text{output frames} = (N - 1) \times 2^{\text{exp}} + 1
 $$
 
-For example, 5 original frames with `exp=1` → 4 gaps × 1 new frame + 5 originals = **9 frames**; with `exp=2` → **17 frames**.
+For example, 5 original frames with `exp=1` -> 4 gaps x 1 new frame + 5 originals = **9 frames**; with `exp=2` -> **17 frames**.
 
 | Argument | Description |
 |:--|:--|
 | `--enable-frame-interpolation` | Enable frame interpolation. Model weights are downloaded automatically on first use |
-| `--frame-interpolation-exp EXP` | Interpolation exponent — `1` = 2× temporal resolution, `2` = 4×, etc. (default: `1`) |
+| `--frame-interpolation-exp EXP` | Interpolation exponent -- `1` = 2x temporal resolution, `2` = 4x, etc. (default: `1`) |
 | `--frame-interpolation-scale SCALE` | RIFE inference scale; use `0.5` for high-resolution inputs to save memory (default: `1.0`) |
 | `--frame-interpolation-model-path PATH` | Local directory or HuggingFace repo ID containing RIFE `flownet.pkl` weights (default: `elfgum/RIFE-4.22.lite`, downloaded automatically) |
 
-**Example** — generate a 5-frame video and interpolate to 9 frames ($(5 - 1) \times 2^1 + 1 = 9$):
+**Example** -- generate a 5-frame video and interpolate to 9 frames ($(5 - 1) \times 2^1 + 1 = 9$):
 
 ```bash
 sglang generate \
@@ -250,7 +250,7 @@ You can override any pipeline component (e.g. `vae`, `transformer`, `text_encode
 
 ### Example: FLUX.2-dev with Tiny AutoEncoder
 
-Replace the default VAE with a distilled tiny autoencoder for ~3× faster decoding:
+Replace the default VAE with a distilled tiny autoencoder for ~3x faster decoding:
 
 ```bash
 sglang serve \
@@ -329,7 +329,7 @@ sglang generate --config config.json
 
 ### Cache-DiT acceleration
 
-Users on the diffusers backend can leverage Cache-DiT acceleration by loading custom cache configs from a YAML file. See the [Cache-DiT documentation](/docs/sglang-diffusion/cache-dit) for details.
+Users on the diffusers backend can leverage Cache-DiT acceleration by loading custom cache configs from a YAML file. See the [Cache-DiT documentation](../cache-dit) for details.
 
 ---
 
@@ -337,30 +337,30 @@ Users on the diffusers backend can leverage Cache-DiT acceleration by loading cu
 
 The server supports automatically uploading generated artifacts to S3-compatible cloud storage (AWS S3, MinIO, Alibaba Cloud OSS, Tencent Cloud COS).
 
-The workflow is: **Generate → Upload → Delete local file**. The API response returns the public URL of the uploaded object.
+The workflow is: **Generate -> Upload -> Delete local file**. The API response returns the public URL of the uploaded object.
 
-<Steps>
-  <Step title="Install boto3">
-    ```bash
-    pip install boto3
-    ```
-  </Step>
-  <Step title="Set environment variables">
-    ```bash
-    export SGLANG_CLOUD_STORAGE_TYPE=s3
-    export SGLANG_S3_BUCKET_NAME=my-bucket
-    export SGLANG_S3_ACCESS_KEY_ID=your-access-key
-    export SGLANG_S3_SECRET_ACCESS_KEY=your-secret-key
+1. **Install boto3**
 
-    # Optional: custom endpoint for MinIO/OSS/COS
-    export SGLANG_S3_ENDPOINT_URL=https://minio.example.com
-    ```
-  </Step>
-  <Step title="Launch the server">
-    ```bash
-    sglang serve --model-path MODEL_PATH
-    ```
-  </Step>
-</Steps>
+```bash
+pip install boto3
+```
 
-See the [environment variables reference](/docs/sglang-diffusion/environment-variables) for all storage-related variables.
+2. **Set environment variables**
+
+```bash
+export SGLANG_CLOUD_STORAGE_TYPE=s3
+export SGLANG_S3_BUCKET_NAME=my-bucket
+export SGLANG_S3_ACCESS_KEY_ID=your-access-key
+export SGLANG_S3_SECRET_ACCESS_KEY=your-secret-key
+
+# Optional: custom endpoint for MinIO/OSS/COS
+export SGLANG_S3_ENDPOINT_URL=https://minio.example.com
+```
+
+3. **Launch the server**
+
+```bash
+sglang serve --model-path MODEL_PATH
+```
+
+See the [environment variables reference](../environment-variables) for all storage-related variables.

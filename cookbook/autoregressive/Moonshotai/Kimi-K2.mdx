@@ -17,7 +17,7 @@ For details, see [official documentation](https://github.com/MoonshotAI/Kimi-K2)
 
 ## 2. SGLang Installation
 
-Refer to the [official SGLang installation guide](https://docs.sglang.ai/get_started/install.html).
+Refer to the [official SGLang installation guide](../../../docs/get-started/installation).
 
 ## 3. Model Deployment
 
@@ -34,7 +34,7 @@ import { KimiK2Deployment } from "/src/snippets/autoregressive/kimi-k2-deploymen
 ### 3.2 Configuration Tips
 
 - **Memory**: Requires 8 GPUs with ≥140GB each (H200/B200). Use `--context-length 128000` to conserve memory.
-- **Expert Parallelism (EP)**: Use `--ep` for better MoE throughput. See [EP docs](https://github.com/sgl-project/sglang/blob/main/docs/advanced_features/expert_parallelism.md).
+- **Expert Parallelism (EP)**: Use `--ep` for better MoE throughput. See [EP docs](../../../docs/advanced_features/expert_parallelism).
 - **Data Parallel (DP)**: Enable with `--dp 4 --enable-dp-attention` for production throughput.
 - **KV Cache**: Use `--kv-cache-dtype fp8_e4m3` to reduce memory by 50% (CUDA 11.8+).
 - **Reasoning Parser**: Add `--reasoning-parser kimi_k2` for Kimi-K2-Thinking to separate thinking and content.
@@ -44,7 +44,7 @@ import { KimiK2Deployment } from "/src/snippets/autoregressive/kimi-k2-deploymen
 
 ### 4.1 Basic Usage
 
-See [Basic API Usage](https://docs.sglang.ai/get_started/quick_start.html).
+See [Basic API Usage](../../../docs/get-started/quickstart).
 
 ### 4.2 Advanced Usage
 

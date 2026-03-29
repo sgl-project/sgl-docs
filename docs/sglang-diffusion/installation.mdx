@@ -13,44 +13,43 @@ You can install SGLang Diffusion using one of the methods below.
   <Tab title="pip or uv">
     Use `uv` for faster installation.
 
-    <Steps>
-      <Step title="Upgrade pip">
-        ```bash
-        pip install --upgrade pip
-        ```
-      </Step>
-      <Step title="Install uv">
-        ```bash
-        pip install uv
-        ```
-      </Step>
-      <Step title="Install SGLang Diffusion">
-        ```bash
-        uv pip install "sglang[diffusion]" --prerelease=allow
-        ```
-      </Step>
-    </Steps>
+1. **Upgrade pip**
+
+```bash
+pip install --upgrade pip
+```
+
+2. **Install uv**
+
+```bash
+pip install uv
+```
+
+3. **Install SGLang Diffusion**
+
+```bash
+uv pip install "sglang[diffusion]" --prerelease=allow
+```
   </Tab>
 
   <Tab title="From source">
-    <Steps>
-      <Step title="Clone the repo">
-        ```bash
-        git clone https://github.com/sgl-project/sglang.git
-        cd sglang
-        ```
-      </Step>
-      <Step title="Install the Python packages">
-        ```bash
-        pip install --upgrade pip
-        pip install -e "python[diffusion]"
-        ```
+1. **Clone the repo**
 
-        ```bash
-        uv pip install -e "python[diffusion]" --prerelease=allow
-        ```
-      </Step>
-    </Steps>
+```bash
+git clone https://github.com/sgl-project/sglang.git
+cd sglang
+```
+
+2. **Install the Python packages**
+
+```bash
+pip install --upgrade pip
+pip install -e "python[diffusion]"
+```
+
+```bash
+uv pip install -e "python[diffusion]" --prerelease=allow
+```
   </Tab>
 
   <Tab title="Docker">
@@ -95,7 +94,7 @@ Use the tab that matches your accelerator.
       sglang generate --model-path black-forest-labs/FLUX.1-dev --prompt "A logo With Bold Large text: SGL Diffusion" --save-output
     ```
 
-    For detailed ROCm system configuration and installation from source, see [AMD GPUs](/docs/hardware-platforms/amd-gpus).
+    For detailed ROCm system configuration and installation from source, see [AMD GPUs](../hardware-platforms/amd-gpus).
   </Tab>
 
   <Tab title="MUSA (Moore Threads GPUs)">
@@ -103,35 +102,36 @@ Use the tab that matches your accelerator.
 
     For Moore Threads GPUs (MTGPU) with the MUSA software stack:
 
-    <Steps>
-      <Step title="Clone the repo">
-        ```bash
-        git clone https://github.com/sgl-project/sglang.git
-        cd sglang
-        ```
-      </Step>
-      <Step title="Install requirements">
-        ```bash
-        pip install --upgrade pip
-        ```
-      </Step>
-      <Step title="Switch to the MUSA build config">
-        ```bash
-        rm -f python/pyproject.toml && mv python/pyproject_other.toml python/pyproject.toml
-        ```
-      </Step>
-      <Step title="Install SGLang Diffusion for MUSA">
-        ```bash
-        pip install -e "python[all_musa]"
-        ```
-      </Step>
-    </Steps>
+1. **Clone the repo**
+
+```bash
+git clone https://github.com/sgl-project/sglang.git
+cd sglang
+```
+
+2. **Install requirements**
+
+```bash
+pip install --upgrade pip
+```
+
+3. **Switch to the MUSA build config**
+
+```bash
+rm -f python/pyproject.toml && mv python/pyproject_other.toml python/pyproject.toml
+```
+
+4. **Install SGLang Diffusion for MUSA**
+
+```bash
+pip install -e "python[all_musa]"
+```
   </Tab>
 
   <Tab title="Ascend NPU">
     **Platform:** Ascend NPU
 
-    For Ascend NPU, follow the [NPU installation guide](/docs/hardware-platforms/ascend-npus/SGLang%20installation%20with%20NPUs%20support).
+    For Ascend NPU, follow the [NPU installation guide](../hardware-platforms/ascend-npus/SGLang installation with NPUs support).
 
     Quick test:
 

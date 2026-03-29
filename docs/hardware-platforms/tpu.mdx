@@ -228,12 +228,12 @@ The following models have been tested and optimized for TPU deployment:
 
 <Tabs>
   <Tab title="PyPI (Recommended)">
-    ```bash Command
+    ```bash
     pip install sglang-jax
     ```
   </Tab>
   <Tab title="From Source">
-    ```bash Command
+    ```bash
     git clone https://github.com/sgl-project/sglang-jax
     cd sglang-jax
     uv venv --python 3.12 && source .venv/bin/activate
@@ -248,23 +248,23 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="SkyPilot (Cloud TPU)">
     SkyPilot provides simplified deployment on Google Cloud TPU:
 
-    <Steps>
-      <Step title="Install SkyPilot and configure GCP access">
-        See the [SkyPilot documentation](https://docs.skypilot.co/en/latest/) for setup instructions.
-      </Step>
-      <Step title="Create a SkyPilot configuration file">
-        Create a SkyPilot YAML file: `sglang-jax.sky.yaml`
-      </Step>
-      <Step title="Launch your TPU cluster">
-        ```bash Command
-        # Standard deployment
-        sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp
+    1. **Install SkyPilot and configure GCP access**
 
-        # With spot instances for cost savings
-        sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp --use-spot
-        ```
-      </Step>
-    </Steps>
+    See the [SkyPilot documentation](https://docs.skypilot.co/en/latest/) for setup instructions.
+
+    2. **Create a SkyPilot configuration file**
+
+    Create a SkyPilot YAML file: `sglang-jax.sky.yaml`
+
+    3. **Launch your TPU cluster**
+
+    ```bash
+    # Standard deployment
+    sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp
+
+    # With spot instances for cost savings
+    sky launch -c sglang-jax sglang-jax.sky.yaml --infra=gcp --use-spot
+    ```
   </Tab>
 </Tabs>
 
@@ -274,7 +274,7 @@ The following models have been tested and optimized for TPU deployment:
 
 <Tabs>
   <Tab title="Basic: Qwen-7B">
-    ```bash Command
+    ```bash
     JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen-7B-Chat \
         --trust-remote-code \
@@ -319,7 +319,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="High-Performance: Qwen3-8B">
     For production workloads with optimal throughput:
 
-    ```bash Command
+    ```bash
     python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen3-8B \
         --trust-remote-code \
@@ -336,7 +336,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Speculative Decoding (EAGLE3)">
     Speculative decoding can improve throughput by 20-40% for compatible models:
 
-    ```bash Command
+    ```bash
     python3 -u -m sgl_jax.launch_server \
         --model-path Qwen/Qwen3-32B \
         --trust-remote-code \
@@ -358,13 +358,13 @@ The following models have been tested and optimized for TPU deployment:
     ```
 
     <Note>
-      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration guidance.
+      Speculative decoding is currently supported for Qwen3 and LLaMA model families. See the [Speculative Decoding documentation](../advanced_features/speculative_decoding) for detailed configuration guidance.
     </Note>
   </Tab>
   <Tab title="Multi-Node Distributed">
     For large models requiring multiple TPU VMs:
 
-    ```bash Command
+    ```bash
     # Node 0 (coordinator)
     python3 -m sgl_jax.launch_server \
         --model-path MODEL_PATH \
@@ -394,7 +394,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Throughput Testing">
     Basic throughput benchmark:
 
-    ```bash Command
+    ```bash
     python3 -m sgl_jax.bench_serving \
         --backend sgl-jax \
         --dataset-name random \
@@ -409,7 +409,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Latency Testing">
     Measure single-batch latency:
 
-    ```bash Command
+    ```bash
     python3 -m sgl_jax.bench_one_batch_server \
         --base-url http://127.0.0.1:30000 \
         --model-path Qwen/Qwen-7B-Chat \
@@ -421,7 +421,7 @@ The following models have been tested and optimized for TPU deployment:
   <Tab title="Comprehensive Benchmark Script">
     For systematic performance evaluation across different configurations:
 
-    ```bash Command
+    ```bash
     #!/bin/bash
     set -e
 
@@ -455,11 +455,11 @@ The following models have been tested and optimized for TPU deployment:
 
     For detailed help on all benchmark parameters:
 
-    ```bash Command
+    ```bash
     python3 -m sgl_jax.bench_serving --help
     ```
 
-    See the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for advanced benchmarking techniques and profiling with JAX Profiler.
+    See the [Benchmark and Profiling Guide](../developer_guide/benchmark_and_profiling) for advanced benchmarking techniques and profiling with JAX Profiler.
   </Tab>
 </Tabs>
 
@@ -498,7 +498,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="TPU-Specific Optimizations" icon="microchip">
     **JIT Compilation Cache:**
 
-    ```bash Command
+    ```bash
     export JAX_COMPILATION_CACHE_DIR=/tmp/jit_cache
     ```
 
@@ -520,20 +520,21 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="OOM (Out of Memory) Errors" icon="triangle-exclamation">
     If you encounter out-of-memory errors:
 
-    <Steps>
-      <Step title="Reduce mem-fraction-static">
-        Lower `--mem-fraction-static` from `0.8` to `0.5` or lower.
-      </Step>
-      <Step title="Decrease max-prefill-tokens">
-        Decrease `--max-prefill-tokens` from `8192` to `4096` or `2048`.
-      </Step>
-      <Step title="Lower max-running-requests">
-        Lower `--max-running-requests` to reduce concurrent batch size.
-      </Step>
-      <Step title="Increase page-size">
-        Increase `--page-size` for better memory layout efficiency.
-      </Step>
-    </Steps>
+    1. **Reduce mem-fraction-static**
+
+    Lower `--mem-fraction-static` from `0.8` to `0.5` or lower.
+
+    2. **Decrease max-prefill-tokens**
+
+    Decrease `--max-prefill-tokens` from `8192` to `4096` or `2048`.
+
+    3. **Lower max-running-requests**
+
+    Lower `--max-running-requests` to reduce concurrent batch size.
+
+    4. **Increase page-size**
+
+    Increase `--page-size` for better memory layout efficiency.
   </Accordion>
   <Accordion title="Slow Compilation / Long Startup" icon="clock">
     If the server takes too long to start:
@@ -569,12 +570,12 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Speculative Decoding" icon="bolt">
     SGLang-JAX supports EAGLE and EAGLE3 speculative decoding algorithms for Qwen3 and LLaMA model families. Speculative decoding can improve throughput by 20-40% without affecting output quality.
 
-    See the [Speculative Decoding documentation](https://docs.sglang.ai/backend/speculative_decoding.html) for detailed configuration and supported model combinations.
+    See the [Speculative Decoding documentation](../advanced_features/speculative_decoding) for detailed configuration and supported model combinations.
   </Accordion>
   <Accordion title="Chunked Prefill" icon="layer-group">
     Enable mixed prefill-decode batching for better TPU utilization:
 
-    ```bash Command
+    ```bash
     --chunked-prefill-size=2048 --enable-mixed-chunk
     ```
 
@@ -588,7 +589,7 @@ The following models have been tested and optimized for TPU deployment:
   <Accordion title="Environment Verification" icon="circle-check">
     Verify your TPU setup before deploying:
 
-    ```bash Command
+    ```bash
     python -c "from sgl_jax import check_env; check_env.check_env()"
     ```
 
@@ -638,7 +639,7 @@ For contributors who need TPU access for testing:
 
 - Refer to the [TPU Resources Guide](https://cloud.google.com/tpu/docs/managing-tpus-tpu-vm) for information on accessing TPU hardware
 - Use SkyPilot with spot instances for cost-effective testing
-- Follow the [Benchmark and Profiling Guide](https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html) for performance validation
+- Follow the [Benchmark and Profiling Guide](../developer_guide/benchmark_and_profiling) for performance validation
 
 ---
 
@@ -654,10 +655,10 @@ For contributors who need TPU access for testing:
   <Card title="Qwen Models Quick Start" icon="rocket" href="https://github.com/sgl-project/sglang-jax/tree/main/docs">
     Get up and running quickly with the Qwen model family.
   </Card>
-  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="https://docs.sglang.ai/developer_guide/benchmark_and_profiling.html">
+  <Card title="Benchmark and Profiling Guide" icon="chart-bar" href="../developer_guide/benchmark_and_profiling">
     Advanced benchmarking techniques and JAX Profiler usage.
   </Card>
-  <Card title="Speculative Decoding" icon="forward" href="https://docs.sglang.ai/backend/speculative_decoding.html">
+  <Card title="Speculative Decoding" icon="forward" href="../advanced_features/speculative_decoding">
     EAGLE and EAGLE3 speculative decoding configuration.
   </Card>
   <Card title="JAX Documentation" icon="code" href="https://jax.readthedocs.io">

@@ -115,8 +115,7 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
     You can refer to the Ubuntu-based installation commands in
     [the Dockerfile](https://github.com/sgl-project/sglang/blob/main/docker/xeon.Dockerfile#L11) for guidance.
 
-    <Steps>
-      <Step title="Install uv and create a virtual environment">
+    1. **Install uv and create a virtual environment**
         <CodeGroup>
         ```bash Create Virtual Environment
         # Taking '/opt' as the example uv env folder, feel free to change it as needed
@@ -127,9 +126,8 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
         source .venv/bin/activate
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Create a config file for torch package indexes">
+    2. **Create a config file for torch package indexes**
         Create the `uv.toml` config file:
 
         <CodeGroup>
@@ -141,7 +139,7 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
         Press `a` to enter insert mode in `vim`, then paste the following content:
 
         <CodeGroup>
-        ```toml uv.toml
+        ```toml
         [[index]]
         name = "torch"
         url = "https://download.pytorch.org/whl/cpu"
@@ -167,9 +165,8 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
         export UV_CONFIG_FILE=/opt/.venv/uv.toml
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Clone SGLang and build packages">
+    3. **Clone SGLang and build packages**
         <CodeGroup>
         ```bash Build SGLang
         # Clone the SGLang code
@@ -190,9 +187,8 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
         uv pip install .
         ```
         </CodeGroup>
-      </Step>
 
-      <Step title="Set required environment variables">
+    4. **Set required environment variables**
         <CodeGroup>
         ```bash Set Environment Variables
         export SGLANG_USE_CPU_ENGINE=1
@@ -219,8 +215,6 @@ and DeepSeek series like DeepSeek-R1 and DeepSeek-V3.1-Terminus.
         export LD_PRELOAD=<YOUR-LIBS-PATHS>
         ```
         </CodeGroup>
-      </Step>
-    </Steps>
   </Tab>
 </Tabs>
 
@@ -284,7 +278,7 @@ python -m sglang.bench_serving -h
 </CodeGroup>
 
 Additionally, requests can be formatted using
-[the OpenAI Completions API](https://docs.sglang.io/basic_usage/openai_api_completions.html)
+[the OpenAI Completions API](../basic_usage/openai_api_completions)
 and sent via the command line (e.g., using `curl`) or through your own scripts.
 
 ## Example Usage Commands

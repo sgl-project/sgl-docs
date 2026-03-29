@@ -9,7 +9,7 @@ The SGLang Diffusion HTTP server implements an OpenAI-compatible API for image a
 ## Prerequisites
 
 - Python 3.11+ if you plan to use the OpenAI Python SDK.
-- A running SGLang Diffusion server (see the [CLI reference](/docs/sglang-diffusion/api/cli) for launch instructions).
+- A running SGLang Diffusion server (see the [CLI reference](./cli) for launch instructions).
 
 ## Start the server
 
@@ -27,8 +27,8 @@ SERVER_ARGS=(
 sglang serve "${SERVER_ARGS[@]}"
 ```
 
-- `--model-path` — path to the model or HuggingFace model ID
-- `--port` — HTTP port to listen on (default: `30000`)
+- `--model-path` -- path to the model or HuggingFace model ID
+- `--port` -- HTTP port to listen on (default: `30000`)
 
 ### Get model information
 
@@ -363,31 +363,33 @@ curl -sS -X GET "http://localhost:30010/v1/list_loras"
 
 ### Example: switching LoRAs
 
-<Steps>
-  <Step title="Set LoRA A">
-    ```bash
-    curl -X POST http://localhost:30010/v1/set_lora \
-      -d '{"lora_nickname": "lora_a", "lora_path": "path/to/A"}'
-    ```
-  </Step>
-  <Step title="Generate with LoRA A">
-    Run your image or video generation requests.
-  </Step>
-  <Step title="Unmerge LoRA A">
-    ```bash
-    curl -X POST http://localhost:30010/v1/unmerge_lora_weights
-    ```
-  </Step>
-  <Step title="Set LoRA B">
-    ```bash
-    curl -X POST http://localhost:30010/v1/set_lora \
-      -d '{"lora_nickname": "lora_b", "lora_path": "path/to/B"}'
-    ```
-  </Step>
-  <Step title="Generate with LoRA B">
-    Run your image or video generation requests with the new adapter.
-  </Step>
-</Steps>
+1. **Set LoRA A**
+
+```bash
+curl -X POST http://localhost:30010/v1/set_lora \
+  -d '{"lora_nickname": "lora_a", "lora_path": "path/to/A"}'
+```
+
+2. **Generate with LoRA A**
+
+Run your image or video generation requests.
+
+3. **Unmerge LoRA A**
+
+```bash
+curl -X POST http://localhost:30010/v1/unmerge_lora_weights
+```
+
+4. **Set LoRA B**
+
+```bash
+curl -X POST http://localhost:30010/v1/set_lora \
+  -d '{"lora_nickname": "lora_b", "lora_path": "path/to/B"}'
+```
+
+5. **Generate with LoRA B**
+
+Run your image or video generation requests with the new adapter.
 
 ---
 
@@ -400,7 +402,7 @@ Control output quality and compression for both image and video generation throu
 | Parameter | Type | Description |
 |:--|:--|:--|
 | `output-quality` | string | Preset quality level. Default: `"default"` |
-| `output-compression` | integer | Direct compression level override (0–100). When provided, takes precedence over `output-quality` |
+| `output-compression` | integer | Direct compression level override (0-100). When provided, takes precedence over `output-quality` |
 
 **Quality presets:**
 

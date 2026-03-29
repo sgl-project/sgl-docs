@@ -11,26 +11,23 @@ To support a new model in SGLang, you only need to add a single file under the [
 
 To support a new multimodal large language model (MLLM) in SGLang, there are several key components in addition to the standard LLM support:
 
-<Steps>
-  <Step title="Register your new model as multimodal">
-    Extend `is_multimodal_model` in [model\_config.py](https://github.com/sgl-project/sglang/blob/0ab3f437aba729b348a683ab32b35b214456efc7/python/sglang/srt/configs/model_config.py#L561) to return `True` for your model.
-  </Step>
-  <Step title="Register a new chat-template">
-    Only when your default chat-template is unable to accept images as input: Register a new chat template in [conversation.py](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/conversation.py) and the corresponding matching function.
-  </Step>
-  <Step title="Multimodal Data Processor">
-    Define a new `Processor` class that inherits from `BaseMultimodalProcessor` and register this processor as your model's dedicated processor. See [multimodal\_processor.py](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/multimodal/processors) for more details.
-  </Step>
-  <Step title="Handle Multimodal Tokens">
-    Implement a `pad_input_ids` function for your new model. In this function, multimodal tokens in the prompt should be expanded (if necessary) and padded with multimodal-data-hashes so that SGLang can recognize different multimodal data with `RadixAttention`.
-  </Step>
-  <Step title="Handle Image Feature Extraction">
-    Implement a `get_image_feature` function for your new model, which extracts image features from raw image data and converts them into the embeddings used by the language model.
-  </Step>
-  <Step title="Adapt to Vision Attention">
-    Adapt the multi-headed `Attention` of ViT with SGLang's `VisionAttention`.
-  </Step>
-</Steps>
+1. **Register your new model as multimodal:**
+Extend `is_multimodal_model` in [model\_config.py](https://github.com/sgl-project/sglang/blob/0ab3f437aba729b348a683ab32b35b214456efc7/python/sglang/srt/configs/model_config.py#L561) to return `True` for your model.
+
+2. **Register a new chat-template:**
+Only when your default chat-template is unable to accept images as input, register a new chat template in [conversation.py](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/conversation.py) and the corresponding matching function.
+
+3. **Add a multimodal data processor:**
+Define a new `Processor` class that inherits from `BaseMultimodalProcessor` and register this processor as your model's dedicated processor. See [multimodal\_processor.py](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/multimodal/processors) for more details.
+
+4. **Handle multimodal tokens:**
+Implement a `pad_input_ids` function for your new model. In this function, multimodal tokens in the prompt should be expanded (if necessary) and padded with multimodal-data-hashes so that SGLang can recognize different multimodal data with `RadixAttention`.
+
+5. **Handle image feature extraction:**
+Implement a `get_image_feature` function for your new model, which extracts image features from raw image data and converts them into the embeddings used by the language model.
+
+6. **Adapt to vision attention:**
+Adapt the multi-headed `Attention` of ViT with SGLang's `VisionAttention`.
 
 You can refer to [Qwen2VL](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/models/qwen2_vl.py) or other mllm implementations. These models demonstrate how to correctly handle both multimodal and textual inputs.
 
@@ -69,7 +66,7 @@ ONLY_RUN=Qwen/Qwen2-1.5B python3 -m unittest test_generation_models.TestGenerati
 
 <CardGroup cols={2}>
   <Card title="MMMU (Required)" icon="chart-bar">
-    Follow the MMMU benchmark [README](https://github.com/sgl-project/sglang/blob/main/benchmark/mmmu/README) to get SGLang vs. HF Transformer accuracy comparison. The accuracy score from SGLang run should not be much lower than that from HF Transformer run. Similarly, follow the [benchmark and profiling guide](https://docs.sglang.io/developer_guide/benchmark_and_profiling.html) to get performance comparison: TTFT and throughput must meet or exceed baselines (e.g., HF Transformer).
+    Follow the MMMU benchmark [README](https://github.com/sgl-project/sglang/blob/main/benchmark/mmmu/README) to get SGLang vs. HF Transformer accuracy comparison. The accuracy score from SGLang run should not be much lower than that from HF Transformer run. Similarly, follow the [benchmark and profiling guide](../developer_guide/benchmark_and_profiling) to get performance comparison: TTFT and throughput must meet or exceed baselines (e.g., HF Transformer).
   </Card>
   <Card title="Other Evals (Optional)" icon="flask">
     If you ran other evals, please note the results in PR description.
@@ -130,7 +127,7 @@ launch_server(server_args)
 
 ## Example: Implementing and Serving a Llama Wrapper Model
 
-Below is an introductory, step-by-step walkthrough on how to implement a new model end-to-end in SGLang and then run it via the [Offline Engine](https://github.com/sgl-project/sglang/blob/main/docs/basic_usage/offline_engine_api).
+Below is an introductory, step-by-step walkthrough on how to implement a new model end-to-end in SGLang and then run it via the [Offline Engine](../basic_usage/offline_engine_api).
 
 ### Implementing Our Model
 
@@ -164,7 +161,7 @@ class LlamaWrapper(LlamaForCausalLM):
 ```
 </CodeGroup>
 
-Now, we want to define the `forward` method, which is what will be called at inference time. Note that the signature for `forward` is essentially the same for any model; you can take a look at the other models defined in the [`models` directory](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/models/) for references. To see where exactly `forward` is called in the SGLang runtime's internals, take a look at [`forward_decode`](https://github.com/sgl-project/sglang/blob/bf72b80122fd888bf619d17b96fa3e323ab809fc/python/sglang/srt/model_executor/model_runner.py#L1705) and [`forward_extend`](https://github.com/sgl-project/sglang/blob/bf72b80122fd888bf619d17b96fa3e323ab809fc/python/sglang/srt/model_executor/model_runner.py#L1724) in the [`ModelRunner` class](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/model_executor/model_runner.py).
+Now, we want to define the `forward` method, which is what will be called at inference time. Note that the signature for `forward` is essentially the same for any model; you can take a look at the other models defined in the [`models` directory](https://github.com/sgl-project/sglang/tree/main/python/sglang/srt/models/) for references. To see where exactly `forward` is called in the SGLang runtime's internals, take a look at [`forward_decode`](https://github.com/sgl-project/sglang/blob/bf72b80122fd888bf619d17b96fa3e323ab809fc/python/sglang/srt/model_executor/model_runner.py#L1705) and [`forward_extend`](https://github.com/sgl-project/sglang/blob/bf72b80122fd888bf619d17b96fa3e323ab809fc/python/sglang/srt/model_executor/model_runner.py#L1724) in the [`ModelRunner` class](https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/model_executor/model_runner.py).
 
 <CodeGroup>
 ```python Forward Method Signature
@@ -303,7 +300,7 @@ Now, when we call `python run.py`, we will get the outputs of our newly created 
 
 ## Documentation
 
-Add to table of supported models in [generative\_models](https://github.com/sgl-project/sglang/blob/main/docs/supported_models/generative_models) or [multimodal\_language\_models](https://github.com/sgl-project/sglang/blob/main/docs/supported_models/multimodal_language_models).
+Add to table of supported models in [generative\_models](/docs/supported-models/large-language-models) or [multimodal\_language\_models](/docs/supported-models/vision-language-models).
 
 ---
 

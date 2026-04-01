@@ -16,7 +16,7 @@ For other or newer platforms, please refer to the dedicated pages for [AMD GPUs]
 ## Install methods
 
 <Tabs>
-  <Tab title="pip or uv">
+  <Tab title="Pip or uv">
     It is recommended to use <Tooltip tip="A fast Python package manager.">uv</Tooltip> for faster installation:
 
     ```bash
@@ -123,21 +123,23 @@ pip install -e "python"
   <Tab title="Kubernetes">
     Please check out [OME](https://github.com/sgl-project/ome), a Kubernetes operator for enterprise-grade management and serving of large language models (LLMs).
 
-    **Single node serving**
+    <Tabs>
+      <Tab title="Single node serving">
+        For models that fit into GPUs on one node, create the deployment and service with llama-31-8b as example.
 
-    For models that fit into GPUs on one node, create the deployment and service with llama-31-8b as example.
+        ```bash
+        kubectl apply -f docker/k8s-sglang-service.yaml
+        ```
+      </Tab>
 
-    ```bash
-    kubectl apply -f docker/k8s-sglang-service.yaml
-    ```
+      <Tab title="Multi-node serving">
+        For larger models (for example, `DeepSeek-R1`), modify the model path and arguments, then create the statefulset and service.
 
-    **Multi-node serving**
-
-    For larger models (for example, `DeepSeek-R1`), modify the model path and arguments, then create the statefulset and service.
-
-    ```bash
-    kubectl apply -f docker/k8s-sglang-distributed-sts.yaml
-    ```
+        ```bash
+        kubectl apply -f docker/k8s-sglang-distributed-sts.yaml
+        ```
+      </Tab>
+    </Tabs>
   </Tab>
 
   <Tab title="Docker Compose">

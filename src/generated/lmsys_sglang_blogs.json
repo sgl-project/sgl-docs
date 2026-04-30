@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-29T12:27:51.376933Z",
+  "generatedAt": "2026-04-30T00:23:04.594809Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 82,
+  "totalBlogFilesScanned": 83,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-04-29-p2p-update",
+      "title": "Updating 1T parameters in seconds \u2014 P2P weight transfer in Large Scale Distributed RL",
+      "url": "https://lmsys.org/blog/2026-04-29-p2p-update/",
+      "image": "https://lmsys.org/images/blog/p2p-update/p2p-overview.png",
+      "date": "April 29, 2026"
+    },
     {
       "slug": "2026-04-25-deepseek-v4",
       "title": "DeepSeek-V4 on Day 0: From Fast Inference to Verified RL with SGLang and Miles",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-03-17-rocm-miles-rl-amd/",
       "image": "https://lmsys.org/images/blog/rocm_miles_rl/fig_1.png",
       "date": "March 17, 2026"
-    },
-    {
-      "slug": "2026-03-11-run-nvidia-nemotron-3-super",
-      "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3 Super for building High-Efficiency Multi-Agent Systems",
-      "url": "https://lmsys.org/blog/2026-03-11-run-nvidia-nemotron-3-super/",
-      "image": "https://lmsys.org/images/blog/nemotron-3-super/figure_1.svg",
-      "date": "March 11, 2026"
     }
   ]
 }

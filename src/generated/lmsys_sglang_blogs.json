@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T14:02:36.799896Z",
+  "generatedAt": "2026-06-16T00:39:11.534491Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 89,
+  "totalBlogFilesScanned": 90,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-06-15-next-generation-speculative-decoding-dflash-v2",
+      "title": "The next generation of speculative decoding: DFlash and Spec V2",
+      "url": "https://lmsys.org/blog/2026-06-15-next-generation-speculative-decoding-dflash-v2/",
+      "image": "https://lmsys.org/images/blog/dflash-v2/dflash-arch-diagram.webp",
+      "date": "June 15, 2026"
+    },
     {
       "slug": "2026-06-08-lmsys-phd-fellowship",
       "title": "Announcing the Recipient of the 2026 LMSYS PhD Fellowship",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-05-28-mori/",
       "image": "https://lmsys.org/images/blog/mori/tco1-new.png",
       "date": "May 28, 2026"
-    },
-    {
-      "slug": "2026-04-29-p2p-update",
-      "title": "Updating 1T parameters in seconds \u2014 P2P weight transfer in Large Scale Distributed RL",
-      "url": "https://lmsys.org/blog/2026-04-29-p2p-update/",
-      "image": "https://lmsys.org/images/blog/p2p-update/p2p-overview.png",
-      "date": "April 29, 2026"
     }
   ]
 }

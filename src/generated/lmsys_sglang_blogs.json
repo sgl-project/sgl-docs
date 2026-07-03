@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T12:35:54.723175Z",
+  "generatedAt": "2026-07-03T00:26:14.167536Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 93,
+  "totalBlogFilesScanned": 94,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-02-agent-assisted-sglang-development",
+      "title": "Agent-Assisted SGLang Development: An Initial Exploration",
+      "url": "https://lmsys.org/blog/2026-07-02-agent-assisted-sglang-development/",
+      "image": "https://lmsys.org/images/blog/agent-assisted-sglang-development/sglang-agent-cover.png",
+      "date": "July 2, 2026"
+    },
     {
       "slug": "2026-06-26-waterfill-lplb",
       "title": "Improving DeepEP MoE Load Balance in SGLang with Waterfill and LPLB",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-06-08-lmsys-phd-fellowship/",
       "image": "https://lmsys.org/images/blog/fellowship_apply/fellowship_program.png",
       "date": "June 08, 2026"
-    },
-    {
-      "slug": "2026-06-04-nvidia-run-nemotron-3-ultra",
-      "title": "SGLang and Miles Add Day-0 Support for NVIDIA Nemotron 3 Ultra for Long-Running Autonomous Agents",
-      "url": "https://lmsys.org/blog/2026-06-04-nvidia-run-nemotron-3-ultra/",
-      "image": "https://lmsys.org/images/blog/nemotron-3-ultra/image1.png",
-      "date": "June 4, 2026"
     }
   ]
 }

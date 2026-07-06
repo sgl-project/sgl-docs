@@ -338,6 +338,12 @@
                     ]
                   },
                   {
+                    "group": "Meituan",
+                    "pages": [
+                      "cookbook/llm/Meituan/LongCat-2.0"
+                    ]
+                  },
+                  {
                     "group": "NVIDIA",
                     "pages": [
                       "cookbook/llm/NVIDIA/Nemotron3-Nano"

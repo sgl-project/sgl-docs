@@ -1,0 +1,133 @@
+---
+title: LongCat-2.0
+metatags:
+    description: "Deploy meituan-longcat/LongCat-2.0-FP8 with SGLang on NVIDIA GPUs."
+tag: NEW
+---
+
+## 1. Model introduction
+
+[LongCat-2.0-FP8](https://huggingface.co/meituan-longcat/LongCat-2.0-FP8) is the FP8 checkpoint of Meituan LongCat-2.0, a large sparse MoE language model with 1.6T total parameters and about 48B activated parameters per token.
+
+Key features include LongCat Sparse Attention for long-context serving and n-gram embeddings for improved sparse-parameter utilization. The model card reports an MIT license for the released weights.
+
+## 2. SGLang installation
+
+Use an SGLang build that includes LongCat-2.0 support. Refer to the [SGLang installation guide](/docs/get-started/installation) for the base installation flow.
+
+## 3. Model deployment
+
+### 3.1 Basic configuration
+
+**Interactive command generator**: Use the configuration selector below to generate the serving command. The 8x B300 command was validated with `meituan-longcat/LongCat-2.0-FP8`; the 16x H200/B200/H20 commands use the same two-node TP=16, EP=16 topology as the model card.
+
+import { LongCat2Deployment } from '/src/snippets/autoregressive/longcat2-deployment.jsx'
+
+<LongCat2Deployment />
+
+### 3.2 Configuration tips
+
+- Use `--trust-remote-code` for the Hugging Face checkpoint.
+- Use TP=8 and EP=8 on a single 8x B300 node.
+- For H200 and B200, use a 16 GPU deployment across 2 nodes with TP=16 and EP=16. This matches the official 16x H20 model-card topology while giving each rank more memory headroom than a single-node 8 GPU setup.
+- Keep `--nsa-prefill-backend fa3`, `--kv-cache-dtype bfloat16`, `--chunked-prefill-size 2048`, and `--mem-fraction-static 0.92` for the model-card-aligned command.
+- `--model-loader-extra-config '{"enable_multithread_load":true,"num_threads":12}'` can reduce startup time by loading checkpoint shards in parallel.
+- Do not pass `--fp8-gemm-runner-backend` manually when using the LongCat SGLang support patch. The backend is selected automatically for the FP8 scale layout on Blackwell GPUs.
+
+## 4. Model invocation
+
+### 4.1 8x B300 server command
+
+```bash
+python3 -m sglang.launch_server \
+  --model-path meituan-longcat/LongCat-2.0-FP8 \
+  --trust-remote-code \
+  --host 0.0.0.0 \
+  --port 13423 \
+  --tp 8 \
+  --ep 8 \
+  --max-running-requests 64 \
+  --mem-fraction-static 0.92 \
+  --chunked-prefill-size 2048 \
+  --nsa-prefill-backend fa3 \
+  --kv-cache-dtype bfloat16 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":12}'
+```
+
+### 4.2 16x H200/B200 server command
+
+Run this command on both nodes, setting `--node-rank 0` on the first node and `--node-rank 1` on the second node. Use the first node's reachable host/IP in `--dist-init-addr`.
+
+```bash
+python3 -m sglang.launch_server \
+  --model-path meituan-longcat/LongCat-2.0-FP8 \
+  --trust-remote-code \
+  --host 0.0.0.0 \
+  --port 13423 \
+  --tp 16 \
+  --ep 16 \
+  --max-running-requests 64 \
+  --mem-fraction-static 0.92 \
+  --chunked-prefill-size 2048 \
+  --nsa-prefill-backend fa3 \
+  --kv-cache-dtype bfloat16 \
+  --model-loader-extra-config '{"enable_multithread_load":true,"num_threads":12}' \
+  --nnodes 2 \
+  --node-rank <node-rank> \
+  --dist-init-addr <rank0-host>:20000
+```
+
+### 4.3 Test the deployment
+
+```bash
+curl http://localhost:13423/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "meituan-longcat/LongCat-2.0-FP8",
+    "messages": [
+      {"role": "user", "content": "A shop has 17 apples and sells 8. Then it buys 6 more. How many apples are there? Answer with only the final number."}
+    ],
+    "temperature": 0,
+    "max_tokens": 32,
+    "chat_template_kwargs": {"enable_thinking": false}
+  }'
+```
+
+The expected answer is `15`.
+
+### 4.4 OpenAI-compatible client
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:13423/v1",
+    api_key="EMPTY",
+)
+
+response = client.chat.completions.create(
+    model="meituan-longcat/LongCat-2.0-FP8",
+    messages=[
+        {
+            "role": "user",
+            "content": "Solve: A shop has 17 apples and sells 8, then buys 6 more. Answer with only the final number.",
+        }
+    ],
+    temperature=0,
+    max_tokens=32,
+    extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+)
+
+print(response.choices[0].message.content)
+```
+
+## 5. Validation
+
+The following accuracy checks were run on an 8x B300 node with the command above:
+
+| Evaluation | Examples | Accuracy |
+| ---------- | -------- | -------- |
+| GSM8K      | 200      | 0.980    |
+| GSM8K      | 1314     | 0.958904109589041 |
+
+CUDA graph was enabled and decode CUDA graph capture completed successfully during the serving validation.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T13:10:47.589545Z",
+  "generatedAt": "2026-07-07T00:27:25.783602Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 94,
+  "totalBlogFilesScanned": 95,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-06-dspark-sglang",
+      "title": "DSpark in SGLang: Speculative Decoding with Confidence-Driven, Variable-Length Verification",
+      "url": "https://lmsys.org/blog/2026-07-06-dspark-sglang/",
+      "image": "https://lmsys.org/images/blog/dspark-sglang/frontier.png",
+      "date": "July 6, 2026"
+    },
     {
       "slug": "2026-07-02-agent-assisted-sglang-development",
       "title": "Agent-Assisted SGLang Development: An Initial Exploration",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-06-15-next-generation-speculative-decoding-dflash-v2/",
       "image": "https://lmsys.org/images/blog/dflash-v2/dflash-arch-diagram.webp",
       "date": "June 15, 2026"
-    },
-    {
-      "slug": "2026-06-08-lmsys-phd-fellowship",
-      "title": "Announcing the Recipient of the 2026 LMSYS PhD Fellowship",
-      "url": "https://lmsys.org/blog/2026-06-08-lmsys-phd-fellowship/",
-      "image": "https://lmsys.org/images/blog/fellowship_apply/fellowship_program.png",
-      "date": "June 08, 2026"
     }
   ]
 }

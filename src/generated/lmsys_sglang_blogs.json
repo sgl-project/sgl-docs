@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T12:43:05.322367Z",
+  "generatedAt": "2026-07-11T00:21:24.292143Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 96,
+  "totalBlogFilesScanned": 97,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-10-rocm-miles-dsv4",
+      "title": "Bringing DeepSeek-V4 Flash RL Training to AMD Instinct MI355X GPUs with Miles",
+      "url": "https://lmsys.org/blog/2026-07-10-rocm-miles-dsv4/",
+      "image": "https://lmsys.org/images/blog/rocm-miles-dsv4/preview.png",
+      "date": "July 10, 2026"
+    },
     {
       "slug": "2026-07-06-dspark-sglang",
       "title": "DSpark in SGLang: Speculative Decoding with Confidence-Driven, Variable-Length Verification",
@@ -46,13 +53,6 @@
       "title": "MOSS-TTS Local Transformer v1.5 on SGLang-Omni: Serving Native-Streaming 48 kHz Speech",
       "url": "https://lmsys.org/blog/2026-06-17-moss-tts-local-v15/",
       "image": "https://raw.githubusercontent.com/zhaochenyang20/Awesome-ML-SYS-Tutorial/main/sglang/sglang-omni/images/moss-local-transformer-arch.svg",
-      "date": "June 17, 2026"
-    },
-    {
-      "slug": "2026-06-17-ling-2-6-tpu",
-      "title": "Optimizing Ling-2.6-1T on TPU with SGLang-JAX: Hiding MoE Data Movement Behind Compute with One Pallas Kernel",
-      "url": "https://lmsys.org/blog/2026-06-17-ling-2-6-tpu/",
-      "image": "https://lmsys.org/images/blog/2026-06-17-ling-2-6-tpu/hero.png",
       "date": "June 17, 2026"
     }
   ]

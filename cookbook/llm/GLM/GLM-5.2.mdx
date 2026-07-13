@@ -69,8 +69,9 @@ sglang serve \
 - The MoE runner auto-selects `flashinfer_cutlass` on SM120 (trtllm-gen MoE kernels
   are SM100-only) — no flag needed.
 - Some SM120 PCIe hosts hang at `Init torch distributed begin` due to PCIe ACS/P2P
-  probing — set `NCCL_P2P_DISABLE=1`. This trades some multi-GPU bandwidth
-  (expect roughly 10-40% higher TTFT/TPOT).
+  probing — set `NCCL_P2P_DISABLE=1`. This trades multi-GPU bandwidth: we measured
+  roughly 25% higher TPOT at concurrency 1 growing to ~55% at concurrency 16 on an
+  otherwise-identical host.
 - If the server is killed with `SIGKILL`, scheduler processes can become zombies that
   pin GPU memory. Run the container with `docker run --init ...` so they are reaped,
   and wait for `nvidia-smi` to report memory released before restarting.

@@ -75,11 +75,62 @@ sglang serve \
 - If the server is killed with `SIGKILL`, scheduler processes can become zombies that
   pin GPU memory. Run the container with `docker run --init ...` so they are reaped,
   and wait for `nvidia-smi` to report memory released before restarting.
-- MTP speculative decoding (EAGLE, low latency) and TP4xPP2 (throughput; maps onto
-  the typical 4+4 dual-NUMA PCIe topology) are currently blocked by
-  [sglang#30994](https://github.com/sgl-project/sglang/pull/30994) — the dense MLA
-  backend rejects the DSA indexer's `topk_indices` on the spec-verify / non-overlap
-  decode paths. Recipes and numbers will be added once it lands.
+- MTP speculative decoding (EAGLE, low latency) and TP4xPP2 (throughput) both
+  require [sglang#30994](https://github.com/sgl-project/sglang/pull/30994) — without
+  it the dense MLA backend rejects the DSA indexer's `topk_indices` on the
+  spec-verify / non-overlap decode paths (`TypeError` at the first decode step).
+  With that patch applied on top of v0.5.15, both variants below were validated
+  end to end (GSM8K 0.90 each, greedy output identical to TP8).
+
+### Variant: MTP speculative decoding (low latency)
+
+Requires [sglang#30994](https://github.com/sgl-project/sglang/pull/30994). Add to
+the TP8 command:
+
+```bash
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 3
+```
+
+Cuts median TPOT roughly in half at low concurrency (11.4 ms vs 24.4 ms at
+concurrency 1 — see benchmarks below); the advantage shrinks as batch size grows.
+
+### Variant: TP4 x PP2 (throughput / prefill latency)
+
+Requires [sglang#30994](https://github.com/sgl-project/sglang/pull/30994). Maps
+onto the typical 4+4 dual-NUMA PCIe topology, halving cross-NUMA all-reduce
+traffic:
+
+```bash
+sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 4 \
+  --pipeline-parallel-size 2 \
+  --quantization modelopt_fp4 \
+  --attention-backend flashinfer \
+  --kv-cache-dtype bf16 \
+  --disable-shared-experts-fusion \
+  --disable-overlap-schedule \
+  --json-model-override-args '{"index_topk_pattern": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"}' \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.8 \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+- The `index_topk_pattern` override (78x `F`, one per layer) makes every layer
+  compute its own indexer top-k instead of reusing a previous layer's. GLM-5.2's
+  default pattern has skip-topk layers, and the PP2 stage boundary (layer 39/40)
+  lands exactly on one, tripping an assertion that requires forwarding
+  `topk_indices` across stages. With the dense backend the indexer output is not
+  consumed by attention anyway, so the override has no accuracy impact
+  (GSM8K 0.90, greedy output identical to TP8).
+- Trades per-token decode latency (pipeline bubbles) for much better TTFT and
+  throughput at batch size >= 8 — see benchmarks below.
 
 ## 4. Model Invocation
 
@@ -107,9 +158,34 @@ GSM8K (few-shot, 20 questions, `python3 benchmark/gsm8k/bench_sglang.py`):
 --random-input-len 8192 --random-output-len 32 --random-range-ratio 1.0`,
 median values:
 
+**TP8 (v0.5.15 out of the box):**
+
 | Concurrency | TTFT (ms) | TPOT (ms) | Output tok/s |
 |---|---|---|---|
 | 1 | 1660 | 24.4 | 16.7 |
 | 4 | 5770 | 31.9 | 19.7 |
 | 8 | 10390 | 99.3 | 17.2 |
 | 16 | 21664 | 207.6 | 16.5 |
+
+**TP8 + MTP (v0.5.15 + [sglang#30994](https://github.com/sgl-project/sglang/pull/30994)):**
+
+| Concurrency | TTFT (ms) | TPOT (ms) | Output tok/s |
+|---|---|---|---|
+| 1 | 2821 | 11.4 | 13.9 |
+| 4 | 9913 | 26.6 | 13.7 |
+| 8 | 18968 | 37.0 | 10.6 |
+| 16 | 41225 | 125.8 | 10.6 |
+
+**TP4 x PP2 (v0.5.15 + [sglang#30994](https://github.com/sgl-project/sglang/pull/30994)):**
+
+| Concurrency | TTFT (ms) | TPOT (ms) | Output tok/s |
+|---|---|---|---|
+| 1 | 2848 | 25.5 | 11.7 |
+| 4 | 5274 | 92.3 | 15.0 |
+| 8 | 5825 | 89.8 | 20.5 |
+| 16 | 7738 | 303.8 | 21.2 |
+
+Picking a configuration: **TP8** is the balanced default; **TP8 + MTP** halves
+decode latency at low concurrency (interactive/agentic use); **TP4 x PP2** wins
+TTFT and total throughput at concurrency >= 8 (batch/offline use — 2.8x lower
+TTFT and 28% more output tok/s than TP8 at concurrency 16).

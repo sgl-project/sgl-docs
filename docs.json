@@ -313,7 +313,8 @@
                       "cookbook/llm/GLM/GLM-4.6",
                       "cookbook/llm/GLM/GLM-4.7",
                       "cookbook/llm/GLM/GLM-4.7-Flash",
-                      "cookbook/llm/GLM/GLM-5"
+                      "cookbook/llm/GLM/GLM-5",
+                      "cookbook/llm/GLM/GLM-5.2"
                     ]
                   },
                   {

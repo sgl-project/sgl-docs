@@ -1,0 +1,114 @@
+---
+title: GLM-5.2
+metatags:
+    description: "Deploy GLM-5.2 with SGLang on NVIDIA RTX PRO 6000 / RTX 6000D (SM120) - the NVFP4 checkpoint fits a single 8-GPU PCIe workstation box."
+---
+
+## 1. Model Introduction
+
+[GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) is a 753B-parameter MoE model
+(`GlmMoeDsaForCausalLM`) with DeepSeek Sparse Attention (DSA) and MTP layers for
+speculative decoding, targeting reasoning, coding, and agentic workloads.
+
+**Key Features:**
+
+- 753B total parameters, MoE with DeepSeek Sparse Attention (`index_topk` 2048)
+- Hybrid thinking (reasoning on by default; `enable_thinking: false` to disable)
+- MTP layer for EAGLE-style speculative decoding
+- The NVFP4 quantization (433 GB) fits a **single 8-GPU SM120 PCIe box**
+  (RTX PRO 6000 Blackwell 8x96GB or RTX 6000D 8x84GB)
+
+**Available Models:**
+
+- **BF16 (full precision)**: [zai-org/GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)
+- **FP8 (8-bit quantized)**: [zai-org/GLM-5.2-FP8](https://huggingface.co/zai-org/GLM-5.2-FP8)
+- **NVFP4 (4-bit quantized)**: [nvidia/GLM-5.2-NVFP4](https://huggingface.co/nvidia/GLM-5.2-NVFP4)
+
+**License:** MIT
+
+## 2. SGLang Installation
+
+Please refer to the [official SGLang installation guide](../../../docs/get-started/installation).
+
+| Hardware Platform | Docker Image |
+| --- | --- |
+| NVIDIA RTX PRO 6000 Blackwell / RTX 6000D (SM120) | `lmsysorg/sglang:v0.5.15` |
+
+The configuration below was validated with the official `lmsysorg/sglang:v0.5.15`
+image on 8x RTX 6000D. Datacenter (H200/B200/GB300) shapes follow the
+[GLM-5 guide](./GLM-5) — the two models share their structure.
+
+## 3. Model Deployment
+
+### NVIDIA RTX PRO 6000 Blackwell / RTX 6000D (SM120), single 8-GPU box
+
+```bash
+sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 8 \
+  --quantization modelopt_fp4 \
+  --attention-backend flashinfer \
+  --kv-cache-dtype bf16 \
+  --disable-shared-experts-fusion \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.8 \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+### Configuration Tips (SM120)
+
+- `--disable-shared-experts-fusion` is **required** — avoids a tensor-size mismatch
+  when loading GLM-5.2-NVFP4 ([sglang#29562](https://github.com/sgl-project/sglang/issues/29562)).
+- `--attention-backend flashinfer --kv-cache-dtype bf16` is required: SM120 has no DSA
+  sparse-attention kernels (the auto-selected deepgemm/trtllm paths are SM100-only),
+  and fp8 KV corrupts outputs with the dense MLA backend. For context lengths below
+  the model's `index_topk` (2048), dense attention is functionally equivalent to DSA.
+- The MoE runner auto-selects `flashinfer_cutlass` on SM120 (trtllm-gen MoE kernels
+  are SM100-only) — no flag needed.
+- Some SM120 PCIe hosts hang at `Init torch distributed begin` due to PCIe ACS/P2P
+  probing — set `NCCL_P2P_DISABLE=1`. This trades some multi-GPU bandwidth
+  (expect roughly 10-40% higher TTFT/TPOT).
+- If the server is killed with `SIGKILL`, scheduler processes can become zombies that
+  pin GPU memory. Run the container with `docker run --init ...` so they are reaped,
+  and wait for `nvidia-smi` to report memory released before restarting.
+- MTP speculative decoding (EAGLE, low latency) and TP4xPP2 (throughput; maps onto
+  the typical 4+4 dual-NUMA PCIe topology) are currently blocked by
+  [sglang#30994](https://github.com/sgl-project/sglang/pull/30994) — the dense MLA
+  backend rejects the DSA indexer's `topk_indices` on the spec-verify / non-overlap
+  decode paths. Recipes and numbers will be added once it lands.
+
+## 4. Model Invocation
+
+For reasoning parser, tool calling, and thinking-mode request examples, see the
+[GLM-5 guide](./GLM-5) — the invocation interface is identical
+(`--tool-call-parser glm47`, `--reasoning-parser glm45`).
+
+## 5. Benchmarks
+
+Test environment: 8x NVIDIA RTX 6000D (84 GB, SM120, PCIe), GLM-5.2-NVFP4, TP=8,
+SGLang v0.5.15, Docker image `lmsysorg/sglang:v0.5.15`.
+
+### 5.1 Accuracy
+
+GSM8K (few-shot, 20 questions, `python3 benchmark/gsm8k/bench_sglang.py`):
+
+| Metric | Value |
+|---|---|
+| Accuracy | 0.90 |
+| Invalid | 0.00 |
+
+### 5.2 Speed
+
+`python3 -m sglang.bench_serving --backend sglang --dataset-name random
+--random-input-len 8192 --random-output-len 32 --random-range-ratio 1.0`,
+median values:
+
+| Concurrency | TTFT (ms) | TPOT (ms) | Output tok/s |
+|---|---|---|---|
+| 1 | 1660 | 24.4 | 16.7 |
+| 4 | 5770 | 31.9 | 19.7 |
+| 8 | 10390 | 99.3 | 17.2 |
+| 16 | 21664 | 207.6 | 16.5 |

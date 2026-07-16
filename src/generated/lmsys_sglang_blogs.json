@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T12:26:12.017348Z",
+  "generatedAt": "2026-07-16T00:21:26.969901Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 98,
+  "totalBlogFilesScanned": 99,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-15-inkling-day0-support",
+      "title": "SGLang and Miles Add Day-0 Support for Inkling, a Frontier Multimodal Model",
+      "url": "https://lmsys.org/blog/2026-07-15-inkling-day0-support/",
+      "image": "https://lmsys.org/images/blog/inkling-day0-support/inkling-cover.png",
+      "date": "July 15, 2026"
+    },
     {
       "slug": "2026-07-13-glm52-optimization",
       "title": "Serving GLM5.2 NVFP4 Agentic Workload with SGLang: Reaching 500 TPS in 2 Weeks",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-06-27-netpreme-xmem/",
       "image": "https://lmsys.org/images/blog/netpreme-xmem/figure1.png",
       "date": "July 8, 2026"
-    },
-    {
-      "slug": "2026-06-26-waterfill-lplb",
-      "title": "Improving DeepEP MoE Load Balance in SGLang with Waterfill and LPLB",
-      "url": "https://lmsys.org/blog/2026-06-26-waterfill-lplb/",
-      "image": "https://lmsys.org/images/blog/waterfill_lplb/waterfill_timeline_nature_redraw.png",
-      "date": "June 26, 2026"
     }
   ]
 }

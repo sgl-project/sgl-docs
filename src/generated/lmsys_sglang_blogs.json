@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T12:30:06.088675Z",
+  "generatedAt": "2026-07-23T00:23:05.188178Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 99,
+  "totalBlogFilesScanned": 100,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-18-opd-support-in-miles",
+      "title": "OPD Support in Miles",
+      "url": "https://lmsys.org/blog/2026-07-18-opd-support-in-miles/",
+      "image": "https://lmsys.org/images/blog/opd-support-in-miles/figure-1.png",
+      "date": "July 18, 2026"
+    },
     {
       "slug": "2026-07-15-inkling-day0-support",
       "title": "SGLang and Miles Add Day-0 Support for Inkling, a Frontier Multimodal Model",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-02-agent-assisted-sglang-development/",
       "image": "https://lmsys.org/images/blog/agent-assisted-sglang-development/sglang-agent-cover.png",
       "date": "July 2, 2026"
-    },
-    {
-      "slug": "2026-06-27-netpreme-xmem",
-      "title": "Accelerating SGLang HiCache with Netpreme X-Mem\u2122 MPU",
-      "url": "https://lmsys.org/blog/2026-06-27-netpreme-xmem/",
-      "image": "https://lmsys.org/images/blog/netpreme-xmem/figure1.png",
-      "date": "July 8, 2026"
     }
   ]
 }

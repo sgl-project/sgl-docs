@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T12:59:31.507577Z",
+  "generatedAt": "2026-07-28T00:22:09.643345Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 100,
+  "totalBlogFilesScanned": 101,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-27-kimi-k3-day0-support",
+      "title": "SGLang and Miles Add Day-0 Support for Kimi K3",
+      "url": "https://lmsys.org/blog/2026-07-27-kimi-k3-day0-support/",
+      "image": "https://lmsys.org/images/blog/kimi-k3-day0-support/cover-kimi-k3.png",
+      "date": "July 27, 2026"
+    },
     {
       "slug": "2026-07-18-opd-support-in-miles",
       "title": "OPD Support in Miles",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-06-dspark-sglang/",
       "image": "https://lmsys.org/images/blog/dspark-sglang/perf-compare.png",
       "date": "July 6, 2026"
-    },
-    {
-      "slug": "2026-07-02-agent-assisted-sglang-development",
-      "title": "Agent-Assisted SGLang Development: An Initial Exploration",
-      "url": "https://lmsys.org/blog/2026-07-02-agent-assisted-sglang-development/",
-      "image": "https://lmsys.org/images/blog/agent-assisted-sglang-development/sglang-agent-cover.png",
-      "date": "July 2, 2026"
     }
   ]
 }

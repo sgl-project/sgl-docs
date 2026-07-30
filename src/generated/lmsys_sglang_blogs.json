@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T12:37:17.753979Z",
+  "generatedAt": "2026-07-30T00:21:29.343786Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 101,
+  "totalBlogFilesScanned": 102,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-29-mxfp8-nvfp4-rl",
+      "title": "Towards Blackwell-Native 8-bit and 4-bit RL: End-to-End MXFP8 and NVFP4 RL in Miles",
+      "url": "https://lmsys.org/blog/2026-07-29-mxfp8-nvfp4-rl/",
+      "image": "https://lmsys.org/images/blog/mxfp8-nvfp4-rl/NVFP4-dq.drawio.png",
+      "date": "July 29, 2026"
+    },
     {
       "slug": "2026-07-27-kimi-k3-day0-support",
       "title": "SGLang and Miles Add Day-0 Support for Kimi K3",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-10-rocm-miles-dsv4/",
       "image": "https://lmsys.org/images/blog/rocm-miles-dsv4/preview.png",
       "date": "July 10, 2026"
-    },
-    {
-      "slug": "2026-07-06-dspark-sglang",
-      "title": "DSpark in SGLang: Speculative Decoding with Confidence-Driven, Variable-Length Verification",
-      "url": "https://lmsys.org/blog/2026-07-06-dspark-sglang/",
-      "image": "https://lmsys.org/images/blog/dspark-sglang/perf-compare.png",
-      "date": "July 6, 2026"
     }
   ]
 }

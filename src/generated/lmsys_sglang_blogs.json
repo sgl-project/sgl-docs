@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T12:35:07.622839Z",
+  "generatedAt": "2026-08-01T00:22:30.811986Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 103,
+  "totalBlogFilesScanned": 104,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-07-31-cleaner-quantization-stack",
+      "title": "Toward a Cleaner Quantization Stack in SGLang",
+      "url": "https://lmsys.org/blog/2026-07-31-cleaner-quantization-stack/",
+      "image": "https://lmsys.org/images/blog/2026-07-31-cleaner-quantization-stack/01-cover.png",
+      "date": "July 28, 2026"
+    },
     {
       "slug": "2026-07-30-sglang-google-tpu",
       "title": "RadixArk Joins Forces with Google to Bring Full SGLang Features to TPUs",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-15-inkling-day0-support/",
       "image": "https://lmsys.org/images/blog/inkling-day0-support/inkling-cover.png",
       "date": "July 15, 2026"
-    },
-    {
-      "slug": "2026-07-13-glm52-optimization",
-      "title": "Serving GLM5.2 NVFP4 Agentic Workload with SGLang: Reaching 500 TPS in 2 Weeks",
-      "url": "https://lmsys.org/blog/2026-07-13-glm52-optimization/",
-      "image": "https://lmsys.org/images/blog/glm52-optimization/glm52-nvfp4-performance-pareto.png",
-      "date": "July 14, 2026"
     }
   ]
 }

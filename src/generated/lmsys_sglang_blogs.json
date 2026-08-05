@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T12:34:22.803626Z",
+  "generatedAt": "2026-08-05T00:23:35.011571Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 104,
+  "totalBlogFilesScanned": 105,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-04-specforge-v0-3",
+      "title": "SpecForge v0.3.0: a Unified Disaggregated and Colocated Speculative Decoding Stack, and New Open SpecBundle Draft Models",
+      "url": "https://lmsys.org/blog/2026-08-04-specforge-v0-3/",
+      "image": "https://lmsys.org/images/blog/specforge-v0-3/blog-cover.png",
+      "date": "August 4, 2026"
+    },
     {
       "slug": "2026-07-31-cleaner-quantization-stack",
       "title": "Toward a Cleaner Quantization Stack in SGLang",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-18-opd-support-in-miles/",
       "image": "https://lmsys.org/images/blog/opd-support-in-miles/figure-1.png",
       "date": "July 18, 2026"
-    },
-    {
-      "slug": "2026-07-15-inkling-day0-support",
-      "title": "SGLang and Miles Add Day-0 Support for Inkling, a Frontier Multimodal Model",
-      "url": "https://lmsys.org/blog/2026-07-15-inkling-day0-support/",
-      "image": "https://lmsys.org/images/blog/inkling-day0-support/inkling-cover.png",
-      "date": "July 15, 2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-06T12:34:32.848668Z",
+  "generatedAt": "2026-08-07T01:08:03.955882Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 105,
+  "totalBlogFilesScanned": 106,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-05-glmImage-optimization",
+      "title": "Full-Stack Performance Optimization of AR+DiT in SGL-Diffusion",
+      "url": "https://lmsys.org/blog/2026-08-05-glmImage-optimization/",
+      "image": "https://lmsys.org/images/blog/2026-08-05-glmImage-optimization/05-fanout.png",
+      "date": "August 05, 2026"
+    },
     {
       "slug": "2026-08-04-specforge-v0-3",
       "title": "SpecForge v0.3.0: a Unified Disaggregated and Colocated Speculative Decoding Stack, and New Open SpecBundle Draft Models",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-27-kimi-k3-day0-support/",
       "image": "https://lmsys.org/images/blog/kimi-k3-day0-support/cover-kimi-k3.png",
       "date": "July 27, 2026"
-    },
-    {
-      "slug": "2026-07-18-opd-support-in-miles",
-      "title": "OPD Support in Miles",
-      "url": "https://lmsys.org/blog/2026-07-18-opd-support-in-miles/",
-      "image": "https://lmsys.org/images/blog/opd-support-in-miles/figure-1.png",
-      "date": "July 18, 2026"
     }
   ]
 }

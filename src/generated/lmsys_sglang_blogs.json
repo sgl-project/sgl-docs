@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T12:13:50.466427Z",
+  "generatedAt": "2026-08-08T00:10:10.344407Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 106,
+  "totalBlogFilesScanned": 107,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-07-hpc-ops-sglang",
+      "title": "HPC-Ops \u00d7 SGLang: High-Performance Attention, Router GEMM, and MoE Kernels from Tencent Hunyuan",
+      "url": "https://lmsys.org/blog/2026-08-07-hpc-ops-sglang/",
+      "image": "https://lmsys.org/images/blog/hpc-ops-sglang/hpc-ops-sglang-cover.webp",
+      "date": "August 7, 2026"
+    },
     {
       "slug": "2026-08-05-glmImage-optimization",
       "title": "Full-Stack Performance Optimization of AR+DiT in SGL-Diffusion",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-07-29-mxfp8-nvfp4-rl/",
       "image": "https://lmsys.org/images/blog/mxfp8-nvfp4-rl/NVFP4-dq.drawio.png",
       "date": "July 29, 2026"
-    },
-    {
-      "slug": "2026-07-27-kimi-k3-day0-support",
-      "title": "SGLang and Miles Add Day-0 Support for Kimi K3",
-      "url": "https://lmsys.org/blog/2026-07-27-kimi-k3-day0-support/",
-      "image": "https://lmsys.org/images/blog/kimi-k3-day0-support/cover-kimi-k3.png",
-      "date": "July 27, 2026"
     }
   ]
 }

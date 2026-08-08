@@ -125,6 +125,77 @@ python -m sglang.launch_server \
   --mem-fraction-static 0.8 \
   --max-running-requests 128
 ```
+
+### Llama Single Node (AMD)
+
+On AMD MI300X / MI355 with Broadcom (`bnxt_re`) RoCE NICs, list every local `bnxt_re*` device in `--disaggregation-ib-device` (single-NIC handshakes time out on current ROCm builds) and set the ROCm + AITER environment up front. On hosts with AMD Pensando AI-NICs the same recipe works with `ionic_*` device names and `NCCL_IB_HCA=ionic`.
+
+```bash
+export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/lib
+export SGLANG_USE_AITER=1
+export NCCL_IB_HCA=bnxt_re
+export NCCL_IB_GID_INDEX=1
+
+IB_DEVS="bnxt_re0,bnxt_re1,bnxt_re2,bnxt_re3,bnxt_re4,bnxt_re5,bnxt_re6,bnxt_re7"
+
+python -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.1-8B-Instruct \
+  --attention-backend aiter \
+  --disaggregation-mode prefill \
+  --port 30000 \
+  --disaggregation-ib-device $IB_DEVS
+python -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.1-8B-Instruct \
+  --attention-backend aiter \
+  --disaggregation-mode decode \
+  --port 30001 \
+  --base-gpu-id 1 \
+  --disaggregation-ib-device $IB_DEVS
+python -m sglang_router.launch_router --pd-disaggregation --prefill http://127.0.0.1:30000 --decode http://127.0.0.1:30001 --host 0.0.0.0 --port 8000
+```
+
+### DeepSeek Multi-Node (AMD)
+
+One prefill node + one decode node, TP8 per role (8 GPUs per node), using all eight `bnxt_re*` NICs on each side for cross-node KV transfer. DP-attention is intentionally left off — on current ROCm builds the DP-off path is the recommended baseline for AMD PD deployments.
+
+On hosts with AMD Pensando AI-NICs (ionic driver) instead of Broadcom RoCE, swap `IB_DEVS` for the local `ionic_*` list and set `NCCL_IB_HCA=ionic`; everything else stays the same.
+
+```bash
+export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/lib
+export SGLANG_USE_AITER=1
+export NCCL_IB_HCA=bnxt_re            # bnxt_re for Broadcom; use "ionic" for AMD AI-NICs
+export NCCL_IB_GID_INDEX=1
+export NCCL_CROSS_NIC=1
+
+IB_DEVS="bnxt_re0,bnxt_re1,bnxt_re2,bnxt_re3,bnxt_re4,bnxt_re5,bnxt_re6,bnxt_re7"
+# AI-NIC equivalent:
+# IB_DEVS="ionic_0,ionic_1,ionic_2,ionic_3,ionic_4,ionic_5,ionic_6,ionic_7"
+
+# prefill node
+python -m sglang.launch_server \
+  --model-path deepseek-ai/DeepSeek-V3-0324 \
+  --disaggregation-ib-device ${IB_DEVS} \
+  --disaggregation-mode prefill \
+  --attention-backend aiter \
+  --host ${prefill_ip} \
+  --port 30000 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --mem-fraction-static 0.85
+# decode node
+python -m sglang.launch_server \
+  --model-path deepseek-ai/DeepSeek-V3-0324 \
+  --disaggregation-ib-device ${IB_DEVS} \
+  --disaggregation-mode decode \
+  --attention-backend aiter \
+  --host ${decode_ip} \
+  --port 30001 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --mem-fraction-static 0.85 \
+  --max-running-requests 128
+```
+
 ### Advanced Configuration
 
 PD Disaggregation with Mooncake supports the following environment variables for fine-grained control over system behavior.
@@ -335,6 +406,116 @@ python -m sglang.launch_server \
   --disaggregation-mode prefill \
   --disaggregation-transfer-backend nixl \
   --port 30000
+```
+
+## MORI
+
+[MORI](https://github.com/ROCm/mori) is AMD's KV-cache transfer engine for ROCm. It uses RDMA for cross-node traffic and XGMI for intra-node traffic.
+
+### Requirements
+
+The easiest path is the prebuilt ROCm sglang Docker image, which ships MORI ready to use:
+
+```bash
+docker run -it --network=host --ipc=host --privileged \
+  --cap-add=IPC_LOCK --device=/dev/kfd --device=/dev/dri \
+  --group-add video --group-add rdma \
+  -v /dev/infiniband:/dev/infiniband \
+  rocm/sgl-dev:v0.5.10rc0-rocm700-mi35x-20260331 bash
+```
+
+Or build from source inside an existing ROCm SGLang environment:
+
+```bash
+git clone https://github.com/ROCm/mori.git
+cd mori
+pip install .
+```
+
+On older ROCm images you may see `Driver bnxt_re does not support kernel ABI 8`. Bind-mount `libbnxt_re-rdmav34.so` from a newer image (e.g. v0.5.12) into the container to resolve it without rebuilding.
+
+### Usage
+
+Enable MORI with `--disaggregation-transfer-backend mori` and list every local RDMA NIC in `--disaggregation-ib-device`. The following MORI tuning variables are commonly set:
+
+```bash
+export SGLANG_USE_AITER=1
+export SGLANG_USE_AITER_AR=0
+export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/lib
+
+export NCCL_IB_HCA=bnxt_re
+export NCCL_IB_GID_INDEX=1
+export NCCL_CROSS_NIC=1
+
+export MORI_IO_XGMI_SCATTER_GATHER_THRESHOLD=4
+export MORI_IO_QP_MAX_SEND_WR=16384
+export MORI_IO_QP_MAX_CQE=32768
+export MORI_IO_QP_MAX_SGE=4
+export SGLANG_MORI_QP_PER_TRANSFER=4
+export SGLANG_MORI_NUM_WORKERS=4
+```
+
+### Llama Single Node
+
+```bash
+python -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.1-8B-Instruct \
+  --attention-backend aiter \
+  --disaggregation-mode prefill \
+  --disaggregation-transfer-backend mori \
+  --disaggregation-ib-device bnxt_re0 \
+  --disaggregation-bootstrap-port 8998 \
+  --port 30000
+python -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.1-8B-Instruct \
+  --attention-backend aiter \
+  --disaggregation-mode decode \
+  --disaggregation-transfer-backend mori \
+  --disaggregation-ib-device bnxt_re0 \
+  --disaggregation-bootstrap-port 9001 \
+  --base-gpu-id 1 \
+  --port 30001
+python -m sglang_router.launch_router --pd-disaggregation --prefill http://127.0.0.1:30000 --decode http://127.0.0.1:30001 --host 0.0.0.0 --port 8000
+```
+
+### DeepSeek Multi-Node
+
+One prefill node + one decode node, TP8 per role (8 GPUs per node), all eight local `bnxt_re*` NICs in use for cross-node KV transfer.
+
+On hosts with AMD Pensando AI-NICs (ionic driver) instead of Broadcom RoCE, swap `IB_DEVS` for the local `ionic_*` list and set `NCCL_IB_HCA=ionic`; everything else stays the same.
+
+```bash
+IB_DEVS="bnxt_re0,bnxt_re1,bnxt_re2,bnxt_re3,bnxt_re4,bnxt_re5,bnxt_re6,bnxt_re7"
+# AI-NIC equivalent:
+# IB_DEVS="ionic_0,ionic_1,ionic_2,ionic_3,ionic_4,ionic_5,ionic_6,ionic_7"
+
+# prefill 0
+python -m sglang.launch_server \
+  --model-path deepseek-ai/DeepSeek-V3-0324 \
+  --disaggregation-transfer-backend mori \
+  --disaggregation-ib-device ${IB_DEVS} \
+  --disaggregation-mode prefill \
+  --disaggregation-bootstrap-port 8998 \
+  --attention-backend aiter \
+  --host ${prefill_ip} \
+  --port 30000 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --mem-fraction-static 0.85
+# decode node
+python -m sglang.launch_server \
+  --model-path deepseek-ai/DeepSeek-V3-0324 \
+  --disaggregation-transfer-backend mori \
+  --disaggregation-ib-device ${IB_DEVS} \
+  --disaggregation-mode decode \
+  --disaggregation-bootstrap-port 9001 \
+  --attention-backend aiter \
+  --host ${decode_ip} \
+  --port 30001 \
+  --trust-remote-code \
+  --tp-size 8 \
+  --mem-fraction-static 0.85 \
+  --max-running-requests 128
 ```
 
 ## ASCEND

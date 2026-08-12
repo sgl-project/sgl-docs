@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T12:13:55.856887Z",
+  "generatedAt": "2026-08-12T00:14:03.348255Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,23 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 108,
+  "totalBlogFilesScanned": 110,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-11-unified-radix-cache",
+      "title": "Unified Radix Cache: One Tree for Hybrid Model Prefix Caching",
+      "url": "https://lmsys.org/blog/2026-08-11-unified-radix-cache/",
+      "image": "https://lmsys.org/images/blog/unified-radix-cache/image1.svg",
+      "date": "August 11, 2026"
+    },
+    {
+      "slug": "2026-08-11-nemotron-3-5-lightning",
+      "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3.5 Lightning",
+      "url": "https://lmsys.org/blog/2026-08-11-nemotron-3-5-lightning/",
+      "image": "https://lmsys.org/images/blog/nemotron-3-5-lightning/pinchbench-accuracy-vs-time.png",
+      "date": "August 11, 2026"
+    },
     {
       "slug": "2026-08-10-meta-muse-glimmer",
       "title": "SGLang Adds Day-0 Support for Muse Glimmer, a Multimodal Model Built for Local Agentic Workflows",
@@ -40,20 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-04-specforge-v0-3/",
       "image": "https://lmsys.org/images/blog/specforge-v0-3/blog-cover.png",
       "date": "August 4, 2026"
-    },
-    {
-      "slug": "2026-07-31-cleaner-quantization-stack",
-      "title": "Toward a Cleaner Quantization Stack in SGLang",
-      "url": "https://lmsys.org/blog/2026-07-31-cleaner-quantization-stack/",
-      "image": "https://lmsys.org/images/blog/2026-07-31-cleaner-quantization-stack/01-cover.png",
-      "date": "July 28, 2026"
-    },
-    {
-      "slug": "2026-07-30-sglang-google-tpu",
-      "title": "RadixArk Joins Forces with Google to Bring Full SGLang Features to TPUs",
-      "url": "https://lmsys.org/blog/2026-07-30-sglang-google-tpu/",
-      "image": "https://lmsys.org/images/blog/2026-07-30-sglang-google-tpu/cover.png",
-      "date": "July 30, 2026"
     }
   ]
 }

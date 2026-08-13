@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T12:14:36.494360Z",
+  "generatedAt": "2026-08-13T00:14:56.641323Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 110,
+  "totalBlogFilesScanned": 111,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-12-qwen3-8-day0-support",
+      "title": "SGLang and Miles Add Day-0 Support for Qwen3.8",
+      "url": "https://lmsys.org/blog/2026-08-12-qwen3-8-day0-support/",
+      "image": "https://lmsys.org/images/blog/qwen3-8-day0-support/cover-qwen3-8.png",
+      "date": "Aug 12, 2026"
+    },
     {
       "slug": "2026-08-11-unified-radix-cache",
       "title": "Unified Radix Cache: One Tree for Hybrid Model Prefix Caching",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-05-glmImage-optimization/",
       "image": "https://lmsys.org/images/blog/2026-08-05-glmImage-optimization/05-fanout.png",
       "date": "August 05, 2026"
-    },
-    {
-      "slug": "2026-08-04-specforge-v0-3",
-      "title": "SpecForge v0.3.0: a Unified Disaggregated and Colocated Speculative Decoding Stack, and New Open SpecBundle Draft Models",
-      "url": "https://lmsys.org/blog/2026-08-04-specforge-v0-3/",
-      "image": "https://lmsys.org/images/blog/specforge-v0-3/blog-cover.png",
-      "date": "August 4, 2026"
     }
   ]
 }

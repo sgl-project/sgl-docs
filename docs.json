@@ -550,6 +550,19 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Blog",
+        "groups": [
+          {
+            "group": "Blog",
+            "icon": "newspaper",
+            "pages": [
+              "blog/index",
+              "blog/kimi-k3-day0-support"
+            ]
+          }
+        ]
       }
     ],
     "global": {

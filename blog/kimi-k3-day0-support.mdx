@@ -1,0 +1,351 @@
+---
+title: "Kimi K3: Architecture and SGLang Day-0 Support"
+description: "From MHA to DeltaNet to KDA, a walkthrough of the attention mechanisms; how Kimi K3's hybrid architecture supports 2.8T parameters and a 1M context; and how SGLang runs K3 efficiently with a unified memory pool, chunked PP, and DCP."
+---
+
+import { ArchViz } from "/src/snippets/blog/kimi-k3-day0/ArchViz.jsx";
+import { CacheViz } from "/src/snippets/blog/kimi-k3-day0/CacheViz.jsx";
+import { MhaViz } from "/src/snippets/blog/kimi-k3-day0/MhaViz.jsx";
+import { StateChannelViz } from "/src/snippets/blog/kimi-k3-day0/StateChannelViz.jsx";
+import { LinearFlowViz } from "/src/snippets/blog/kimi-k3-day0/LinearFlowViz.jsx";
+import { DeltaRuleViz } from "/src/snippets/blog/kimi-k3-day0/DeltaRuleViz.jsx";
+import { KeyOverlapViz } from "/src/snippets/blog/kimi-k3-day0/KeyOverlapViz.jsx";
+import { KdaGateViz } from "/src/snippets/blog/kimi-k3-day0/KdaGateViz.jsx";
+import { AttnResViz } from "/src/snippets/blog/kimi-k3-day0/AttnResViz.jsx";
+import { MoeViz } from "/src/snippets/blog/kimi-k3-day0/MoeViz.jsx";
+import { RadixStateViz } from "/src/snippets/blog/kimi-k3-day0/RadixStateViz.jsx";
+import { PoolViz } from "/src/snippets/blog/kimi-k3-day0/PoolViz.jsx";
+import { PipelineViz } from "/src/snippets/blog/kimi-k3-day0/PipelineViz.jsx";
+import { DcpViz } from "/src/snippets/blog/kimi-k3-day0/DcpViz.jsx";
+import { DecodeLadderViz } from "/src/snippets/blog/kimi-k3-day0/DecodeLadderViz.jsx";
+import { ServingFrontierViz } from "/src/snippets/blog/kimi-k3-day0/ServingFrontierViz.jsx";
+
+## The Kimi K3 architecture
+
+K3 is a 2.8T-parameter MoE model with 104B parameters active per token, and it
+supports a native 1M-token context. K3 has 93 layers: 69 use KDA linear
+attention and 24 use gated global MLA. The first layer is a dense FFN; the
+remaining 92 use Stable LatentMoE. Every 12 layers form one block, and
+Attention Residual aggregates across blocks. Click the diagram for the
+complete structure:
+
+<ArchViz lang="en" />
+
+### KV cache memory estimation
+
+Start with memory: both MLA and MHA KV caches grow with context. The Kimi K3
+day-0 support blog puts K3's compressed MLA KV cache at about 1.1KB per layer
+per token on each GPU, so the 24 MLA layers come to roughly 27KB per token. If
+all 93 layers used MLA, a 1M-token request would need about 110GB on one GPU
+(1.1KB × 93 layers × 1M tokens); uncompressed MHA would cost another order of
+magnitude. Bringing that number down is the first problem to solve, which is
+why K3 cannot keep context-growing softmax attention in most layers.
+
+K3 therefore interleaves 3 KDA + 1 MLA. KDA is a linear-attention variant
+whose recurrent state has a fixed size and does not grow with context; the
+mechanism comes later. It takes about 54MB per request per GPU and updates in
+place each step, while MLA keeps global attention. The model uses no explicit
+position encoding (NoPE); position comes implicitly from the KDA recurrence.
+The diagram below contrasts memory use between all-MLA and the KDA+MLA mix:
+
+<CacheViz lang="en" />
+
+The next sections walk from classic MHA to KDA and compare what changes at
+each step, which makes it clear why Kimi K3 picks KDA, a linear-attention
+variant.
+
+### Attention mechanisms in detail: classic MHA
+
+In ordinary MHA, decoding token $t$ reads the $t-1$ cached history tokens in three steps:
+
+1. **Score:** compare against each earlier token $i$ with $z_{t,i} = \frac{q_t \cdot k_i}{\sqrt{d_k}}$. The subscript $t,i$ reads “step $t$'s query against history key $i$”.
+2. **Normalize:** compute $Z = \sum_{j=1}^{t-1} \exp(z_{t,j})$, then assign attention weight $a_{t,i} = \exp(z_{t,i}) / Z$.
+3. **Aggregate:** take the weighted sum of values, $o_t = \sum_{i=1}^{t-1} a_{t,i} \cdot v_i$.
+
+A length-$N$ sequence therefore performs about $N^2/2$ dot products: $O(N^2)$
+compute and $O(N)$ cache. In the diagram, every token has a line to each of
+the tokens before it.
+
+<MhaViz lang="en" />
+
+Softmax attention buys per-position reads, which gives it the most complete
+global memory, but the cost is just as clear. Every new token rescans the
+whole history, so the whole history has to be stored and compute stays at
+$O(N^2)$.
+
+### Attention mechanisms in detail: linear attention
+
+Linear attention no longer keeps one KV entry per token. It accumulates
+history into a fixed-size matrix, $S = \sum_i k_i v_i^{\top}$. S is a
+fixed-size memory matrix, and every new token writes into it once it is
+computed: k sets the write direction, meaning where the token points in vector
+space; v is the content written along that direction; and q reads with
+$o = S^{\top} q$. No matter how long the context becomes, each step reads and
+writes only S.
+
+The diagram below gives both a math view and the same sentence used earlier,
+so the difference is visible directly:
+
+<LinearFlowViz lang="en" />
+
+In MHA, "it" can point directly to "cat" because every historical token has its
+own KV position. The linear-attention state S has no token-position axis, so its
+readout mixes all historical writes in one fixed state. The diagram above shows
+the simplest form of naive linear attention: plain accumulation.
+
+### Attention mechanisms in detail: DeltaNet
+
+Naive linear attention keeps adding to its state and never overwrites an old
+value. In the simplest case, if the same key direction receives 1 and then 4,
+both stay in S, and the next read returns $1+4$. Different contexts usually
+give the same word different keys, but over a sequence as long as 1M tokens a
+fixed-capacity state can still fail to keep those writes apart. Say the text
+first says Zhang San lives in Beijing, so the state records Zhang San →
+Beijing, and later says Zhang San moved to Shanghai. Asked where Zhang San
+lives, the readout is likely a blend of Beijing and Shanghai rather than
+Shanghai cleanly overwriting Beijing.
+
+DeltaNet's answer is an error-directed edit to the state. It introduces a
+dynamically produced scalar gate $\beta_t$ that sets how strong the current
+update is. Before writing, the model reads the prediction the state already
+holds along the current key, $r_{\text{old}} = S_{t-1}^{\top} k_t$. It then
+writes the difference between the target value and that prediction instead of
+accumulating $v_t$:
+$S_t = S_{t-1} + \beta_t k_t (v_t - r_{\text{old}})^{\top}$. For a normalized
+key, the new readout is
+$r_{\text{new}} = (1-\beta_t)\, r_{\text{old}} + \beta_t v_t$.
+
+The coefficient $\beta_t$ controls rewrite strength: $\beta_t = 1$ fully
+replaces the old association, smaller $\beta_t$ retains more of the old value,
+and $\beta_t = 0$ does not rewrite it at all.
+
+<DeltaRuleViz lang="en" />
+
+That fixes same-direction rewriting but leaves a capacity question: once
+unrelated history keeps entering a fixed-size S, what should decay? Even
+unrelated key vectors are rarely perfectly orthogonal in practice, so a write
+in one direction projects into another and creates crosstalk. The longer the
+context, the larger that effect gets.
+
+<Accordion title="Math details: A/B in the diagram and the crosstalk term">
+  A and B are two unit directions $k_a, k_b$ in key space $\mathbb{R}^{d_k}$ ($\lVert k_a \rVert = \lVert k_b \rVert = 1$), not token slots or individual channels. $A=1$ is shorthand for “the key points along $k_a$ and the value is the scalar 1.” Colors only trace where each write came from; the real S stores their sum.
+
+  Suppose S holds two associations, $S = k_a v_a^{\top} + k_b v_b^{\top}$. Reading with $q_a = k_a$ gives $o_a = S^{\top} q_a = (k_a^{\top} k_a)\, v_a + (k_b^{\top} k_a)\, v_b = v_a + \cos\theta \cdot v_b$, where $\theta$ is the angle between the two keys. The second term is B leaking into A, scaled exactly by the inner product $k_a^{\top} k_b$.
+
+  For a general set of writes $\{(k_i, v_i)\}$ the readout is $o(q) = \sum_i (k_i^{\top} q)\, v_i$, and interference between writes is governed by the Gram matrix $G_{ij} = k_i^{\top} k_j$. The readout is crosstalk-free iff all keys are pairwise orthogonal — and $\mathbb{R}^{d_k}$ admits at most $d_k$ such directions, so once more associations are stored, crosstalk in a fixed-size state cannot be eliminated, only managed.
+</Accordion>
+
+<KeyOverlapViz lang="en" />
+
+### Attention mechanisms in detail: KDA
+
+KDA's gating works per channel, so first, what a channel is. K3's hidden size
+is 7168; each of the 96 KDA heads uses its own learned projection to compress
+the model-wide 7168-d hidden state down to 128 dimensions, and a channel is
+one dimension of that projected 128-d space. Key channel $j$ sets the coefficient with which content is
+written into row $j$ of S:
+
+<StateChannelViz lang="en" />
+
+A fixed state does not grow with context, which is exactly why it saves
+memory; the cost is that more and more history has to share one S. The delta
+rule can rewrite the same or a nearby key direction, but it does not
+proactively clear irrelevant old signal, which is the crosstalk above. KDA
+therefore adds channel-wise gating: for every token and head, the model
+produces a vector $\alpha_t$ from the current hidden state, applies
+$\mathrm{Diag}(\alpha_t)$ to scale the channels of the old state, and then
+performs the DeltaNet rewrite.
+
+<Accordion title="Math details: how KDA gates and rewrites the same S">
+  The full update is $S_t = \big(I - \beta_t k_t k_t^{\top}\big)\,\mathrm{Diag}(\alpha_t)\, S_{t-1} + \beta_t k_t v_t^{\top}$. Term by term: $\alpha_t \in (0,1)^{d_k}$ is a vector gate computed from the current hidden state, and $\mathrm{Diag}(\alpha_t)$ scales row $j$ of S by $\alpha_t[j]$ — every historical contribution in that row decays together; it neither picks A or B apart nor rotates keys toward orthogonality. $\beta_t \in (0,1)$ is a scalar write strength.
+
+  Read one update in two steps. Gate first: $\tilde S = \mathrm{Diag}(\alpha_t)\, S_{t-1}$. Then delta-rewrite along the current key: with $r_{\text{old}} = \tilde S^{\top} k_t$ (the decayed state's prediction for this key), $S_t = \tilde S + \beta_t k_t (v_t - r_{\text{old}})^{\top}$. For a unit $k_t$, the post-update readout along the same key is $S_t^{\top} k_t = (1-\beta_t)\, r_{\text{old}} + \beta_t v_t$: $\beta_t = 1$ replaces fully, $\beta_t = 0$ keeps everything.
+
+  Unrolling the recurrence shows where position comes from: $S_t = \sum_{s \le t} \Big[\prod_{u=s+1}^{t} \big(I - \beta_u k_u k_u^{\top}\big)\mathrm{Diag}(\alpha_u)\Big]\, \beta_s k_s v_s^{\top}$. Earlier writes pass through more gates and rewrites, so decay accumulates with distance — the mechanism that lets K3 drop RoPE. K3 additionally lower-bounds the decay and adds a full-rank output gate for numerical stability on long sequences.
+
+  The diagram compresses the real 128-d key space into a 2D teaching slice: $k_a = \tfrac{1}{\sqrt{2}}[1,1]^{\top}$ and $k_b = \tfrac{1}{\sqrt{2}}[1,-1]^{\top}$, both spanning $\mathrm{ch}_1$ and $\mathrm{ch}_2$. The gate scales both rows first, then the delta rule writes along the full $k_a$ the residual needed to reach target value 4.
+</Accordion>
+
+<KdaGateViz lang="en" />
+
+So Kimi K3 needs no RoPE, because the KDA state update already carries
+position. An earlier token passes through more decay steps and state
+transforms before it reaches the current position, while a nearer token passes
+through fewer, and the model reads order and distance from that. Where RoPE
+encodes position explicitly with a fixed rotation, KDA models it implicitly
+through learnable, input-dependent decay. K3 also adds a lower bound on the
+decay and a full-rank output gate for stability.
+
+### Attention Residual
+
+An ordinary Transformer's residual stream is like one draft passed from the
+bottom layer to the top, with every layer editing the same page. This keeps
+information moving upward, but by layer 90, shallow details are mixed with
+dozens of later updates; a deep layer cannot reopen an earlier version directly.
+
+Attention Residual keeps a few historical versions on the side. K3 splits its
+layers into blocks of 12. Inside a block the ordinary residual stays, and each
+12-layer block's layer outputs are summed into one block representation. A
+later block does not have to rely only on the current draft: a learned
+pseudo-query weights the embedding and these saved summaries, then mixes back
+the representations most useful at that moment:
+
+<AttnResViz lang="en" />
+
+<Accordion title="Math and cost: why K3 saves one summary every 12 layers">
+  Let $v_0$ be the embedding and $v_i$ ($i \ge 1$) the summary of block $i$ (the accumulated outputs of its 12 layers). For a later block $\ell$, a learned pseudo-query $q_\ell$ scores every saved representation, $\alpha_{\ell,i} = \mathrm{softmax}_{i \lt \ell}\big(s(q_\ell, v_i)\big)$ with a dot-product-style score $s$, and retrieves $r_\ell = \sum_{i \lt \ell} \alpha_{\ell,i}\, v_i$, which joins the block's input. This is a softmax-weighted mixture over saved representations: weight can concentrate on one summary, but the choice is never hard.
+
+  Cost: full AttnRes stores every layer output — $L$ vectors of width $d$ per token, i.e. $O(Ld)$. The block version stores $N = \lceil L/12 \rceil$ summaries plus the embedding, i.e. $O(Nd)$. With $L = 93$ and block size 12, K3 keeps $N = 8$ summaries, i.e. $9 \times 7168$ numbers per token. These summaries also travel with activations through the pipeline, so $N$ enters communication volume directly.
+
+  Granularity vs. cost: smaller blocks (one layer per block in the limit) give finer depth-wise retrieval but grow state, memory bandwidth, and pipeline traffic linearly in $N$; larger blocks are cheaper, but layers inside a block are already summed and cannot be retrieved separately. In the optimized implementation, typical inference-latency overhead is below 2%, and training wall-clock overhead under pipeline parallelism is below 4%.
+</Accordion>
+
+### LatentMoE
+
+Every FFN except the first uses MoE: each token selects 16 of 896 routed
+experts, while 2 shared experts are always active. The routed-pool selection
+rate is therefore $16/896 \approx 1.8\%$; the separate whole-model ratio is
+$104\text{B}/2.8\text{T} \approx 3.7\%$ active parameters per token.
+
+Routing and expert compute project the 7168-d hidden state down to a 3584-d
+latent space, then project back to full width. This halves both the 16-way
+all-to-all dispatch traffic and expert weight volume:
+
+<MoeViz lang="en" />
+
+At this point we have seen how KDA, MLA, Attention Residual, and LatentMoE
+form K3's hybrid architecture. But the model design only answers how to
+compute. In production, SGLang still has to answer how these different states
+fit in memory and how prefill is parallelized. The next half starts from those
+system questions.
+
+## SGLang's day-0 adaptations
+
+K3's hybrid architecture creates two inference states with completely
+different lifecycles:
+
+| | MLA (24 layers) | KDA (69 layers) |
+| --- | --- | --- |
+| State shape | KV cache, appends per token | Recurrent state, fixed size |
+| Growth | ~27KB per token per GPU, append-only | ~54MB per request per GPU (`TP=8`), overwritten in place each step |
+
+MLA appends KV per token, while KDA reserves a fixed amount per request and
+overwrites it every step. That difference propagates into memory allocation,
+prefill parallelism, and decode scaling—the three parts of SGLang's day-0 work.
+
+### RadixAttention: prefix caching for KDA state
+
+Traditional RadixAttention can share a prefix across requests because
+attention KV only appends as tokens arrive and never rewrites history. KDA's
+recurrent state $S$ is different: every token it reads overwrites the state in
+place. Suppose D and E both hit the prefix ABC. If they shared one
+$S(\text{ABC})$, D's next step would turn it into $S(\text{ABCD})$, so E could
+no longer start from the state after ABC — the mechanism rules prefix caching
+out. So how do we keep RadixAttention's cache tree?
+
+SGLang's answer is to never let a request mutate the shared state in the radix
+tree. A KDA state stored in the tree is a read-only checkpoint: after a prefix
+hit, copy-on-write restores it into the request's private working slot, and
+the forward pass mutates only that copy. Copying and forking are what keep an
+overwrite from destroying the prefix. Below, the first view compares how the
+KDA and MLA radix cache grow under two workload changes; the second steps
+through copy-on-write, snapshot, donate, and checkpoint eviction:
+
+<RadixStateViz lang="en" />
+
+### Memory management for two state types
+
+Because K3 mixes KDA and MLA layers, memory management has to carve out two
+kinds of region as well. The old approach preallocates a KDA region and an MLA
+region at startup. KDA demand follows concurrency while MLA demand follows
+total context length, so once the workload differs from the estimate, one
+region fills while the other sits idle. The fix is direct: SGLang puts both in
+one pool, with fixed KDA blocks allocated from the left, MLA pages from the
+right, and the free space in the middle shared, which keeps the pool as full
+as it can get. Day-0 makes this opt-in with `--enable-unified-memory`:
+
+<PoolViz lang="en" />
+
+In the baseline, allocations pick free slots inside two statically sized regions.
+When the MLA region fills, free KDA slots cannot be borrowed. The unified layout
+instead packs KDA from the left and MLA from the right, so every request keeps running.
+
+### Chunked pipeline prefill
+
+Prefill processes many prompt tokens at once, which gives it enough work to
+cut into chunks and fill a pipeline. TP8 puts all eight GPUs on the same
+prefill work, but the problem is that every layer needs a lockstep AllReduce
+before the full result can enter the next layer. Chunked PP8 works
+differently: PP8 assigns ranges of the 93 layers to G1–G8 and lets different
+GPUs process different chunks. GPUs pass only the activation from the
+preceding stage, and those P2P transfers overlap with computation on the next
+chunk. As the diagram shows, G1–G8 each run a run of complete layers rather
+than splitting one layer eight ways, so no AllReduce is needed between layers.
+The cost is that filling and draining the pipeline takes some steps, so it
+cannot run full from the start; over a long-context prefill that overhead is
+diluted, so throughput still comes out ahead.
+
+<PipelineViz lang="en" />
+
+Decode is another story. It usually has only one new token per step, not
+enough work to fill a pipeline as deep as PP8, so TP8 remains the better fit.
+A common PD-disaggregated split is `PP8 prefill → TP8 / DCP8 decode`. As noted
+above, PP also pays fill and drain overhead, so it does not win when requests
+or chunks are too few.
+
+### Decode context parallelism (DCP)
+
+MLA has multiple attention heads, but they all share one compressed KV latent,
+so unlike MHA there is no clear axis to shard when TP splits by head. Every
+TP8 rank therefore has to replicate the complete MLA KV latent. That means the
+same MLA KV latent sits on every GPU, and adding GPUs does not increase
+logical context capacity. SGLang uses DCP to shard by token position instead:
+each GPU computes partial attention over its local $1/N$ KV, split as the
+diagram shows, then one packed all-to-all merges the result exactly:
+
+<DcpViz lang="en" />
+
+DCP primarily increases capacity and concurrency, not latency for one short
+request. Keeping more long sessions on the GPU avoids host offload,
+re-prefill, and throughput collapse. On K3, DCP8 raises logical capacity from
+1.5M to 12.2M tokens (7.9×) and reaches 541 tok/s at 48 agent sessions. It
+costs one all-to-all per MLA layer. The KDA state S, meanwhile, does not grow
+with context and has no token-position axis, so it stays TP/head-sharded.
+
+### Performance numbers and benchmark results
+
+BS=1 decode, aggregate system throughput, and per-user speed are three distinct
+metrics. Single-request speed first: 15 kernel and communication optimizations
+raise non-speculative BS=1 decode from 44.3 to 112.5 tok/s, and DSpark's
+speculative decoding is a separate line at ~423 tok/s:
+
+<DecodeLadderViz lang="en" />
+
+Cluster metrics are a different question: under PD disaggregation, aggregate
+throughput trades against per-user speed, and each deployment goal maps to a
+different parallel layout:
+
+<ServingFrontierViz lang="en" />
+
+## Acknowledgments
+
+Kimi K3 day-0 support was a collaboration between the SGLang & Miles team at
+RadixArk and the Moonshot AI team, together with NVIDIA, AMD, Approaching AI,
+Baseten, and Modal.
+
+- **AMD:** Wun-guo Huang, Xinyi Song, Hai Xiao, Soga Lin, Duyi Wang, Thomas Wang
+- **Approaching AI:** Huanming Shen, Xiaohao Zhang, Nan Li, Mingxing Zhang
+
+Thanks to DigitalOcean for providing AMD instances for testing. Thanks also to
+Google Cloud, DigitalOcean, Nebius, fal, RunPod, DeepInfra, and GMI Cloud for
+serving Kimi K3 on SGLang.
+
+_The visualized tutorial was written by [Yichi Zhang](https://github.com/Ccyest); originally published on
+[AI-Infra-Visualized](https://yichizhang.dev/AI-Infra-Visualized/en/lessons/kimi-k3-day0-support/)._
+
+## Further reading
+
+- [Kimi K3 Technical Report](https://arxiv.org/abs/2607.24653)
+- [LMSYS Blog: Kimi K3 Day-0 Support](https://www.lmsys.org/blog/2026-07-27-kimi-k3-day0-support/)
+- [Kimi Linear: An Expressive, Efficient Attention Architecture](https://arxiv.org/abs/2510.26692)
+- [Attention Residuals Technical Report](https://arxiv.org/abs/2603.15031)

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T12:04:57.855439Z",
+  "generatedAt": "2026-08-18T00:05:37.526285Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 111,
+  "totalBlogFilesScanned": 112,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-17-advanced-cuda-graph",
+      "title": "Advanced CUDA Graph Techniques in SGLang",
+      "url": "https://lmsys.org/blog/2026-08-17-advanced-cuda-graph/",
+      "image": "https://lmsys.org/images/blog/breakable_cuda_graph/bcg-design.svg",
+      "date": "August 17, 2026"
+    },
     {
       "slug": "2026-08-12-qwen3-8-day0-support",
       "title": "SGLang and Miles Add Day-0 Support for Qwen3.8",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-07-hpc-ops-sglang/",
       "image": "https://lmsys.org/images/blog/hpc-ops-sglang/hpc-ops-sglang-cover.webp",
       "date": "August 7, 2026"
-    },
-    {
-      "slug": "2026-08-05-glmImage-optimization",
-      "title": "Full-Stack Performance Optimization of AR+DiT in SGL-Diffusion",
-      "url": "https://lmsys.org/blog/2026-08-05-glmImage-optimization/",
-      "image": "https://lmsys.org/images/blog/2026-08-05-glmImage-optimization/05-fanout.png",
-      "date": "August 05, 2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T12:05:31.524204Z",
+  "generatedAt": "2026-08-19T00:05:55.857505Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 112,
+  "totalBlogFilesScanned": 113,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-18-miles-v0-1",
+      "title": "Miles v0.1: Production-level Post-training",
+      "url": "https://lmsys.org/blog/2026-08-18-miles-v0-1/",
+      "image": "https://lmsys.org/images/blog/miles-v0-1/miles-logo.png",
+      "date": "August 18, 2026"
+    },
     {
       "slug": "2026-08-17-advanced-cuda-graph",
       "title": "Advanced CUDA Graph Techniques in SGLang",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-10-meta-muse-glimmer/",
       "image": "https://lmsys.org/images/blog/2026-08-10-meta-muse-glimmer/cover-muse-glimmer.png",
       "date": "August 10, 2026"
-    },
-    {
-      "slug": "2026-08-07-hpc-ops-sglang",
-      "title": "HPC-Ops \u00d7 SGLang: High-Performance Attention, Router GEMM, and MoE Kernels from Tencent Hunyuan",
-      "url": "https://lmsys.org/blog/2026-08-07-hpc-ops-sglang/",
-      "image": "https://lmsys.org/images/blog/hpc-ops-sglang/hpc-ops-sglang-cover.webp",
-      "date": "August 7, 2026"
     }
   ]
 }

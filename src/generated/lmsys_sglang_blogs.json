@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T00:05:55.857505Z",
+  "generatedAt": "2026-08-20T00:06:08.945610Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 113,
+  "totalBlogFilesScanned": 114,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-19-deepseek-v4-pro-engine-optimization-h20",
+      "title": "Pushing the Limits of Serving DeepSeek-V4-Pro",
+      "url": "https://lmsys.org/blog/2026-08-19-deepseek-v4-pro-engine-optimization-h20/",
+      "image": "https://lmsys.org/images/blog/deepseek_v4/00_cover.png",
+      "date": "August 19, 2026"
+    },
     {
       "slug": "2026-08-18-miles-v0-1",
       "title": "Miles v0.1: Production-level Post-training",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-11-nemotron-3-5-lightning/",
       "image": "https://lmsys.org/images/blog/nemotron-3-5-lightning/pinchbench-accuracy-vs-time.png",
       "date": "August 11, 2026"
-    },
-    {
-      "slug": "2026-08-10-meta-muse-glimmer",
-      "title": "SGLang Adds Day-0 Support for Muse Glimmer, a Multimodal Model Built for Local Agentic Workflows",
-      "url": "https://lmsys.org/blog/2026-08-10-meta-muse-glimmer/",
-      "image": "https://lmsys.org/images/blog/2026-08-10-meta-muse-glimmer/cover-muse-glimmer.png",
-      "date": "August 10, 2026"
     }
   ]
 }

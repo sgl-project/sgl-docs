@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T12:06:55.171970Z",
+  "generatedAt": "2026-08-27T01:14:01.194185Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 117,
+  "totalBlogFilesScanned": 118,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-26-qwen-flash-next",
+      "title": "Qwen3.8-Flash-Next: Day-0 Support in SGLang",
+      "url": "https://lmsys.org/blog/2026-08-26-qwen-flash-next/",
+      "image": "https://lmsys.org/images/blog/qwen-flash-next/cover.png",
+      "date": "August 26, 2026"
+    },
     {
       "slug": "2026-08-21-sglang-fast-recovery",
       "title": "Fast Engine Recovery: Sub-Second Engine Restart for SGLang via Weight Cache Daemon",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-18-miles-v0-1/",
       "image": "https://lmsys.org/images/blog/miles-v0-1/miles-logo.png",
       "date": "August 18, 2026"
-    },
-    {
-      "slug": "2026-08-17-advanced-cuda-graph",
-      "title": "Advanced CUDA Graph Techniques in SGLang",
-      "url": "https://lmsys.org/blog/2026-08-17-advanced-cuda-graph/",
-      "image": "https://lmsys.org/images/blog/breakable_cuda_graph/bcg-design.svg",
-      "date": "August 17, 2026"
     }
   ]
 }

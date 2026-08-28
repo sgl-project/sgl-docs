@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T01:14:01.194185Z",
+  "generatedAt": "2026-08-28T02:36:26.220081Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 118,
+  "totalBlogFilesScanned": 119,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-08-27-minimax-h3-h200",
+      "title": "MiniMax-H3 on 8\u00d7H200: 1.95\u00d7 Lossless, Up to 6.24\u00d7 at 0.76\u20130.91 SSIM",
+      "url": "https://lmsys.org/blog/2026-08-27-minimax-h3-h200/",
+      "image": "https://lmsys.org/images/blog/minimax-h3-h200/preview.png",
+      "date": "August 27, 2026"
+    },
     {
       "slug": "2026-08-26-qwen-flash-next",
       "title": "Qwen3.8-Flash-Next: Day-0 Support in SGLang",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-19-deepseek-v4-pro-engine-optimization-h20/",
       "image": "https://lmsys.org/images/blog/deepseek_v4/00_cover.png",
       "date": "August 19, 2026"
-    },
-    {
-      "slug": "2026-08-18-miles-v0-1",
-      "title": "Miles v0.1: Production-level Post-training",
-      "url": "https://lmsys.org/blog/2026-08-18-miles-v0-1/",
-      "image": "https://lmsys.org/images/blog/miles-v0-1/miles-logo.png",
-      "date": "August 18, 2026"
     }
   ]
 }

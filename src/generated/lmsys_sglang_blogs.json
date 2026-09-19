@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T12:05:20.643072Z",
+  "generatedAt": "2026-09-19T00:09:13.313847Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,7 +10,7 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 121,
+  "totalBlogFilesScanned": 122,
   "cardsPublished": 6,
   "posts": [
     {
@@ -19,6 +19,13 @@
       "url": "https://lmsys.org/blog/2026-09-10-deepseek-v41/",
       "image": "https://lmsys.org/images/blog/deepseek-v41/preview.png",
       "date": "September 10, 2026"
+    },
+    {
+      "slug": "2026-08-29-sglang-ssd-expert-pack",
+      "title": "Running DeepSeek-V4-Flash and Kimi-K3 on Consumer Hardware with SSD Expert Pack",
+      "url": "https://lmsys.org/blog/2026-08-29-sglang-ssd-expert-pack/",
+      "image": "https://lmsys.org/images/blog/sglang-ssd-expert-pack/expert-pack-layout.png",
+      "date": "August 29, 2026"
     },
     {
       "slug": "2026-08-28-infer-forge-loop-engineering",
@@ -46,13 +53,6 @@
       "title": "Fast Engine Recovery: Sub-Second Engine Restart for SGLang via Weight Cache Daemon",
       "url": "https://lmsys.org/blog/2026-08-21-sglang-fast-recovery/",
       "image": "https://lmsys.org/images/blog/sglang-fast-recovery/preview.png",
-      "date": "August 21, 2026"
-    },
-    {
-      "slug": "2026-08-21-ling3-flash-spec-decode-blackwell",
-      "title": "Chasing the Batch-1 Floor: Ling-3.0-flash Speculative Decode on Blackwell",
-      "url": "https://lmsys.org/blog/2026-08-21-ling3-flash-spec-decode-blackwell/",
-      "image": "https://lmsys.org/images/blog/ling3-flash-batch1/00_headline.png",
       "date": "August 21, 2026"
     }
   ]

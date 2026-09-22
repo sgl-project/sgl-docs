@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T12:05:16.173129Z",
+  "generatedAt": "2026-09-22T00:10:13.158496Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 122,
+  "totalBlogFilesScanned": 123,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-09-16-nvfp4-kv-cache",
+      "title": "Accelerating Long-Context and Agentic Inference with NVFP4 KV Cache",
+      "url": "https://lmsys.org/blog/2026-09-16-nvfp4-kv-cache/",
+      "image": "https://lmsys.org/images/blog/nvfp4-kv-cache/kv-cache-layout.svg",
+      "date": "September 16, 2026"
+    },
     {
       "slug": "2026-09-10-deepseek-v41",
       "title": "SGLang and Miles Add Day-0 Support for DeepSeek-V4.1",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-26-qwen-flash-next/",
       "image": "https://lmsys.org/images/blog/qwen-flash-next/cover.png",
       "date": "August 26, 2026"
-    },
-    {
-      "slug": "2026-08-21-sglang-fast-recovery",
-      "title": "Fast Engine Recovery: Sub-Second Engine Restart for SGLang via Weight Cache Daemon",
-      "url": "https://lmsys.org/blog/2026-08-21-sglang-fast-recovery/",
-      "image": "https://lmsys.org/images/blog/sglang-fast-recovery/preview.png",
-      "date": "August 21, 2026"
     }
   ]
 }

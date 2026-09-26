@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T12:05:50.163929Z",
+  "generatedAt": "2026-09-26T00:09:01.139560Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 123,
+  "totalBlogFilesScanned": 124,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-09-25-sglang-decision-models",
+      "title": "Scaling JEV-like Decision Models with SGLang",
+      "url": "https://lmsys.org/blog/2026-09-25-sglang-decision-models/",
+      "image": "https://lmsys.org/images/blog/sglang-decision-models/title-card.png",
+      "date": "September 25, 2026"
+    },
     {
       "slug": "2026-09-16-nvfp4-kv-cache",
       "title": "Accelerating Long-Context and Agentic Inference with NVFP4 KV Cache",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-27-minimax-h3-h200/",
       "image": "https://lmsys.org/images/blog/minimax-h3-h200/preview.png",
       "date": "August 27, 2026"
-    },
-    {
-      "slug": "2026-08-26-qwen-flash-next",
-      "title": "Qwen3.8-Flash-Next: Day-0 Support in SGLang",
-      "url": "https://lmsys.org/blog/2026-08-26-qwen-flash-next/",
-      "image": "https://lmsys.org/images/blog/qwen-flash-next/cover.png",
-      "date": "August 26, 2026"
     }
   ]
 }

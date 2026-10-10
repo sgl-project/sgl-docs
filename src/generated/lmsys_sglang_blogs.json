@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T12:05:34.432250Z",
+  "generatedAt": "2026-10-10T00:10:36.739932Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 124,
+  "totalBlogFilesScanned": 125,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-09-vera-rubin",
+      "title": "SGLang and Miles on NVIDIA Vera Rubin",
+      "url": "https://lmsys.org/blog/2026-10-09-vera-rubin/",
+      "image": "https://lmsys.org/images/blog/vera-rubin/mla-pipeline.png",
+      "date": "October 9, 2026"
+    },
     {
       "slug": "2026-09-25-sglang-decision-models",
       "title": "Scaling JEV-like Decision Models with SGLang",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-08-28-infer-forge-loop-engineering/",
       "image": "https://lmsys.org/images/blog/infer-forge-loop/cover.png",
       "date": "August 28, 2026"
-    },
-    {
-      "slug": "2026-08-27-minimax-h3-h200",
-      "title": "MiniMax-H3 on 8\u00d7H200: 1.95\u00d7 Lossless, Up to 6.24\u00d7 at 0.76\u20130.91 SSIM",
-      "url": "https://lmsys.org/blog/2026-08-27-minimax-h3-h200/",
-      "image": "https://lmsys.org/images/blog/minimax-h3-h200/preview.png",
-      "date": "August 27, 2026"
     }
   ]
 }

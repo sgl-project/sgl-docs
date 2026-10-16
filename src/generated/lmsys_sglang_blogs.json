@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T12:05:41.002394Z",
+  "generatedAt": "2026-10-16T00:08:26.790778Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,23 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 125,
+  "totalBlogFilesScanned": 127,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-15-nvidia-nemotron-3-5-super-vl",
+      "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3.5 Super VL",
+      "url": "https://lmsys.org/blog/2026-10-15-nvidia-nemotron-3-5-super-vl/",
+      "image": "https://lmsys.org/images/blog/nemotron-3-5-super-vl/image1.png",
+      "date": "October 15, 2026"
+    },
+    {
+      "slug": "2026-10-15-meta-muse-spark-open",
+      "title": "SGLang and Miles Add Day-0 Support for Muse Spark Open",
+      "url": "https://lmsys.org/blog/2026-10-15-meta-muse-spark-open/",
+      "image": "https://lmsys.org/images/blog/meta-muse-spark-open/muse-spark-architecture.svg",
+      "date": "October 15, 2026"
+    },
     {
       "slug": "2026-10-09-vera-rubin",
       "title": "SGLang and Miles on NVIDIA Vera Rubin",
@@ -40,20 +54,6 @@
       "url": "https://lmsys.org/blog/2026-09-10-deepseek-v41/",
       "image": "https://lmsys.org/images/blog/deepseek-v41/preview.png",
       "date": "September 10, 2026"
-    },
-    {
-      "slug": "2026-08-29-sglang-ssd-expert-pack",
-      "title": "Running DeepSeek-V4-Flash and Kimi-K3 on Consumer Hardware with SSD Expert Pack",
-      "url": "https://lmsys.org/blog/2026-08-29-sglang-ssd-expert-pack/",
-      "image": "https://lmsys.org/images/blog/sglang-ssd-expert-pack/expert-pack-layout.png",
-      "date": "August 29, 2026"
-    },
-    {
-      "slug": "2026-08-28-infer-forge-loop-engineering",
-      "title": "Infer-forge: Harness, Loop, and Graph Engineering Around SGLang",
-      "url": "https://lmsys.org/blog/2026-08-28-infer-forge-loop-engineering/",
-      "image": "https://lmsys.org/images/blog/infer-forge-loop/cover.png",
-      "date": "August 28, 2026"
     }
   ]
 }

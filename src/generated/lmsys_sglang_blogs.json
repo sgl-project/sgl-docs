@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T12:05:33.302156Z",
+  "generatedAt": "2026-10-17T00:08:44.988555Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 127,
+  "totalBlogFilesScanned": 128,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-16-beam",
+      "title": "SGLang Powers Beam in Production",
+      "url": "https://lmsys.org/blog/2026-10-16-beam/",
+      "image": "https://lmsys.org/images/blog/beam/openhands-tp4.png",
+      "date": "October 16, 2026"
+    },
     {
       "slug": "2026-10-15-nvidia-nemotron-3-5-super-vl",
       "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3.5 Super VL",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-09-16-nvfp4-kv-cache/",
       "image": "https://lmsys.org/images/blog/nvfp4-kv-cache/kv-cache-layout.svg",
       "date": "September 16, 2026"
-    },
-    {
-      "slug": "2026-09-10-deepseek-v41",
-      "title": "SGLang and Miles Add Day-0 Support for DeepSeek-V4.1",
-      "url": "https://lmsys.org/blog/2026-09-10-deepseek-v41/",
-      "image": "https://lmsys.org/images/blog/deepseek-v41/preview.png",
-      "date": "September 10, 2026"
     }
   ]
 }

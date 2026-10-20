@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T00:09:32.232218Z",
+  "generatedAt": "2026-10-20T12:05:10.574687Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -14,9 +14,9 @@
   "cardsPublished": 6,
   "posts": [
     {
-      "slug": "2026-10-18-sglang-vendor-kernel-runtime",
+      "slug": "2026-10-18-sglang-low-latency-mode",
       "title": "SGLang Low-Latency Mode: Kernels and Runtime",
-      "url": "https://lmsys.org/blog/2026-10-18-sglang-vendor-kernel-runtime/",
+      "url": "https://lmsys.org/blog/2026-10-18-sglang-low-latency-mode/",
       "image": "https://lmsys.org/images/blog/sglang-vendor-kernel-runtime/figure-1.svg",
       "date": "October 18, 2026"
     },

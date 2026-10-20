@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T12:05:56.780619Z",
+  "generatedAt": "2026-10-20T00:09:32.232218Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 128,
+  "totalBlogFilesScanned": 129,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-18-sglang-vendor-kernel-runtime",
+      "title": "SGLang Low-Latency Mode: Kernels and Runtime",
+      "url": "https://lmsys.org/blog/2026-10-18-sglang-vendor-kernel-runtime/",
+      "image": "https://lmsys.org/images/blog/sglang-vendor-kernel-runtime/figure-1.svg",
+      "date": "October 18, 2026"
+    },
     {
       "slug": "2026-10-16-beam",
       "title": "SGLang Powers Beam in Production",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-09-25-sglang-decision-models/",
       "image": "https://lmsys.org/images/blog/sglang-decision-models/title-card.png",
       "date": "September 25, 2026"
-    },
-    {
-      "slug": "2026-09-16-nvfp4-kv-cache",
-      "title": "Accelerating Long-Context and Agentic Inference with NVFP4 KV Cache",
-      "url": "https://lmsys.org/blog/2026-09-16-nvfp4-kv-cache/",
-      "image": "https://lmsys.org/images/blog/nvfp4-kv-cache/kv-cache-layout.svg",
-      "date": "September 16, 2026"
     }
   ]
 }

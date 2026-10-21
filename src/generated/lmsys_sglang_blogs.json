@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T12:05:10.574687Z",
+  "generatedAt": "2026-10-21T00:09:07.026658Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 129,
+  "totalBlogFilesScanned": 130,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-20-sglang-torchtpu",
+      "title": "SGLang-TorchTPU: PyTorch-Native Production Serving on TPUs",
+      "url": "https://lmsys.org/blog/2026-10-20-sglang-torchtpu/",
+      "image": "https://lmsys.org/images/blog/sglang-torchtpu/hero.png",
+      "date": "October 20, 2026"
+    },
     {
       "slug": "2026-10-18-sglang-low-latency-mode",
       "title": "SGLang Low-Latency Mode: Kernels and Runtime",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-09-vera-rubin/",
       "image": "https://lmsys.org/images/blog/vera-rubin/mla-pipeline.png",
       "date": "October 9, 2026"
-    },
-    {
-      "slug": "2026-09-25-sglang-decision-models",
-      "title": "Scaling JEV-like Decision Models with SGLang",
-      "url": "https://lmsys.org/blog/2026-09-25-sglang-decision-models/",
-      "image": "https://lmsys.org/images/blog/sglang-decision-models/title-card.png",
-      "date": "September 25, 2026"
     }
   ]
 }

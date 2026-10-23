@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T12:05:50.280721Z",
+  "generatedAt": "2026-10-23T00:09:07.162827Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 131,
+  "totalBlogFilesScanned": 132,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-22-sglang-trainium-beta",
+      "title": "Announcing the SGLang AWS Trainium Plugin Beta",
+      "url": "https://lmsys.org/blog/2026-10-22-sglang-trainium-beta/",
+      "image": "https://lmsys.org/images/blog/2026-10-22-sglang-trainium-beta/cover.png",
+      "date": "October 22, 2026"
+    },
     {
       "slug": "2026-10-21-elastic-ep-scaling-nixl",
       "title": "Elastic Expert Parallelism Scaling in SGLang: Growing a Live MoE Deployment with NIXL",
@@ -46,13 +53,6 @@
       "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3.5 Super VL",
       "url": "https://lmsys.org/blog/2026-10-15-nvidia-nemotron-3-5-super-vl/",
       "image": "https://lmsys.org/images/blog/nemotron-3-5-super-vl/image1.png",
-      "date": "October 15, 2026"
-    },
-    {
-      "slug": "2026-10-15-meta-muse-spark-open",
-      "title": "SGLang and Miles Add Day-0 Support for Muse Spark Open",
-      "url": "https://lmsys.org/blog/2026-10-15-meta-muse-spark-open/",
-      "image": "https://lmsys.org/images/blog/meta-muse-spark-open/muse-spark-architecture.svg",
       "date": "October 15, 2026"
     }
   ]

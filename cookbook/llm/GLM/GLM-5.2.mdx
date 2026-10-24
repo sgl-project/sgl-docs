@@ -1,0 +1,248 @@
+---
+title: GLM-5.2
+metatags:
+    description: "Deploy GLM-5.2 with SGLang on NVIDIA RTX PRO 6000 / RTX 6000D (SM120) - the NVFP4 checkpoint fits a single 8-GPU PCIe workstation box."
+---
+
+## 1. Model Introduction
+
+[GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) is a 753B-parameter MoE model
+(`GlmMoeDsaForCausalLM`) with DeepSeek Sparse Attention (DSA) and MTP layers for
+speculative decoding, targeting reasoning, coding, and agentic workloads.
+
+**Key Features:**
+
+- 753B total parameters, MoE with DeepSeek Sparse Attention (`index_topk` 2048)
+- Hybrid thinking (reasoning on by default; `enable_thinking: false` to disable)
+- MTP layer for EAGLE-style speculative decoding
+- The NVFP4 quantization (433 GB) fits a **single 8-GPU SM120 PCIe box**
+  (RTX PRO 6000 Blackwell 8x96GB or RTX 6000D 8x84GB)
+
+**Available Models:**
+
+- **BF16 (full precision)**: [zai-org/GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)
+- **FP8 (8-bit quantized)**: [zai-org/GLM-5.2-FP8](https://huggingface.co/zai-org/GLM-5.2-FP8)
+- **NVFP4 (4-bit quantized)**: [nvidia/GLM-5.2-NVFP4](https://huggingface.co/nvidia/GLM-5.2-NVFP4)
+
+**License:** MIT
+
+## 2. SGLang Installation
+
+Please refer to the [official SGLang installation guide](../../../docs/get-started/installation).
+
+| Hardware Platform | Docker Image |
+| --- | --- |
+| NVIDIA RTX PRO 6000 Blackwell / RTX 6000D (SM120) | `lmsysorg/sglang:v0.5.15` |
+
+The configuration below was validated with the official `lmsysorg/sglang:v0.5.15`
+image on 8x RTX 6000D. Datacenter (H200/B200/GB300) shapes follow the
+[GLM-5 guide](./GLM-5) — the two models share their structure.
+
+**SM120 sparse MLA support** requires
+[sglang#26928](https://github.com/sgl-project/sglang/pull/26928) (FlashInfer
+sparse MLA for GLM on SM120) and
+[DeepGEMM with SM120 attention](https://github.com/deepseek-ai/DeepGEMM/pull/324).
+Once these land in a release, the commands below will work out of the box with
+FP8 KV cache. Until then, the TP8 command with `--attention-backend flashinfer
+--kv-cache-dtype bf16` works on vanilla v0.5.15 as a fallback (see Configuration
+Tips).
+
+## 3. Model Deployment
+
+### TP8 (default)
+
+```bash
+sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 8 \
+  --quantization modelopt_fp4 \
+  --kv-cache-dtype fp8_e4m3 \
+  --disable-shared-experts-fusion \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.72 \
+  --disable-radix-cache \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+### TP8 + MTP (low latency)
+
+Add MTP speculative decoding for lower decode latency at low concurrency
+(bs=1 TPOT 15.8 ms vs 23.8 ms without MTP):
+
+```bash
+sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 8 \
+  --quantization modelopt_fp4 \
+  --kv-cache-dtype fp8_e4m3 \
+  --disable-shared-experts-fusion \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 3 \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.76 \
+  --disable-radix-cache \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+### TP4 x PP2 (throughput)
+
+Maps onto the typical 4+4 dual-NUMA PCIe topology, halving cross-NUMA
+all-reduce traffic. Delivers **2-5x higher throughput** than TP8 on PCIe boxes:
+
+```bash
+sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 4 \
+  --pipeline-parallel-size 2 \
+  --quantization modelopt_fp4 \
+  --kv-cache-dtype fp8_e4m3 \
+  --disable-shared-experts-fusion \
+  --disable-overlap-schedule \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.72 \
+  --disable-radix-cache \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+### TP4 x PP2 + MTP (best overall)
+
+Requires [sglang#30775](https://github.com/sgl-project/sglang/pull/30775).
+Combines the PP throughput advantage with MTP decode acceleration — **the best
+config at every batch size** in pure decode performance:
+
+```bash
+SGLANG_ENABLE_PP_SPEC=1 sglang serve \
+  --model-path nvidia/GLM-5.2-NVFP4 \
+  --tp 4 \
+  --pipeline-parallel-size 2 \
+  --quantization modelopt_fp4 \
+  --kv-cache-dtype fp8_e4m3 \
+  --disable-shared-experts-fusion \
+  --disable-overlap-schedule \
+  --speculative-algorithm EAGLE \
+  --speculative-num-steps 2 \
+  --speculative-eagle-topk 1 \
+  --speculative-num-draft-tokens 3 \
+  --trust-remote-code \
+  --tool-call-parser glm47 \
+  --reasoning-parser glm45 \
+  --mem-fraction-static 0.76 \
+  --disable-radix-cache \
+  --host 0.0.0.0 \
+  --port 30000
+```
+
+### Configuration Tips (SM120)
+
+- `--disable-shared-experts-fusion` is **required** — avoids a tensor-size mismatch
+  when loading GLM-5.2-NVFP4 ([sglang#29562](https://github.com/sgl-project/sglang/issues/29562)).
+- `--kv-cache-dtype fp8_e4m3` with [sglang#26928](https://github.com/sgl-project/sglang/pull/26928)
+  enables FlashInfer sparse MLA on SM120 — the recommended path for both
+  performance and KV cache capacity. **Fallback** (vanilla v0.5.15 without #26928):
+  use `--attention-backend flashinfer --kv-cache-dtype bf16` for dense MLA, which
+  is functionally correct but uses 2x KV memory and loses sparse prefill/decode
+  acceleration at long context.
+- The MoE runner auto-selects `flashinfer_cutlass` on SM120 (trtllm-gen MoE kernels
+  are SM100-only) — no flag needed.
+- MTP configs use `--mem-fraction-static 0.76` (draft model weights require more
+  headroom than the default 0.72).
+- Some SM120 PCIe hosts hang at `Init torch distributed begin` due to PCIe ACS/P2P
+  probing — set `NCCL_P2P_DISABLE=1`. Add `--disable-custom-all-reduce` if CUDA
+  graph capture fails with `invalid argument` on the custom all-reduce IPC path.
+- If the server is killed with `SIGKILL`, scheduler processes can become zombies that
+  pin GPU memory. Run the container with `docker run --init ...` so they are reaped,
+  and wait for `nvidia-smi` to report memory released before restarting.
+
+## 4. Model Invocation
+
+For reasoning parser, tool calling, and thinking-mode request examples, see the
+[GLM-5 guide](./GLM-5) — the invocation interface is identical
+(`--tool-call-parser glm47`, `--reasoning-parser glm45`).
+
+## 5. Benchmarks
+
+Test environment: 8x NVIDIA RTX 6000D (84 GB, SM120, PCIe), GLM-5.2-NVFP4,
+FP8 KV + FlashInfer sparse MLA, SGLang v0.5.15 + #26928, Docker image
+`lmsysorg/sglang:v0.5.15`.
+
+### 5.1 Accuracy
+
+GSM8K (few-shot, 20 questions, `python3 benchmark/gsm8k/bench_sglang.py`):
+
+| Config | Accuracy | Accept Length |
+|---|---|---|
+| TP8 | 0.95 | — |
+| TP4xPP2 | 0.90 | — |
+| TP8 + MTP | 0.85 | 2.60-2.76 |
+| TP4xPP2 + MTP | 0.85 | 2.65-2.71 |
+
+### 5.2 End-to-End (ISL 8192, OSL 64)
+
+`python3 -m sglang.bench_serving --dataset-name random --random-input-len 8192
+--random-output-len 64 --random-range-ratio 1.0 --disable-radix-cache`,
+median values:
+
+**TTFT (ms):**
+
+| Concurrency | TP8 | TP4xPP2 | TP8+MTP | TP4xPP2+MTP |
+|---|---|---|---|---|
+| 1 | 6811 | **2520** | 7158 | 2561 |
+| 4 | 20362 | **4491** | 23097 | 5177 |
+| 8 | 50555 | **7105** | 40474 | 12964 |
+| 16 | 110982 | **14341** | 97504 | 28135 |
+| 32 | 230625 | **41884** | 212290 | 59702 |
+
+**Output throughput (tok/s):**
+
+| Concurrency | TP8 | TP4xPP2 | TP8+MTP | TP4xPP2+MTP |
+|---|---|---|---|---|
+| 1 | 7.7 | 16.2 | 7.9 | **19.7** |
+| 4 | 8.2 | **31.4** | 8.6 | 31.6 |
+| 8 | 8.3 | **37.3** | 8.9 | 31.7 |
+| 16 | 8.3 | **38.1** | 8.7 | 31.7 |
+| 32 | 8.2 | **38.9** | 8.8 | 31.8 |
+
+### 5.3 Pure Decode (ISL 1, OSL 256)
+
+Isolates decode performance with negligible prefill overhead:
+
+**TPOT (ms):**
+
+| Concurrency | TP8 | TP4xPP2 | TP8+MTP | TP4xPP2+MTP |
+|---|---|---|---|---|
+| 1 | 24.2 | 22.6 | 16.2 | **10.7** |
+| 4 | 47.2 | 26.8 | 32.2 | **17.8** |
+| 8 | 71.7 | 40.8 | 39.8 | **25.1** |
+| 16 | 86.9 | 57.7 | 68.8 | **34.9** |
+| 32 | 106.1 | 81.6 | 69.1 | **48.6** |
+
+**Output throughput (tok/s):**
+
+| Concurrency | TP8 | TP4xPP2 | TP8+MTP | TP4xPP2+MTP |
+|---|---|---|---|---|
+| 1 | 40.6 | 43.7 | 58.8 | **86.7** |
+| 4 | 83.6 | 146.1 | 113.2 | **202.9** |
+| 8 | 110.5 | 193.9 | 182.9 | **294.6** |
+| 16 | 182.2 | 276.3 | 216.2 | **423.2** |
+| 32 | 300.1 | 390.6 | 408.0 | **611.4** |
+
+### 5.4 Configuration Guide
+
+- **Interactive / agentic (low concurrency):** TP4xPP2 + MTP — lowest TPOT
+  (10.7 ms at bs=1, 2.2x faster than TP8) and highest single-stream throughput
+  (86.7 tok/s).
+- **Batch / offline (high concurrency):** TP4xPP2 without MTP — highest
+  end-to-end throughput (38.9 tok/s at bs=32 with ISL 8K) and lowest TTFT.
+- **TP8** is not optimal at any batch size on PCIe SM120 — the per-layer
+  all-reduce bottleneck limits throughput to ~8 tok/s regardless of concurrency.

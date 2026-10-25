@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T12:04:37.342494Z",
+  "generatedAt": "2026-10-25T00:09:46.499214Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 132,
+  "totalBlogFilesScanned": 133,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-24-dsv41-deepinfer",
+      "title": "More Than DeepInfer: What SGLang Delivers",
+      "url": "https://lmsys.org/blog/2026-10-24-dsv41-deepinfer/",
+      "image": "https://lmsys.org/images/blog/dsv41_deepinfer/cover.jpg",
+      "date": "October 24, 2026"
+    },
     {
       "slug": "2026-10-22-sglang-trainium-beta",
       "title": "Announcing the SGLang AWS Trainium Plugin Beta",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-16-beam/",
       "image": "https://lmsys.org/images/blog/beam/openhands-tp4.png",
       "date": "October 16, 2026"
-    },
-    {
-      "slug": "2026-10-15-nvidia-nemotron-3-5-super-vl",
-      "title": "SGLang Adds Day-0 Support for NVIDIA Nemotron 3.5 Super VL",
-      "url": "https://lmsys.org/blog/2026-10-15-nvidia-nemotron-3-5-super-vl/",
-      "image": "https://lmsys.org/images/blog/nemotron-3-5-super-vl/image1.png",
-      "date": "October 15, 2026"
     }
   ]
 }

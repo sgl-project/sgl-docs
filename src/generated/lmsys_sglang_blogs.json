@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T13:18:22.224743Z",
+  "generatedAt": "2026-10-27T00:08:40.365128Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 133,
+  "totalBlogFilesScanned": 134,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-10-26-cf-security",
+      "title": "SGLang security update: improving request isolation",
+      "url": "https://lmsys.org/blog/2026-10-26-cf-security/",
+      "image": "https://lmsys.org/images/blog/cf-security/kv-cache-race.png",
+      "date": "October 26, 2026"
+    },
     {
       "slug": "2026-10-24-dsv41-deepinfer",
       "title": "More Than DeepInfer: What SGLang Delivers",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-18-sglang-low-latency-mode/",
       "image": "https://lmsys.org/images/blog/sglang-vendor-kernel-runtime/figure-1.svg",
       "date": "October 18, 2026"
-    },
-    {
-      "slug": "2026-10-16-beam",
-      "title": "SGLang Powers Beam in Production",
-      "url": "https://lmsys.org/blog/2026-10-16-beam/",
-      "image": "https://lmsys.org/images/blog/beam/openhands-tp4.png",
-      "date": "October 16, 2026"
     }
   ]
 }

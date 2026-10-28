@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T12:05:39.139048Z",
+  "generatedAt": "2026-10-28T00:07:08.985084Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,7 +10,7 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 134,
+  "totalBlogFilesScanned": 135,
   "cardsPublished": 6,
   "posts": [
     {
@@ -19,6 +19,13 @@
       "url": "https://lmsys.org/blog/2026-10-26-cf-security/",
       "image": "https://lmsys.org/images/blog/cf-security/kv-cache-race.png",
       "date": "October 26, 2026"
+    },
+    {
+      "slug": "2026-10-25-minite",
+      "title": "miniTE Technical Report: Stable and Efficient Reinforcement Learning with Native NVFP4",
+      "url": "https://lmsys.org/blog/2026-10-25-minite/",
+      "image": "https://lmsys.org/images/blog/minite/deterministic.png",
+      "date": "October 25, 2026"
     },
     {
       "slug": "2026-10-24-dsv41-deepinfer",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-20-sglang-torchtpu/",
       "image": "https://lmsys.org/images/blog/sglang-torchtpu/hero.png",
       "date": "October 20, 2026"
-    },
-    {
-      "slug": "2026-10-18-sglang-low-latency-mode",
-      "title": "SGLang Low-Latency Mode: Kernels and Runtime",
-      "url": "https://lmsys.org/blog/2026-10-18-sglang-low-latency-mode/",
-      "image": "https://lmsys.org/images/blog/sglang-vendor-kernel-runtime/figure-1.svg",
-      "date": "October 18, 2026"
     }
   ]
 }

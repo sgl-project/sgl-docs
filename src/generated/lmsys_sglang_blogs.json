@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T00:07:18.770711Z",
+  "generatedAt": "2026-10-29T12:04:09.536781Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -46,7 +46,7 @@
       "title": "Training SWE agents with Miles on MI355X: taming long-tail trajectories and complex sandbox coordination",
       "url": "https://lmsys.org/blog/2026-10-22-miles-mi355x-agentic-rl/",
       "image": "https://lmsys.org/images/blog/miles-mi355x-agentic-rl/architecture.png",
-      "date": "October 22, 2026"
+      "date": "October 29, 2026"
     },
     {
       "slug": "2026-10-21-elastic-ep-scaling-nixl",

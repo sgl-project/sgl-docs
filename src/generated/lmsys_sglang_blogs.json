@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T12:04:07.983280Z",
+  "generatedAt": "2026-10-29T00:07:18.770711Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,7 +10,7 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 135,
+  "totalBlogFilesScanned": 136,
   "cardsPublished": 6,
   "posts": [
     {
@@ -42,18 +42,18 @@
       "date": "October 22, 2026"
     },
     {
+      "slug": "2026-10-22-miles-mi355x-agentic-rl",
+      "title": "Training SWE agents with Miles on MI355X: taming long-tail trajectories and complex sandbox coordination",
+      "url": "https://lmsys.org/blog/2026-10-22-miles-mi355x-agentic-rl/",
+      "image": "https://lmsys.org/images/blog/miles-mi355x-agentic-rl/architecture.png",
+      "date": "October 22, 2026"
+    },
+    {
       "slug": "2026-10-21-elastic-ep-scaling-nixl",
       "title": "Elastic Expert Parallelism Scaling in SGLang: Growing a Live MoE Deployment with NIXL",
       "url": "https://lmsys.org/blog/2026-10-21-elastic-ep-scaling-nixl/",
       "image": "https://lmsys.org/images/blog/elastic-ep-scaling-nixl/scaling-options.png",
       "date": "October 21, 2026"
-    },
-    {
-      "slug": "2026-10-20-sglang-torchtpu",
-      "title": "SGLang-TorchTPU: PyTorch-Native Production Serving on TPUs",
-      "url": "https://lmsys.org/blog/2026-10-20-sglang-torchtpu/",
-      "image": "https://lmsys.org/images/blog/sglang-torchtpu/hero.png",
-      "date": "October 20, 2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T12:03:43.836751Z",
+  "generatedAt": "2026-11-03T00:06:25.799740Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 136,
+  "totalBlogFilesScanned": 137,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-11-02-hicache-distributed-serving",
+      "title": "HiCache Across Multi-Parallelism and Distributed Serving",
+      "url": "https://lmsys.org/blog/2026-11-02-hicache-distributed-serving/",
+      "image": "https://lmsys.org/images/blog/hicache-distributed-serving/cover.jpg",
+      "date": "November 2, 2026"
+    },
     {
       "slug": "2026-10-26-cf-security",
       "title": "SGLang security update: improving request isolation",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-22-miles-mi355x-agentic-rl/",
       "image": "https://lmsys.org/images/blog/miles-mi355x-agentic-rl/architecture.png",
       "date": "October 29, 2026"
-    },
-    {
-      "slug": "2026-10-21-elastic-ep-scaling-nixl",
-      "title": "Elastic Expert Parallelism Scaling in SGLang: Growing a Live MoE Deployment with NIXL",
-      "url": "https://lmsys.org/blog/2026-10-21-elastic-ep-scaling-nixl/",
-      "image": "https://lmsys.org/images/blog/elastic-ep-scaling-nixl/scaling-options.png",
-      "date": "October 21, 2026"
     }
   ]
 }

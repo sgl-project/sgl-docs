@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T00:06:12.658344Z",
+  "generatedAt": "2026-11-06T12:03:32.127132Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 137,
+  "totalBlogFilesScanned": 138,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-11-04-xm-sparse",
+      "title": "XM-Sparse: Pushing the Throughput Frontier of Sparse Attention with Netpreme X-Mem\u2122",
+      "url": "https://lmsys.org/blog/2026-11-04-xm-sparse/",
+      "image": "https://lmsys.org/images/blog/xm-sparse/cover.jpg",
+      "date": "November 5, 2026"
+    },
     {
       "slug": "2026-11-02-hicache-distributed-serving",
       "title": "HiCache Across Multi-Parallelism and Distributed Serving",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-22-sglang-trainium-beta/",
       "image": "https://lmsys.org/images/blog/2026-10-22-sglang-trainium-beta/cover.png",
       "date": "October 22, 2026"
-    },
-    {
-      "slug": "2026-10-22-miles-mi355x-agentic-rl",
-      "title": "Training SWE agents with Miles on MI355X: taming long-tail trajectories and complex sandbox coordination",
-      "url": "https://lmsys.org/blog/2026-10-22-miles-mi355x-agentic-rl/",
-      "image": "https://lmsys.org/images/blog/miles-mi355x-agentic-rl/architecture.png",
-      "date": "October 29, 2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T12:03:29.376258Z",
+  "generatedAt": "2026-11-10T00:05:59.151325Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,7 +10,7 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 138,
+  "totalBlogFilesScanned": 139,
   "cardsPublished": 6,
   "posts": [
     {
@@ -26,6 +26,13 @@
       "url": "https://lmsys.org/blog/2026-11-02-hicache-distributed-serving/",
       "image": "https://lmsys.org/images/blog/hicache-distributed-serving/cover.jpg",
       "date": "November 2, 2026"
+    },
+    {
+      "slug": "2026-11-01-glm53-h200-pd",
+      "title": "Accelerating GLM-5.3-Flash on H200: High-Throughput Disaggregated Serving",
+      "url": "https://lmsys.org/blog/2026-11-01-glm53-h200-pd/",
+      "image": "https://lmsys.org/images/blog/glm53-h200-pd/cover.png",
+      "date": "November 1, 2026"
     },
     {
       "slug": "2026-10-26-cf-security",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-10-24-dsv41-deepinfer/",
       "image": "https://lmsys.org/images/blog/dsv41_deepinfer/cover.jpg",
       "date": "October 24, 2026"
-    },
-    {
-      "slug": "2026-10-22-sglang-trainium-beta",
-      "title": "Announcing the SGLang AWS Trainium Plugin Beta",
-      "url": "https://lmsys.org/blog/2026-10-22-sglang-trainium-beta/",
-      "image": "https://lmsys.org/images/blog/2026-10-22-sglang-trainium-beta/cover.png",
-      "date": "October 22, 2026"
     }
   ]
 }

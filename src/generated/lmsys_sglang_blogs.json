@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T12:03:27.474783Z",
+  "generatedAt": "2026-11-14T00:05:55.523059Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,23 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 143,
+  "totalBlogFilesScanned": 145,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-11-13-sglang-nvidia-nim",
+      "title": "SGLang and NVIDIA NIM: Advancing Enterprise Inference Together",
+      "url": "https://lmsys.org/blog/2026-11-13-sglang-nvidia-nim/",
+      "image": "https://lmsys.org/images/blog/sglang-nvidia-nim/nim-on-sglang.png",
+      "date": "November 13, 2026"
+    },
+    {
+      "slug": "2026-11-13-miles-vera-sandboxes",
+      "title": "RadixArk Miles runs agentic RL training on NVIDIA Vera CPUs: faster sandboxes, faster training",
+      "url": "https://lmsys.org/blog/2026-11-13-miles-vera-sandboxes/",
+      "image": "https://lmsys.org/images/blog/miles-vera-sandboxes/preview.png",
+      "date": "November 13, 2026"
+    },
     {
       "slug": "2026-11-12-sglang-neuron-v0.1.0",
       "title": "SGLang-Neuron v0.1.0: SGLang's Serving Stack on AWS Trainium",
@@ -40,20 +54,6 @@
       "url": "https://lmsys.org/blog/2026-11-05-muse-spark-open-ultrafast/",
       "image": "https://lmsys.org/images/blog/muse-spark-open-ultrafast/fig_tps.png",
       "date": "November 11, 2026"
-    },
-    {
-      "slug": "2026-11-04-xm-sparse",
-      "title": "XM-Sparse: Pushing the Throughput Frontier of Sparse Attention with Netpreme X-Mem\u2122",
-      "url": "https://lmsys.org/blog/2026-11-04-xm-sparse/",
-      "image": "https://lmsys.org/images/blog/xm-sparse/cover.jpg",
-      "date": "November 5, 2026"
-    },
-    {
-      "slug": "2026-11-02-hicache-distributed-serving",
-      "title": "HiCache Across Multi-Parallelism and Distributed Serving",
-      "url": "https://lmsys.org/blog/2026-11-02-hicache-distributed-serving/",
-      "image": "https://lmsys.org/images/blog/hicache-distributed-serving/cover.jpg",
-      "date": "November 2, 2026"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T12:03:27.697532Z",
+  "generatedAt": "2026-11-18T00:05:52.658379Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 145,
+  "totalBlogFilesScanned": 147,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-11-17-sglang-summit-recap",
+      "title": "SGLang Summit 2026 Recap: Building Open AI Infrastructure Together",
+      "url": "https://lmsys.org/blog/2026-11-17-sglang-summit-recap/",
+      "image": "https://lmsys.org/images/blog/sglang-summit-2026/summit-opening-hall.webp",
+      "date": "November 17, 2026"
+    },
     {
       "slug": "2026-11-13-sglang-nvidia-nim",
       "title": "SGLang and NVIDIA NIM: Advancing Enterprise Inference Together",
@@ -46,13 +53,6 @@
       "title": "Unified Memory in SGLang: One Arena for Every Token Lifetime",
       "url": "https://lmsys.org/blog/2026-11-11-unified-memory/",
       "image": "https://lmsys.org/images/blog/unified-memory/fig2-one-arena.svg",
-      "date": "November 11, 2026"
-    },
-    {
-      "slug": "2026-11-05-muse-spark-open-ultrafast",
-      "title": "Muse Spark Open Ultrafast: Pushing beyond 1,000 Tokens per second",
-      "url": "https://lmsys.org/blog/2026-11-05-muse-spark-open-ultrafast/",
-      "image": "https://lmsys.org/images/blog/muse-spark-open-ultrafast/fig_tps.png",
       "date": "November 11, 2026"
     }
   ]

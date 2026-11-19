@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T12:03:37.676299Z",
+  "generatedAt": "2026-11-19T00:06:19.119948Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,9 +10,16 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 147,
+  "totalBlogFilesScanned": 148,
   "cardsPublished": 6,
   "posts": [
+    {
+      "slug": "2026-11-18-humming-sglang",
+      "title": "Humming in SGLang: Flexible Low-Bit Kernels for Efficient MoE Serving",
+      "url": "https://lmsys.org/blog/2026-11-18-humming-sglang/",
+      "image": "https://lmsys.org/images/blog/humming-sglang/humming_sgl_preview.png",
+      "date": "November 18, 2026"
+    },
     {
       "slug": "2026-11-17-sglang-summit-recap",
       "title": "SGLang Summit 2026 Recap: Building Open AI Infrastructure Together",
@@ -47,13 +54,6 @@
       "url": "https://lmsys.org/blog/2026-11-12-sglang-consortium/",
       "image": "https://lmsys.org/images/blog/sglang-consortium/consortium-2026-11-16.jpg",
       "date": "November 12, 2026"
-    },
-    {
-      "slug": "2026-11-11-unified-memory",
-      "title": "Unified Memory in SGLang: One Arena for Every Token Lifetime",
-      "url": "https://lmsys.org/blog/2026-11-11-unified-memory/",
-      "image": "https://lmsys.org/images/blog/unified-memory/fig2-one-arena.svg",
-      "date": "November 11, 2026"
     }
   ]
 }

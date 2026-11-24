@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-24T00:06:09.260442Z",
+  "generatedAt": "2026-11-24T12:03:28.966941Z",
   "sourceRepo": "https://github.com/lm-sys/lm-sys.github.io/tree/main/blog",
   "keywords": [
     "sglang",
@@ -10,7 +10,7 @@
     "sglang diffusion"
   ],
   "maxCards": 6,
-  "totalBlogFilesScanned": 150,
+  "totalBlogFilesScanned": 151,
   "cardsPublished": 6,
   "posts": [
     {
@@ -18,6 +18,13 @@
       "title": "True On-Policy RL: Bit-Exact Rollout and Training with SGLang and Miles",
       "url": "https://lmsys.org/blog/2026-11-23-miles-true-on-policy/",
       "image": "https://lmsys.org/images/blog/miles-true-on-policy/preview.jpg",
+      "date": "November 23, 2026"
+    },
+    {
+      "slug": "2026-11-23-ernie55-flash-low-latency",
+      "title": "Toward the Decode Limit: ERNIE 5.5 Flash at 1074 tokens/s on SGLang",
+      "url": "https://lmsys.org/blog/2026-11-23-ernie55-flash-low-latency/",
+      "image": "https://lmsys.org/images/blog/ernie55-flash-low-latency/decode-progress.png",
       "date": "November 23, 2026"
     },
     {
@@ -46,13 +53,6 @@
       "title": "SGLang and NVIDIA NIM: Advancing Enterprise Inference Together",
       "url": "https://lmsys.org/blog/2026-11-13-sglang-nvidia-nim/",
       "image": "https://lmsys.org/images/blog/sglang-nvidia-nim/nim-on-sglang.png",
-      "date": "November 13, 2026"
-    },
-    {
-      "slug": "2026-11-13-miles-vera-sandboxes",
-      "title": "RadixArk Miles runs agentic RL training on NVIDIA Vera CPUs: faster sandboxes, faster training",
-      "url": "https://lmsys.org/blog/2026-11-13-miles-vera-sandboxes/",
-      "image": "https://lmsys.org/images/blog/miles-vera-sandboxes/preview.png",
       "date": "November 13, 2026"
     }
   ]
